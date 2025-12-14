@@ -200,7 +200,7 @@ h1 { transition: color, 1s; }
     <script>
 
 function newGame() {
-    guessed_ids = new Set()   // ids of animals guessed so far
+    guessed_ids = []          // ids of animals guessed so far
     abdicated_ids = new Set() // ids of animals guessed but later overridden by narrower guesses
     guessed_id_to_li = {}     // guessed animal id → the <li> listing it
     guessed_descendant = {}   // disallowed parent → its already-guessed descendant
@@ -240,7 +240,7 @@ function attempt() {
         // It could be already guessed itself, or a parent of a guess, or a child of a guess.
         
         // Is it already guessed?        
-        if (guessed_ids.has(guess_id)) {
+        if (guessed_ids.includes(guess_id)) {
             comment.innerText = 'Already said ' + ID_TO_TITLE[guess_id] + '.';
             wiggle(guessed_id_to_li[guess_id]);
             return;
@@ -258,7 +258,7 @@ function attempt() {
         var ancestor_id = PARENT[guess_id];
         var reward = true;
         while (PARENT[ancestor_id]) {
-            if (guessed_ids.has(ancestor_id) && !abdicated_ids.has(ancestor_id)) {
+            if (guessed_ids.includes(ancestor_id) && !abdicated_ids.has(ancestor_id)) {
                 abdicated_ids.add(ancestor_id);
                 var li = guessed_id_to_li[ancestor_id]
                 var s = document.createElement('s');
@@ -289,7 +289,7 @@ function attempt() {
         }
         
         // Forbid this guess in the future.
-        guessed_ids.add(guess_id);
+        guessed_ids.push(guess_id);
         
         // Forbid this guess's parents.
         var ancestor_id = PARENT[guess_id];
