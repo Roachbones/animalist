@@ -7,7 +7,7 @@ function invalid_guess_egg_message(guess) {
     if (guess == 'hint') {
         return choice(['Try thinking of ']) + choice(['bugs','farm animals','pests','dinosaurs','fish. Many fish names just end in -fish']) + '.';
     }
-    if (guess == 'dragon') {
+    if (guess == 'dragon' || guess == 'jackalope') {
         return 'Real animals only, please.';
     }
     if (guess == 'jumping bean') {
