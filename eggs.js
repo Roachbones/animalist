@@ -31,6 +31,9 @@ function valid_guess_egg_message(guess, guess_id) {
     if (guess == 'killer hornet') {
         return "Okay, sure, I'll allow it, but you should really just call it the Asian giant hornet.";
     }
+    if (guess == 'anemone') {
+        return 'An “anemone” is actually a flower that the sea anemone is named after. I guess nowadays the animal is better-known than its namesake.';
+    }
     if (guess_id == 'Q15978631') { return "That's me!"; }
     if (guess_id == 'Q1947892') { return "Don't you love their songs?"; }
     if (guess_id == 'Q134944') { return "Okay, I'll just... file that under Animalia, I guess?"; }
