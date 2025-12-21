@@ -21,6 +21,7 @@ function invalid_guess_egg_message(guess) {
     }
     if (guess == 'xyzzy') { return 'Nothing happens.'; }
     if (guess == 'fish') { return 'Surely you can name a specific kind of fish. I believe in you!'; }
+    if (guess == 'haggis' || guess == 'wild haggis') { return 'Left-footed or right-footed?'; }
 }
 
 function valid_guess_egg_message(guess, guess_id) {
