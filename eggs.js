@@ -39,8 +39,12 @@ function valid_guess_egg_message(guess, guess_id) {
     if (guess == 'anemone') {
         return 'An “anemone” is actually a flower that the sea anemone is named after. I guess nowadays the animal is better-known than its namesake.';
     }
-    if (guess == 'sea urchin' && guesses.includes('urchin')) {
+    if (guess == 'sea urchin' && guesses.at(-1) == 'urchin') {
         return "Yeah. They're named after hedgehogs. Sea urchins are sea hedgehogs.";
+    }
+    if (guess == 'dingo' && guesses.includes('dog')) {
+        return "Are you Australian?";
+        // ID_TO_TITLE[LOWER_TITLE_TO_ID['dingo']] = 'Dingo (totally not a kind of dog)';
     }
     if (guess_id == 'Q15978631') { return "That's me!"; }
     if (guess_id == 'Q1947892') { return "Don't you love their songs?"; }
