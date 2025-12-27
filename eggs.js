@@ -13,16 +13,18 @@ major_groups = {
     Bird: 'Q5113'
 }
 
-function has_guessed_nonbird() {
-    for (guess_id of guessed_ids) {
-        if (!ancests(major_groups.Bird, guess_id)) { return true; }
+function descendant_streak(ancestor, length) {
+    if (guessed_ids.length < length) { return false; }
+    for (guess_id of guessed_ids.slice(-length)) {
+        if (!ancests(ancestor, guess_id)) { return false; }
     }
+    return true;
 }
 
-function score_egg() {
-    if (score != 5) { return; }
-    if (!has_guessed_nonbird()) {
-        //alert('bird alertttt');
+function progress_egg() {
+    if (descendant_streak(major_groups.Bird, 30)) {
+        document.body.classList.add('sky');
+        document.body.style.backgroundImage = 'url(media/clouds.svg?'+Date.now()+')'; // restart animation
     }
 }
 

@@ -216,6 +216,8 @@ function newGame() {
     guessbox.disabled = null;
     h1.style = null;
     gameoverscreen.style = null;
+    document.body.classList = [];
+    document.body.style.backgroundImage = null;
 }
 
 // big databases:
@@ -315,7 +317,6 @@ function attempt() {
         if (reward) {
             score += 1;
             if (endTime != undefined) { grantIncrement(); }
-            score_egg();
         }
         
         // Display any easter egg text for this guess.
@@ -344,8 +345,8 @@ function attempt() {
         }
         guessed_id_to_li[guess_id] = li;
         egg_manipulate_li(li, guess, guess_id);
+        progress_egg();
         log.prepend(li);
-        
         
         // Update UI.
         guessbox.value='';
