@@ -37,8 +37,8 @@ html.extraneous {
 
 solar-system {
     display: block;
-    transform-style: preserve-3d;
-    perspective: 12em;
+    VVtransform-style: preserve-3d;
+    VVperspective: 12em;
     height: calc((var(--initial-guessbox-height) + 0.4em ) * (var(--guessbox-yscale)));
     VVborder-style:solid;
     transition: all 2s ease-out;
