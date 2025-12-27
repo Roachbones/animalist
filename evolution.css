@@ -16,6 +16,10 @@ body.sky {
     background-color: lightskyblue;
     background-image: url(media/clouds.svg);
     background-size: cover;
+    @media (prefers-color-scheme: dark) {
+        background-color: midnightblue;
+        background-blend-mode: soft-light;
+    }
 }
 
 
