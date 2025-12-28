@@ -22,9 +22,13 @@ function descendant_streak(ancestor, length) {
 }
 
 function progress_egg() {
-    if (descendant_streak(major_groups.Bird, 20) && !body.classList.contains('sky')) {
-        document.body.classList.add('sky');
+    if (descendant_streak(major_groups.Bird, 20) && !document.body.classList.contains('sky')) {
+        document.body.classList = ['sky']
         document.body.style.backgroundImage = 'url(media/clouds.svg?'+Date.now()+')'; // restart animation
+    }
+    if (descendant_streak('Q25371', 9)) {
+        document.body.classList = ['water'];
+        document.body.style = '';
     }
 }
 

@@ -12,17 +12,24 @@ score counter throbs at x00
 
 body {
     transition: all 10s linear;
+    background-size: cover;
 }
 
 body.sky {
     background-color: lightskyblue;
-    background-size: cover;
     @media (prefers-color-scheme: dark) {
         background-color: midnightblue;
         background-blend-mode: soft-light;
     }
 }
-
+body.water {
+    background-color: lightseagreen;
+    background-image: url(media/water.svg);
+    @media (prefers-color-scheme: dark) {
+        background-color: navy;
+        
+    }
+}
 
 
 html {
