@@ -75,6 +75,7 @@ function invalid_guess_egg_message(guess) {
     if (guess=='softshell crab' || guess=='soft shell crab' || guess=='soft shelled crab' || guess=='softshelled crab') {
         return "That's a culinary term for any crab killed while vulnerable from a recent molt.";
     }
+    if (guess=='anenome') { return "Not quite how it's spelled."; }
 }
 
 function valid_guess_egg_message(guess, guess_id) {
