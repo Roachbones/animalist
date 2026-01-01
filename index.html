@@ -198,7 +198,10 @@ h1 { transition: color, 1s; }
     transition-timing-function: ease-in-out,      ease-out, ease-out;
     z-index: -1;
     & { background-image: url("media/ether.svg"); }
-    @media (prefers-color-scheme: dark) { background-color: black; }
+    @media (prefers-color-scheme: dark) {
+        background-color: black;
+        body.sky & { mix-blend-mode: color; }
+    }
 }
 
 
