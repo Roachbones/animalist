@@ -170,25 +170,36 @@ h1 { transition: color, 1s; }
 }
 #copybutton { position: relative; }
 
-/* @media (prefers-reduced-motion: no-preference) { */
 
-    @keyframes bump {
-        0%  {margin-left: 0em;}
-        50% {margin-left: -0.2em;}
-        to  {margin-left: 0em;}
-    }
+@keyframes bump {
+    0%  {margin-left: 0em;}
+    50% {margin-left: -0.2em;}
+    to  {margin-left: 0em;}
+}
 
-    @keyframes wiggle {
-        0%  {rotate: 0;}
-        25% {rotate: 5deg;}
-        50% {rotate: -2.5deg;}
-        75% {rotate: 1.25deg;}
-        to  {rotate: 0deg;}
-    }
+@keyframes wiggle {
+    0%  {rotate: 0;}
+    25% {rotate: 5deg;}
+    50% {rotate: -2.5deg;}
+    75% {rotate: 1.25deg;}
+    to  {rotate: 0deg;}
+}
 
-    @keyframes stand {
-        from {rotate: x 90deg;} to {rotate: x 0deg;}
-    }
+@keyframes stand {
+    from {rotate: x 90deg;} to {rotate: x 0deg;}
+}
+
+#underlay {
+    opacity: 0;
+    position: fixed; left: 0; top: 0; height: 100vh; width: 100vw;
+    background-size: cover;
+    transition-property:        background-color, opacity,  filter;
+    transition-duration:        4s,               3s,       1s;
+    transition-timing-function: ease-in-out,      ease-out, ease-out;
+    z-index: -1;
+    & { background-image: url("media/ether.svg"); }
+    @media (prefers-color-scheme: dark) { background-color: black; }
+}
 
 
     </style>
@@ -208,16 +219,18 @@ function newGame() {
     guesses = []              // text guesses so far
     score = 0;
     scorespan.innerText = 0;
+    underlay.vibrance = 0;
     
     startTime = undefined;
     endTime = undefined;
     log.innerText = '';
     guessbox.value = '';
     guessbox.disabled = null;
-    h1.style = null;
-    gameoverscreen.style = null;
+    h1.style = '';
+    gameoverscreen.style = '';
+    underlay.style = '';
     document.body.classList = [];
-    document.body.style.backgroundImage = null;
+    document.body.style = null;
 }
 
 // big databases:
@@ -317,6 +330,7 @@ function attempt() {
         if (reward) {
             score += 1;
             if (endTime != undefined) { grantIncrement(); }
+            underlay.vibrance += 100;
         }
         
         // Display any easter egg text for this guess.
@@ -394,6 +408,12 @@ function summonConfetto(text, parent) {
     },10)
 }
 
+function updateUnderlay() {
+    underlay.style.opacity = -1 + (score/50);
+    underlay.vibrance = Math.max(0, underlay.vibrance*0.99);
+    underlay.style.filter = 'saturate(' + (1+Math.floor(underlay.vibrance/90)) + ')';
+}
+
 function updateTimer() {
     var secondsLeft;
     if (startTime == undefined) {
@@ -456,10 +476,17 @@ function endGame() {
     )
 }
 
+function load() {
+    newGame();
+    setInterval(updateTimer);
+    setInterval(updateUnderlay, 100);
+}
+
     </script>
 </head>
 
-<body onload=newGame();setInterval(updateTimer)>
+<body onload=load()>
+    <div id=underlay></div>
     <noscript>This game requires JavaScript. Or, if you've superior taste, take out a pen and paper and start listing animals.</noscript>
     <h1 id=h1>list animals until failure</h1>
     <details id=rules>

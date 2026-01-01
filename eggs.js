@@ -23,11 +23,11 @@ function descendant_streak(ancestor, length) {
 }
 
 function progress_egg() {
-    if (descendant_streak(major_groups.Bird, 20) && !document.body.classList.contains('sky')) {
+    if (descendant_streak(major_groups.Bird, 16) && !document.body.classList.contains('sky')) {
         document.body.classList = ['sky']
         document.body.style.backgroundImage = 'url(media/clouds.svg?'+Date.now()+')'; // restart animation
     }
-    if (descendant_streak('Q25371', 9)) {
+    if (descendant_streak('Q25371', 8)) {
         document.body.classList = ['water'];
         document.body.style = '';
     }
@@ -36,9 +36,6 @@ function progress_egg() {
 function invalid_guess_egg_message(guess) {
     if (guess == 'help') {
         rules.open = true; return ' ';
-    }
-    if (guess == 'hint') {
-        return choice(['Try thinking of ']) + choice(['bugs','farm animals','pests','dinosaurs','fish. Many fish names just end in -fish']) + '.';
     }
     if (guess == 'dragon' || guess == 'jackalope' || guess == 'tsuchinoko' || guess=='bigfoot') {
         return 'Real animals only, please.';
@@ -57,6 +54,7 @@ function invalid_guess_egg_message(guess) {
     if (guess == 'shellfish') { return "That's more of a culinary term. Try naming a specific shellfish."; }
     if (guess == 'haggis' || guess == 'wild haggis') { return 'Left-footed or right-footed?'; }
     if (guess == 'plankton') {
+        queue_trivium("<a href=//en.wikipedia.org/wiki/Plankton>read about plankton</a>");
         var m = "The term “plankton” actually refers to all drifting organisms lacking means to propel.";
         if (guesses.slice(-5).includes('sponge')) { m += " I know, Spongebob lied to you."; }
         return m;
@@ -66,17 +64,25 @@ function invalid_guess_egg_message(guess) {
     }
     if (guess=='scabie' || guess=='scabies') {
         var m = "Nice try, but the animal that causes scabies isn't called “a scabie”."
+        queue_trivium("The word “scabies” actually comes from the Latin «<a href=//en.wiktionary.org/wiki/scabo#Latin>scabō</a>», a verb meaning to scratch or scrape. So while it's easy to assume that “scabies” refers to the parasites, but it basically just means “the itches”.");
         if (guesses.slice(0,-1).includes('scabie') || guesses.slice(0,-1).includes('scabies')) {
             m += " No, really. It's from a latin word meaning scratch or itch. So it basically means “the itches”.";
         }
         return m;
     }
     if (guess=='ringworm') { return "That's a fungal infection, actually."; }
-    if (guess=='pidgeon') { return "Not actually spelled with a “d”."; }
+    if (guess=='pidgeon') {
+        queue_trivium("“pidgeon” <a href=//en.wiktionary.org/wiki/pidgeon#English>is actually a documented archaic spelling</a>, but it's considered incorrect nowadays.");
+        return "Not actually spelled with a “d”.";
+    }
     if (guess=='softshell crab' || guess=='soft shell crab' || guess=='soft shelled crab' || guess=='softshelled crab') {
         return "That's a culinary term for any crab killed while vulnerable from a recent molt.";
     }
     if (guess=='anenome') { return "Not quite how it's spelled."; }
+    var h = ha‌sh(guess);
+    if (guess == 'hint' || h==613114319434169) {
+        return choice(['Try thinking of ']) + choice(['bugs','farm animals','pests','dinosaurs','fish. Many fish names just end in -fish']) + '.';
+    }
 }
 
 function valid_guess_egg_message(guess, guess_id) {
@@ -111,7 +117,7 @@ function valid_guess_egg_message(guess, guess_id) {
     if (guess_id == 'Q1947892') { return "Don't you love their songs?"; }
     if (guess_id == 'Q134944') { return "Okay, I'll just... file that under Animalia, I guess."; }
     var h = ha‌sh(guess);
-    if (h==5898045759296372 || h==7974293014591210) { return "Thanks!"; }
+    if (h==5898045759296372 || h==7974293014591210 || h==2284322406280126) { return "Thanks!"; }
 }
 
 function equivalence_egg_message(guess, guess_id) {
@@ -154,6 +160,15 @@ function egg_manipulate_li(li, guess, guess_id) {
     }
 }
 
+function queue_trivium(html) {
+    console.log(html); // todo
+}
+
+function queue_final_trivia() {
+    if (guessed_ids.includes('Q26972265') && guessed_ids.includes('Q38584')) {
+        queue_trivium("You listed both dingos and dogs, so I gave you the benefit of the doubt, but <a href=//en.wikipedia.org/wiki/Dingo#Taxonomy>there's disagreement on whether the dingo is its own species of canid, a subspecies of grey wolf, or simply a breed of dog.</a>");
+    }
+}
 
 function ha‌sh(str) {
   let h1 = 3735928559, h2 = 0x41c6ce57;
