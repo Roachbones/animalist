@@ -1,0 +1,12 @@
+body {
+    font-family: serif;
+    max-width: 48em;
+    margin: auto;
+    @media (prefers-color-scheme: light) {
+        background-color: antiquewhite;
+    }
+    @media (prefers-color-scheme: dark) {
+        color: antiquewhite;
+        background-color: sienna;
+    }
+}
