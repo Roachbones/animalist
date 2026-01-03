@@ -440,13 +440,22 @@ function updateUnderlay() {
     underlay.style.filter = 'saturate(' + (1+Math.floor(underlay.vibrance/90)) + ')';
 }
 
+var secondsLeft;
 function updateTimer() {
-    var secondsLeft;
     if (startTime == undefined) {
         initial_time_control.value = Math.max(1, initial_time_control.value);
         secondsLeft = initial_time_control.value;
     } else {
+        let prevSecondsLeft = secondsLeft;
         secondsLeft = (endTime - Date.now())/1000;
+        if (
+            navigator.vibrate &&
+            (Math.floor(prevSecondsLeft) > Math.floor(secondsLeft)) &&
+            secondsLeft <= 9 &&
+            secondsLeft > 0
+        ) {
+            navigator.vibrate(7*Math.floor(secondsLeft));
+        }
     }
     if (secondsLeft <= 0) {
         endGame();
