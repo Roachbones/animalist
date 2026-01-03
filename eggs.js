@@ -26,16 +26,20 @@ function progress_egg() {
     if (descendant_streak(major_groups.Bird, 16) && !document.body.classList.contains('sky')) {
         document.body.classList = ['sky']
         document.body.style.backgroundImage = 'url(media/clouds.svg?'+Date.now()+')'; // restart animation
+        visualshint.style.display = 'block';
     }
     if (descendant_streak('Q25371', 8)) {
         document.body.classList = ['water'];
         document.body.style = '';
+        visualshint.style.display = 'block';
     }
     if (descendant_streak('Q1357', 8)) {
         spider.style.display = 'block';
+        visualshint.style.display = 'block';
     }
     if (descendant_streak('Q28425', 3)) {
         bat.style.display = 'block';
+        visualshint.style.display = 'block';
     }
 }
 
