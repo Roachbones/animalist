@@ -34,6 +34,9 @@ function progress_egg() {
     if (descendant_streak('Q1357', 8)) {
         spider.style.display = 'block';
     }
+    if (descendant_streak('Q28425', 3)) {
+        bat.style.display = 'block';
+    }
 }
 
 function invalid_guess_egg_message(guess) {
