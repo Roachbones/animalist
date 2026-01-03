@@ -57,7 +57,7 @@ function invalid_guess_egg_message(guess) {
     if (guess == 'shellfish') { return "That's more of a culinary term. Try naming a specific shellfish."; }
     if (guess == 'haggis' || guess == 'wild haggis') { return 'Left-footed or right-footed?'; }
     if (guess == 'plankton') {
-        queue_trivium("<a href=//en.wikipedia.org/wiki/Plankton>read about plankton</a>");
+        queue_trivium("<a href=https://en.wikipedia.org/wiki/Plankton>read about plankton</a>");
         var m = "The term “plankton” actually refers to all drifting organisms lacking means to propel.";
         if (guesses.slice(-5).includes('sponge')) { m += " I know, Spongebob lied to you."; }
         return m;
@@ -66,22 +66,23 @@ function invalid_guess_egg_message(guess) {
         return 'Way too vague.';
     }
     if (guess=='scabie' || guess=='scabies') {
-        var m = "Nice try, but the animal that causes scabies isn't called “a scabie”."
         queue_trivium("The word “scabies” actually comes from the Latin «<a href=//en.wiktionary.org/wiki/scabo#Latin>scabō</a>», a verb meaning to scratch or scrape. So while it's easy to assume that “scabies” refers to the parasites, but it basically just means “the itches”.");
-        if (guesses.slice(0,-1).includes('scabie') || guesses.slice(0,-1).includes('scabies')) {
-            m += " No, really. It's from a latin word meaning scratch or itch. So it basically means “the itches”.";
-        }
-        return m;
+        return "Nice try, but the animal that causes scabies isn't called “a scabie”."
     }
     if (guess=='ringworm') { return "That's a fungal infection, actually."; }
     if (guess=='pidgeon') {
-        queue_trivium("“pidgeon” <a href=//en.wiktionary.org/wiki/pidgeon#English>is actually a documented archaic spelling</a>, but it's considered incorrect nowadays.");
+        queue_trivium("“pidgeon” <a href=https://en.wiktionary.org/wiki/pidgeon#English>is actually a documented archaic spelling</a>, but it's considered incorrect nowadays.");
         return "Not actually spelled with a “d”.";
     }
     if (guess=='softshell crab' || guess=='soft shell crab' || guess=='soft shelled crab' || guess=='softshelled crab') {
+        queue_trivium("You mentioned <a href=https://en.wikipedia.org/wiki/Soft-shell_crab>softshell crab</a>, and that got me thinking: I think it's one of the worst meats, morally. Like I'm not even vegan but imagine you get caught by a giant and she puts you in a jail cell with a shower. Eventually you decide to take a shower, and then the giant is like, “hey great, your clothes are off, now I don't have to bother shucking them!” And then puts you on a shelf for someone to buy, and then someone buys you and cooks you WHILE YOU'RE NAKED. So undignified");
         return "That's a culinary term for any crab killed while vulnerable from a recent molt.";
+
     }
-    if (guess=='anenome') { return "Not quite how it's spelled."; }
+    if (/^(sea )?a[mn]e[mn]o[mn]e$/.test(guess)) {
+        queue_trivium("To remember how to spell “anemone”, consider the etymology: the Latin <i>anemone</i>; from Greek <i>anemonē</i> meaning “wind flower” or “daughter of the wind”, from <i>anemos</i> meaning “wind”. <i>anemos</i> comes from the Proto-Indo-European root <b>*ane-</b>, loosely meaning “to breathe”. This root is used for what seems to breathe: in other words, the <i>animate</i>, which comes from <i>anima</i> (meaning living being, soul, mind, passion, courage, anger, spirit, feeling) which comes from <b>*ane-</b>. Another word that comes from anima: <b>animal</b>!");
+        return "Not quite how it's spelled.";
+    }
     var h = h‌ash(guess);
     if (guess == 'hint' || h==613114319434169) {
         return choice(['Try thinking of ']) + choice(['bugs','farm animals','pests','dinosaurs','fish. Many fish names just end in -fish']) + '.';
@@ -109,7 +110,6 @@ function valid_guess_egg_message(guess, guess_id) {
     }
     if (guess == 'dingo' && guesses.includes('dog')) {
         return "Are you Australian?";
-        // ID_TO_TITLE[LOWER_TITLE_TO_ID['dingo']] = 'Dingo (totally not a kind of dog)';
     }
     if (guess=='ca' && !guess.includes('cat')) {
         return "You probably meant cat instead of Ca (genus of moths) but whatever.";
@@ -164,7 +164,13 @@ function egg_manipulate_li(li, guess, guess_id) {
 }
 
 function queue_trivium(html) {
-    console.log(html); // todo
+    // TODO check for hash in localStorage.usedHashes?
+    // localStorage.usedHashes += ' ' + h‌ash(html);
+    let p = document.createElement('p');
+    p.innerHTML = html;
+    p.classList.add('trivium');
+    for (e in p.children) { if (e.tagName=='A') { e.setAttribute('target','_blank') } }
+    trivia.append(p);
 }
 
 function queue_final_trivia() {

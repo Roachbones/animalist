@@ -245,6 +245,7 @@ function newGame() {
     score = 0;
     scorespan.innerText = 0;
     underlay.vibrance = 0;
+    trivia.textContent = '';
     
     startTime = undefined;
     endTime = undefined;
@@ -496,6 +497,7 @@ function copyShareStringToClipboard() {
 
 function endGame() {
     if (guessbox.disabled) { return; }
+    queue_final_trivia();
     shareString = generateShareString();
     copybutton.style.display = navigator.clipboard ? null : 'none';
     gameoverscreen.style.display = 'block';
@@ -554,6 +556,7 @@ function load() {
     <three-dimensional style=perspective:30rem;display:block>
         <section id=gameoverscreen>
             <h2>game over</h2>
+            <section id=trivia></section>
             <button id=copybutton onclick=copyShareStringToClipboard()>share emoji results</button> <button onclick=newGame()>new game</button>
         </section>
     </three-dimensional>
