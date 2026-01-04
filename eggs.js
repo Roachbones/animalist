@@ -97,6 +97,7 @@ function invalid_guess_egg_message(guess) {
     if (guess=='dear' && !guesses.includes('deer')) { return "Wrong spelling, dear."; }
     if (guess=='cryptobug') { return "That's a brand name."; }
     if (guess=='mushroom') { return "No, fungi aren't animals."; }
+    if (guess=='cheeta') { return "You're missing a letter."; }
     if (guess=='amoeba') {
         queue_trivium("<a href=https://en.wikipedia.org/wiki/Amoeba>Learn what an amoeba is</a>");
         return "Not really a kind of animal.";
