@@ -249,6 +249,24 @@ h1 { transition: color, 1s; }
     to  { }
 }
 
+snail-race {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    width: 100%;
+}
+#snail {
+    display: none;
+    margin-left: calc(100vw + 1em);
+    font-size: xx-large;
+    animation-name: crawl;
+    animation-duration: 300s;
+    animation-timing-function: ease-out;
+}
+@keyframes crawl { to { margin-left: -1em; } }
+
 
     </style>
     <link rel=stylesheet href=evolution.css>
@@ -596,7 +614,7 @@ function load() {
     
     <div id=spider aria-hidden>🕷️</div>
     <div id=bat aria-hidden>🦇</div>
-    
+    <snail-race><div id=snail aria-hidden>🐌</div></snail>
 </body>
 
 <!--that's right, buddy....

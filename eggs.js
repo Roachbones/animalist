@@ -41,6 +41,10 @@ function progress_egg() {
         bat.style.display = 'block';
         visualshint.style.display = 'block';
     }
+    if (descendant_streak('Q4867740', 3)) {
+        snail.style.display = 'block';
+        visualshint.style.display = 'block';
+    }
 }
 
 function invalid_guess_egg_message(guess) {
