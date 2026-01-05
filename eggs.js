@@ -202,7 +202,7 @@ function egg_manipulate_li(li, guess, guess_id) {
 
 localStorage.triviaHashes ||= '';
 function queue_trivium_once(html) {
-    h = h‌ash(html);
+    let h = h‌ash(html);
     if (!localStorage.triviaHashes.split(' ').includes(''+h)) {
         queue_trivium(html);
         localStorage.triviaHashes += ' ' + h;
@@ -229,12 +229,15 @@ function queue_final_trivia() {
 function try_queue_pic_for(guess_id) {
     let pics = ID_TO_PICS[guess_id];
     if (pics) {
-        queue_pic(choice(pics));
-        return 1;
+        return queue_pic_once(choice(pics));
     }
 }
 
-function queue_pic(pic) {
+localStorage.picHashes ||= '';
+function queue_pic_once(pic) {
+    let h = h‌ash(pic.src);
+    if (localStorage.picHashes.split(' ').includes(''+h)) { return 0; }
+    localStorage.picHashes += ' ' + h;
     const details = document.createElement('details');
     const summary = document.createElement('summary');
     details.append(summary);
@@ -248,6 +251,7 @@ function queue_pic(pic) {
     details.append(p);
     details.classList.add('pic');
     trivia.append(details);
+    return 1;
 }
 
 const {now:hash} = Date;
