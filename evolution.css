@@ -45,14 +45,26 @@ html.extraneous {
 
 solar-system {
     display: block;
-    VVtransform-style: preserve-3d;
-    VVperspective: 12em;
+    Vtransform-style: preserve-3d;
+    Vperspective: 12em;
     height: calc((var(--initial-guessbox-height) + 0.4em ) * (var(--guessbox-yscale)));
-    VVborder-style:solid;
+    vvborder-style:solid;
     transition: all 2s ease-out;
 }
 
-#belt { display: none; }
+#belt {
+    Vdisplay: none;
+    transform-style: preserve-3d;
+    animation-name: tilt;
+    animation-duration: 12s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    position: absolute; width: 100%;
+}
+@keyframes tilt {
+    0% { rotate: 10deg; }
+    to { rotate: -9deg; }
+}
 html.extraneous #belt {
     display: block;
     transform-style: preserve-3d;
@@ -63,7 +75,7 @@ html.extraneous #belt {
     bottom: calc( -50% + 1em);
     VVborder-style: dotted;
 }
-.orbiter {
+#orbiter {
     animation-name: orbit;
     animation-duration: 15s;
     animation-iteration-count: infinite;
@@ -73,6 +85,40 @@ html.extraneous #belt {
     width: min-content;
     font-size: 2em;
     pointer-events: none;
+    position: relative;
+    & #predator {
+        position: absolute;
+        right: 0px;
+        top: -200%;
+    }
+}
+#kettle {
+    animation-name: swoop;
+    animation-duration: 8s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    position: absolute;
+    left: 0px;
+    Vborder-style: dotted;
+    text-align: left;
+}
+
+@keyframes swoop {
+    from {
+        width: 2000px;
+        height: 10em;
+        left: 0px;
+    }
+    50% {
+        width: 1rem;
+        height: .3em;
+        left: 0px;
+    }
+    to {
+        width: 1rem;
+        height: .3em;
+        left: -2000px;
+    }
 }
 
 @keyframes orbit { to { transform: rotateY(1turn) translateZ(var(--periapsis)); } }

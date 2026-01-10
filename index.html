@@ -76,10 +76,9 @@ h1 { transition: color, 1s; }
 }
 @keyframes textappear { from { font-size: 0 } }
 
-#confetti {
+#timerconfetti {
     position: relative;
     display: inline-block;
-    pointer-events: none;
     color: var(--confetti-color);
     font-weight: bold;
 }
@@ -496,7 +495,7 @@ function grantIncrement(ms) {
     ms = ms || increment_control.value*1000;
     if (!ms) {return;}
     endTime += ms;
-    summonConfetto('+' + Math.floor(ms/1000), confetti);
+    summonConfetto('+' + Math.floor(ms/1000), timerconfetti);
 }
 
 function summonConfetto(text, parent) {
@@ -635,7 +634,7 @@ function load() {
     
     <div style=height:1.5em>
         <game-timer id=timer role=timer></game-timer>
-        <div id=confetti></div>
+        <div id=timerconfetti></div>
     </div>
     
     <!-- Someone please explain to me why I need this wrapper element instead of applying transform:perspective(30rem) to gameoverscreen!
@@ -656,7 +655,7 @@ function load() {
     
     <output id=comment for=guessbox></output>
     <solar-system>
-        <!--<div id=belt><div class=orbiter>🐦</div></div>-->
+        <!--<div id=belt><div id=orbiter><div id=kettle>🐦<div id=predator>🦅</div></div></div></div>-->
         <input id=guessbox autofocus autocomplete=off onkeydown="if(event.key==`Enter`){attempt()}" oninput=uncomment()>
     </solar-system>
     <ul id=log role=log></ul>
