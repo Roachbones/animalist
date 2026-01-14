@@ -577,7 +577,7 @@ var thankIndex;
 function cycleThank() {
     thankIndex ||= score;
     thankIndex = (thankIndex + 1) % THANKS.length;
-    thank.innerHTML = '(thanks to ' + THANKS[thankIndex] + ')';
+    thank.innerHTML = THANKS[thankIndex];
 }
 
 function endGame() {
@@ -654,11 +654,13 @@ function load() {
     </three-dimensional>
     
     <output id=comment for=guessbox></output>
+    <!--<div id=yetanothercontainer style=overflow-x:clip>-->
     <solar-system>
-        <!--<div id=belt><div id=orbiter><div id=kettle>🐦<div id=predator>🦅</div></div></div></div>-->
+        <!--<div id=belt><div id=orbiter><div id=kettle><img id=prey src=media/bird.svg><img id=predator src=media/eagle.svg></div></div></div>-->
         <input id=guessbox autofocus autocomplete=off onkeydown="if(event.key==`Enter`){attempt()}" oninput=uncomment()>
     </solar-system>
     <ul id=log role=log></ul>
+    <!--</div>-->
     
     <div id=spider aria-hidden>🕷️</div>
     <div id=bat aria-hidden>🦇</div>
