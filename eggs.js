@@ -45,6 +45,7 @@ function progress_egg() {
         snail.style.display = 'block';
         visualshint.style.display = 'block';
     }
+    if (descendant_streak(LOWER_TITLE_TO_ID.crow, 7)) { bteq(); }
 }
 
 function swoop() {
@@ -52,24 +53,24 @@ function swoop() {
 }
 
 function invalid_guess_egg_message(guess) {
-    if (guess == 'help') {
+    if (guess=='help') {
         rules.open = true; return ' ';
     }
-    if (guess == 'dragon' || guess == 'jackalope' || guess == 'tsuchinoko' || guess=='bigfoot') {
+    if (guess=='dragon' || guess == 'jackalope' || guess == 'tsuchinoko' || guess=='bigfoot') {
         return 'Real animals only, please.';
     }
-    if (guess == 'jumping bean') {
+    if (guess=='jumping bean') {
         return "Well, the jumping bean is the moth larva, but it's also the seed pod. So I don't think you can say that a jumping bean is itself an animal. But I'd definitely accept “jumping bean moth”.";
     }
-    if (guess == 'soweli' || guess == 'waso' || guess == 'kala' || guess == 'pipi') {
+    if (guess=='soweli' || guess == 'waso' || guess == 'kala' || guess == 'pipi') {
         return 'musi ni li sona ala e toki pona.';
     }
     if (guess=='zedonk' || guess=='zorse') {
         return "The "+guess+" doesn't have its own English Wikipedia page; it's merely a subheading on Zebroid.";
     }
-    if (guess == 'xyzzy') { return 'Nothing happens.'; }
-    if (guess == 'fish') { return 'Surely you can name a specific kind of fish. I believe in you!'; }
-    if (guess == 'plankton') {
+    if (guess=='xyzzy') { return 'Nothing happens.'; }
+    if (guess=='fish') { return 'Surely you can name a specific kind of fish. I believe in you!'; }
+    if (guess=='plankton') {
         queue_trivium("<a href=https://en.wikipedia.org/wiki/Plankton>read about plankton</a>");
         var m = "The term “plankton” actually refers to all drifting organisms lacking means to propel.";
         if (guesses.slice(-5).includes('sponge')) { m += " I know, Spongebob lied to you."; }
@@ -93,9 +94,9 @@ function invalid_guess_egg_message(guess) {
         queue_trivium("You mentioned <a href=https://en.wikipedia.org/wiki/Soft-shell_crab>softshell crab</a>, and that got me thinking: I think it's one of the worst meats, morally. Like I'm not even vegan but imagine you get caught by a giant and she puts you in a jail cell with a shower. Eventually you decide to take a shower, and then the giant is like, “hey great, your clothes are off, now I don't have to bother shucking them!” And then puts you on a shelf for someone to buy, and then someone buys you and cooks you WHILE YOU'RE NAKED. So undignified");
         return "That's a culinary term for any crab killed while vulnerable from a recent molt.";
     }
-    if (guess == 'shellfish') { return "That's more of a culinary term. Try naming a specific shellfish."; }
-    if (guess == 'kipper') { return "That's more of a culinary term; it's a herring or salmon corpse that has been split and salted."; }
-    if (guess == 'haggis' || guess == 'wild haggis') { return 'Left-footed or right-footed?'; }
+    if (guess=='shellfish') { return "That's more of a culinary term. Try naming a specific shellfish."; }
+    if (guess=='kipper') { return "That's more of a culinary term; it's a herring or salmon corpse that has been split and salted."; }
+    if (guess=='haggis' || guess == 'wild haggis') { return 'Left-footed or right-footed?'; }
     if (guess=='pork' || guess=='ham' || guess=='beef' || guess=='steak' || guess=='mutton' || guess=='veal') {
         return "That term only refers to the animal's corpse.";
     }
@@ -139,6 +140,7 @@ function invalid_guess_egg_message(guess) {
 }
 
 function valid_guess_egg_message(guess, guess_id) {
+    if (guesses.length <= 7 && (guess_id==LOWER_TITLE_TO_ID.human || guess_id==LOWER_TITLE_TO_ID.crow)) { bteq(); }
     if (guess == 'unicorn') {
         return "You probably didn't mean the genus of goblin spider named after its characteristic pointed facial projection, but whatever, sure.";
     }
@@ -301,6 +303,7 @@ function h‌ash(str) {
   return 4294967296 * (2097151 & h2) + (h1 >>> 0);
 };
 
+
 // https://www.celestialprogramming.com/snippets/moonage.html
 const DAYS_PER_LUNAR_MONTH = 29.530588853;
 function moonAge() {
@@ -311,3 +314,12 @@ function moonAge() {
 }
 function isMoonFull() { return moonAge < DAYS_PER_LUNAR_MONTH+1 && moonAge > DAYS_PER_LUNAR_MONTH-1; }
 LOWER_TITLE_TO_ID.werewolf = isMoonFull() ? LOWER_TITLE_TO_ID.wolf : LOWER_TITLE_TO_ID.human;
+
+
+function bteq() {
+    const BTEQ_BGS = ['babylon1.jpg','babylon2.jpg','dream2.jpg','dream.jpg','eq_1.jpg','eq_destroyed1.jpg','eq_destroyed2.jpg','eq_destroyed3.jpg','eq_destroyed4.jpg','eq_room2.jpg','library1.jpg','library2.jpg','mhouse2.jpg','mhouse.jpg','mroom1.jpg','mroom2.jpg','mroom3.jpg','mroom4.jpg','mroom5.jpg','sl_city1.jpg','sl_city2.jpg','sl_explore1.jpg','sl_explore3.jpg','sl_explore5.jpg','sl_explore7.jpg','sl_fly.jpg','sl_rave.jpg','stacks.jpg','ws_1.jpg','ws_2.jpg'];
+    underlay.style.backgroundImage = "url(media/bteq/" + choice(BTEQ_BGS) + ")";
+    underlay.style.backgroundBlendMode = 'hard-light';
+    underlay.style.backgroundColor = 'var(--background-color)';
+    THANKS.push('check out <a href=https://suricrasia.online/bteq/ target=_blank><img src=media/bteq/logov.svg alt="Bridge to eQualia" style=max-height:4em;vertical-align:middle></a>');
+}

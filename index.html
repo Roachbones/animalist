@@ -231,7 +231,7 @@ body:has(#log li) #settings-page { /* hide settings during game */
     position: fixed; left: 0; top: 0; height: 100vh; width: 100vw;
     background-size: cover;
     transition-property:        background-color, opacity,  filter;
-    transition-duration:        4s,               3s,       1s;
+    transition-duration:        4s,               3s,       2s;
     transition-timing-function: ease-in-out,      ease-out, ease-out;
     z-index: -1;
     & { background-image: url("media/ether.svg"); }
@@ -513,7 +513,7 @@ function summonConfetto(text, parent) {
 }
 
 function updateUnderlay() {
-    underlay.style.opacity = -1 + (score/50);
+    underlay.style.opacity = underlay.style.backgroundImage ? score/7 : -1 + (score/50);
     if (score == 60) { visualshint.style.display = 'block'; }
     underlay.vibrance = Math.max(0, underlay.vibrance*0.99);
     underlay.style.filter = 'saturate(' + (1+Math.floor(underlay.vibrance/90)) + ')';
