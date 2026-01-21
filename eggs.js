@@ -85,7 +85,7 @@ function invalid_guess_egg_message(guess) {
         return "Nice try, but the animal that causes scabies isn't called “a scabie”."
     }
     if (guess=='ringworm') { return "That's a fungal infection, actually."; }
-    if (guess=='pidgeon') {
+    if (guess=='pidgeon' || guess=='passenger pidgeon') {
         queue_trivium("“pidgeon” <a href=https://en.wiktionary.org/wiki/pidgeon#English>is actually a documented archaic spelling</a>, but it's considered incorrect nowadays.");
         return "Not actually spelled with a “d”.";
     }
