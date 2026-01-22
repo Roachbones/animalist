@@ -344,5 +344,6 @@ function bteq() {
     underlay.style.backgroundImage = "url(media/bteq/" + choice(BTEQ_BGS) + ")";
     underlay.style.backgroundBlendMode = 'hard-light';
     underlay.style.backgroundColor = 'var(--background-color)';
+    underlay.style.animationName = 'none';
     THANKS.push('check out <a href=https://suricrasia.online/bteq/ target=_blank><img src=media/bteq/logov.svg alt="Bridge to eQualia" style=max-height:4em;vertical-align:middle></a>');
 }
