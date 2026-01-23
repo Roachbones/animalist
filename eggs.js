@@ -55,7 +55,7 @@ function invalid_guess_egg_message(guess) {
     if (guess=='help') {
         rules.open = true; return ' ';
     }
-    if (guess=='dragon' || guess == 'jackalope' || guess == 'tsuchinoko' || guess=='bigfoot') {
+    if (guess=='dragon' || guess == 'jackalope' || guess == 'tsuchinoko' || guess=='bigfoot' || guess=='yeti') {
         return 'Real animals only, please.';
     }
     if (guess=='jumping bean') {
@@ -70,6 +70,7 @@ function invalid_guess_egg_message(guess) {
     if (guess=='wolfdog') { return "Well, which is it? Wolf or dog?"; }
     if (guess=='xyzzy') { return 'Nothing happens.'; }
     if (guess=='fish') { return 'Surely you can name a specific kind of fish. I believe in you!'; }
+    if (guess=='yellowfin') { return "So many fish have yellow fins. Can you be more specific?"; }
 
     if (guess=='plankton') {
         queue_trivium("<a href=https://en.wikipedia.org/wiki/Plankton>read about plankton</a>");
@@ -120,7 +121,7 @@ function invalid_guess_egg_message(guess) {
     // Just not animals
     if (guess=='algae') { return "No."; }
     if (guess=='amoeba') {
-        queue_trivium("<a href=https://en.wikipedia.org/wiki/Amoeba>Learn what an amoeba is</a>");
+        queue_shy_trivium("<a href=https://en.wikipedia.org/wiki/Amoeba>Learn what an amoeba is</a>");
         return "Not really a kind of animal.";
     }
     if (guess=='bacteria') { return "Bacteria aren't animals."; }
@@ -294,6 +295,13 @@ function queue_trivium(html) {
     trivia.append(p);
 }
 
+shy_trivia = [] // trivia to only be shown alone, if there is no other eligible trivia; and then, only once
+function queue_shy_trivium(html) {
+    if (!localStorage.triviaHashes.split(' ').includes(''+h‌ash(html))) {
+        shy_trivia.push(html);
+    }
+}
+
 function queue_final_trivia() {
     if (guessed_ids.includes('Q26972265') && guessed_ids.includes('Q38584')) {
         queue_trivium("You listed both dingos and dogs, so I gave you the benefit of the doubt, but <a href=https://en.wikipedia.org/wiki/Dingo#Taxonomy>there's disagreement on whether the dingo is its own species of canid, a subspecies of grey wolf, or simply a breed of dog.</a>");
@@ -301,6 +309,10 @@ function queue_final_trivia() {
     if (!trivia.innerText && Math.random() < .5) {
         try_queue_pic_for(guessed_ids[guessed_ids.length-1]);
     }
+    if (!trivia.innerText && shy_trivia[0]) {
+        queue_trivium_once(shy_trivia.pop());
+    }
+    shy_trivia = [];
 }
 
 function try_queue_pic_for(guess_id) {
