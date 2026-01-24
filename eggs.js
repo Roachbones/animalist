@@ -195,7 +195,7 @@ function valid_guess_egg_message(guess, guess_id) {
         queue_trivium("The term “house spider” can refer to <a href=https://en.wikipedia.org/wiki/House_spider>multiple kinds of spider</a>, but it has <a href=extras/praiſe_of_the_houſe_Spider>a single entry in a 1600s bestiary that goes on and on about its wondrous beauty.</a>.");
     }
     if (guess=='poodle moth') {
-        queue_trivium_once("I allowed “poodle moth”, but that's not really the name of an animal. An adorable photo captioned “Poodle moth, Venezuela” went viral after being taken in Canaima National Park in 2009. Its species is unknown; we only know it kinda resembles the poorly-understood <i>Artace</i> genus. So if you're in Venezuela, consider photographing moths!");
+        queue_shy_trivium("I allowed “poodle moth”, but that's not really the name of an animal. An adorable photo captioned “Poodle moth, Venezuela” went viral after being taken in Canaima National Park in 2009. Its species is unknown; we only know it kinda resembles the poorly-understood <i>Artace</i> genus. So if you're in Venezuela, consider photographing moths!");
     }
     if (guess_id==LOWER_TITLE_TO_ID.oz && !guesses.includes('ounce')) {
         queue_shy_trivium("Snow leopards used to be called ounces."); // TODO elaborate w bestiary entry
