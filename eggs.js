@@ -261,6 +261,9 @@ function ancestry_egg_message(guess, descendant_id, ancestor_id) {
     if (descendant_id=LOWER_TITLE_TO_ID.chipmunk && ancestor_id==LOWER_TITLE_TO_ID.squirrel) {
         return "(Chipmunks are squirrels.)";
     }
+    if (descendant_id=LOWER_TITLE_TO_ID.snail && ancestor_id==LOWER_TITLE_TO_ID.slug) {
+        return "(The snail/slug line is blurry.)";
+    }
     //if (descendant_id=='Q727919' && ancestor_id=='Q83902') {
     //    return "(Some katydids have been called long-horned grasshoppers.)";
     //}
