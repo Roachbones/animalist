@@ -139,6 +139,7 @@ function invalid_guess_egg_message(guess) {
     if (guess=='yeast') { return "That's fungus."; }
     if (guess=='plant') { h1.innerText = "list ANIMALS until failure"; return ' '; }
     if (guess=='fungus') { return "No." }
+    if (guess=='car') return "With wheels?";
 
     if (guess=='cryptobug') { return "That's a brand name."; }
     if (guess=='mockingjay') { return "Not actually a real bird."; }
