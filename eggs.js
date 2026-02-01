@@ -166,6 +166,10 @@ function invalid_guess_egg_message(guess) {
         return "That can actually refer to a lot of different animals.";
     }
 
+    if (guess=='secretariat' || guess=='clever hans' || guess=='potoooooooo') {
+        return "If individuals counted, you could just name people.";
+    }
+
     if (guess=='hint' || h==613114319434169 || (guess=='help' && (guessed_ids.length || rules.open))) {
         return choice(['Try thinking of ']) + choice(['bugs','farm animals','dinosaurs','fish. Many fish names just end in -fish']) + '.';
     }
