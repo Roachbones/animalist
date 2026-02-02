@@ -205,12 +205,19 @@ body:has(#log li) #settings-page { /* hide settings during game */
     cursor: copy;
     position: relative; /* for confetti */
 }
-#about {
+details {
     margin-top: 1em;
-    & summary {
-        font-size: small;
-        user-select: none;
+    & summary { font-size: small; user-select: none; }
+}
+#mistakes {
+    #mistakeslog {
+        text-align: left;
     }
+    display: none;
+    &:has(li) { display: block; }
+}
+#about {
+    & summary { user-select: none; }
     &:not([open]) summary { cursor: help; }
 }
 .pic {
@@ -347,6 +354,7 @@ function newGame() {
     guessed_id_to_li = {}     // guessed animal id → the <li> listing it
     guessed_descendant = {}   // disallowed parent → its already-guessed descendant
     guesses = []              // text guesses so far
+    wrong_guesses = []
     score = 0;
     scorespan.innerText = 0;
     underlay.vibrance = 0;
@@ -355,6 +363,7 @@ function newGame() {
     startTime = undefined;
     endTime = undefined;
     log.innerText = '';
+    mistakeslog.innerText = '';
     guessbox.value = '';
     guessbox.disabled = null;
     h1.style = '';
@@ -369,6 +378,8 @@ function newGame() {
     h1.innerText = 'list animals until failure';
     
     guessbox.focus()
+
+    if (location.hash=='#showmistakesfornova') mistakes.style='';
 }
 
 // big databases:
@@ -512,6 +523,12 @@ function attempt() {
         }
     } else {
         comment.innerText = invalid_guess_egg_message(guess) || "I don't know that animal.";
+        if (wrong_guesses[wrong_guesses.length - 1] != guess) {
+            wrong_guesses.push(guess);
+            let li = document.createElement('li');
+            li.innerText = guess;
+            mistakeslog.append(li);
+        }
         return;
     }
     if (startTime == undefined) {
@@ -679,6 +696,10 @@ function load() {
             <h2>game over</h2>
             <section id=trivia></section>
             <button id=copybutton onclick=copyShareStringToClipboard()>share emoji results</button> <button onclick=newGame()>try again</button>
+            <details id=mistakes style=display:none><summary>mistakes</summary>
+                <ul id=mistakeslog></ul>
+                <p>(If they're my fault, check Wikipedia & <a href=https://rose.systems/contact target=_blank>tell me what to fix</a>.)</p>
+            </details>
             <details id=about onToggle=if(event.newState.at(5)){cycleThank();}><summary>about this game</summary>
                 <p>By <a href=https://rose.systems>Vivian Rose</a>.
                 <p>Uses Wikipedia and Wikidata, plus a lot of hand-tuning. No LLMs involved.
