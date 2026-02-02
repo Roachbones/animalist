@@ -52,6 +52,7 @@ function swoop() {
 }
 
 function invalid_guess_egg_message(guess) {
+    if (guess=='me') return "And what are you?";
     if (guess=='dragon' || guess == 'jackalope' || guess == 'tsuchinoko' || guess=='bigfoot' || guess=='yeti') {
         return 'Real animals only, please.';
     }
