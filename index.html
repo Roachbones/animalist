@@ -364,6 +364,7 @@ function newGame() {
     underlay.vibrance = 0;
     trivia.textContent = '';
     extinct_mode = extinct_mode_control.checked;
+    console.log('newGame: extinct_mode =', extinct_mode, 'checkbox =', extinct_mode_control.checked);
 
     startTime = undefined;
     endTime = undefined;
@@ -458,6 +459,7 @@ function attempt() {
         }
         
         // In extinct mode, reject extant animals.
+        console.log('attempt: extinct_mode =', extinct_mode, 'guess_id =', guess_id, 'EXTINCT[guess_id] =', EXTINCT[guess_id]);
         if (extinct_mode && EXTINCT[guess_id] !== true) {
             var counterexample = typeof EXTINCT[guess_id] === 'string' ? EXTINCT[guess_id] : null;
             if (counterexample) {
