@@ -200,14 +200,16 @@ body:has(#log li) #settings-page { /* hide settings during game */
     left: 50%;
     transform: translateX(-50%);
     @media (prefers-contrast: more) { border-style: outset; }
+    & summary { user-select: none; }
 }
+
 #copybutton, #epsybutton {
     cursor: copy;
     position: relative; /* for confetti */
 }
-details {
+#mistakes, #about {
     margin-top: 1em;
-    & summary { font-size: small; user-select: none; }
+    & summary { font-size: small }
 }
 #mistakes {
     #mistakeslog {
@@ -222,6 +224,7 @@ details {
 }
 .pic {
     margin-bottom: 1em;
+    &[open] { margin-bottom: 2em; }
 }
 
 @keyframes bump {

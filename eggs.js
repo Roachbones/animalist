@@ -356,7 +356,7 @@ function queue_final_trivia() {
     if (guessed_ids.includes('Q26972265') && guessed_ids.includes('Q38584')) {
         queue_trivium_once("You listed both dingos and dogs, so I gave you the benefit of the doubt, but <a href=https://en.wikipedia.org/wiki/Dingo#Taxonomy>there's disagreement on whether the dingo is its own species of canid, a subspecies of grey wolf, or simply a breed of dog.</a>");
     }
-    if (!trivia.innerText && Math.random() < .5) {
+    if (!trivia.innerText) {
         try_queue_pic_for(guessed_ids[guessed_ids.length-1]);
     }
     if (!trivia.innerText && shy_trivia[0]) {
@@ -365,7 +365,7 @@ function queue_final_trivia() {
     shy_trivia = [];
     if (
         !trivia.innerText // No trivia so far
-        && score > 1 // Enough guesses to criticize
+        && score > 9 // Enough guesses to criticize
         && guessed_descendant[LOWER_TITLE_TO_ID.bird] && guessed_descendant[LOWER_TITLE_TO_ID.insect] // Doesn't seem to be a challenge run like "only name birds"
     ) {
         for (common_id of COMMONS) {
@@ -394,7 +394,7 @@ function queue_pic_once(pic) {
     const details = document.createElement('details');
     const summary = document.createElement('summary');
     details.append(summary);
-    summary.innerText = 'Photo of ' + (pic.title || pic.alt)
+    summary.innerText = 'photo of ' + (pic.title || pic.alt)
     const img = document.createElement('img');
     img.setAttribute('src', pic.src);
     img.setAttribute('alt', pic.alt);
