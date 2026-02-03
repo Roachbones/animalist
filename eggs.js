@@ -284,6 +284,9 @@ function ancestry_egg_message(guess, descendant_id, ancestor_id) {
     if (descendant_id=='Q30359' && ancestor_id=='Q9482') {
         return "(Prairie dogs are ground squirrels.)";
     }
+    if (descendant_id==LOWER_TITLE_TO_ID.marmot && ancestor_id==LOWER_TITLE_TO_ID.squirrel) {
+        return "(Marmots are large ground squirrels.)";
+    }
     if (descendant_id==LOWER_TITLE_TO_ID.chipmunk && ancestor_id==LOWER_TITLE_TO_ID.squirrel) {
         return "(Yes, chipmunks are squirrels.)";
     }
