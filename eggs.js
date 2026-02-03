@@ -356,13 +356,17 @@ function queue_final_trivia() {
     if (guessed_ids.includes('Q26972265') && guessed_ids.includes('Q38584')) {
         queue_trivium_once("You listed both dingos and dogs, so I gave you the benefit of the doubt, but <a href=https://en.wikipedia.org/wiki/Dingo#Taxonomy>there's disagreement on whether the dingo is its own species of canid, a subspecies of grey wolf, or simply a breed of dog.</a>");
     }
-    if (!trivia.innerText) {
-        try_queue_pic_for(guessed_ids[guessed_ids.length-1]);
-    }
     if (!trivia.innerText && shy_trivia[0]) {
         queue_trivium_once(shy_trivia.pop());
     }
     shy_trivia = [];
+    if (!trivia.innerText) {
+        try_queue_pic_for(guessed_ids[0]);
+        if (try_queue_pic_for(guessed_ids[guessed_ids.length-1])) return;
+        for (let i=guessed_ids.length; i > 0; i--) {
+            if (try_queue_pic_for(guessed_ids[i]) || Math.random() > 0.9) break;
+        }
+    }
     if (
         !trivia.innerText // No trivia so far
         && score > 9 // Enough guesses to criticize
@@ -381,8 +385,9 @@ function queue_final_trivia() {
 
 function try_queue_pic_for(guess_id) {
     let pics = ID_TO_PICS[guess_id];
-    if (pics) {
-        return queue_pic_once(choice(pics));
+    if (!pics) return;
+    for (pic of pics) {
+        if (queue_pic_once(pic)) return 1;
     }
 }
 
