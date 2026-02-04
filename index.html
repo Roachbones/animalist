@@ -363,8 +363,7 @@ function newGame() {
     scorespan.innerText = 0;
     underlay.vibrance = 0;
     trivia.textContent = '';
-    extinct_mode = extinct_mode_control.checked;
-    console.log('newGame: extinct_mode =', extinct_mode, 'checkbox =', extinct_mode_control.checked);
+    extinct_mode = extinct_mode_control.checked;  // Also re-captured on first guess
 
     startTime = undefined;
     endTime = undefined;
@@ -409,6 +408,14 @@ function appendp(element, text) {
 }
 
 function attempt() {
+    // Capture settings on first guess (game start), not on page load
+    if (startTime == undefined) {
+        extinct_mode = extinct_mode_control.checked;
+        h1.innerText = extinct_mode ? 'list extinct animals until failure' : 'list animals until failure';
+        document.getElementById('extinct-rule').style.display = extinct_mode ? '' : 'none';
+        console.log('Game starting: extinct_mode =', extinct_mode);
+    }
+
     var verbatim_guess = guessbox.value;
     var guess = guessbox.value.trim().toLowerCase().replaceAll("-"," ").replaceAll('’',"'").replaceAll(/ +/g, ' ');
     if (!guess) { return; }
