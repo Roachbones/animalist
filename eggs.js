@@ -89,11 +89,12 @@ function invalid_guess_egg_message(guess) {
     if (guess=='shellfish') { return "That's more of a culinary term. Try naming a specific shellfish."; }
     if (guess=='kipper') { return "That's more of a culinary term; it's a herring or salmon corpse that has been split and salted."; }
     if (guess=='haggis' || guess == 'wild haggis') { return 'Left-footed or right-footed?'; }
-    if (guess=='pork' || guess=='ham' || guess=='beef' || guess=='steak' || guess=='mutton' || guess=='veal') {
+    if (guess=='pork' || guess=='ham' || guess=='beef' || guess=='steak' || guess=='mutton' || guess=='veal' || guess=='escargot') {
         return "That term only refers to the animal's corpse.";
     }
     if (guess=='cornish game hen' || guess=='cornish hen') { return "That's a culinary term. It's just chicken."; }
     if (guess=='imitation crab') return 'Really?';
+    if (guess=='roe') return "I don't think that counts.";
 
     // Misspellings
     if (guess=='pidgeon' || guess.endsWith(' pidgeon')) {
@@ -127,6 +128,7 @@ function invalid_guess_egg_message(guess) {
         return "Not really a kind of animal.";
     }
     if (guess=='bacteria') { return "Bacteria aren't animals."; }
+    if (guess=='e coli' || guess=='e. coli') { return "That's bacteria."; }
     if (guess=='lichen') { return "That's a fungus/algae combination, not an animal."; }
     if (guess=='mushroom') { return "No, fungi aren't animals."; }
     if (guess=='slime mold') { return "Slime molds aren't animals."; }
@@ -136,10 +138,11 @@ function invalid_guess_egg_message(guess) {
         queue_trivium("The word “scabies” actually comes from the Latin «<a href=//en.wiktionary.org/wiki/scabo#Latin>scabō</a>», a verb meaning to scratch or scrape. It's easy to assume that “scabies” refers to the parasites, but it basically just means “the itches”.");
         return "Nice try, but the animal that causes scabies isn't called “a scabie”."
     }
-    if (guess=='tree') { return "Animals, not plants, please."; }
+    if (guess=='tree' || guess=='moss') { return "Animals, not plants, please."; }
     if (guess=='yeast') { return "That's fungus."; }
+    if (guess=='mold') { return "That's fungus, typically."; }
     if (guess=='plant') { h1.innerText = "list ANIMALS until failure"; return ' '; }
-    if (guess=='fungus') { return "No." }
+    if (guess=='fungus' || guess=='fungi' || guess=='virus' || guess=='diatom' || guess=='germ' || guess=='cordyceps') { return "No." }
     if (guess=='car') return "With wheels?";
 
     if (guess=='cryptobug') { return "That's a brand name."; }
@@ -162,7 +165,7 @@ function invalid_guess_egg_message(guess) {
         return "That's more of an occupation, isn't it?";
     }
     if (guess=='polyp') { return "That's more of a shape, really."; }
-    if (guess=='larva') { return "Many animals have a larval stage. Can you be more specific?"; }
+    if (guess=='larva' || guess=='larvae') { return "Many animals have a larval stage. Can you be more specific?"; }
     if (guess=='doe') {
         //todo trivium
         return "That can actually refer to a lot of different animals.";
