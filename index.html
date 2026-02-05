@@ -636,6 +636,7 @@ function cycleThank() {
 var shareString;
 function endGame() {
     if (guessbox.disabled) { return; }
+    guessbox.disabled = true;
     navigator.vibrate && navigator.vibrate(999);
     queue_final_trivia();
     cycleThank();
@@ -643,7 +644,6 @@ function endGame() {
     copybutton.style.display = navigator.clipboard ? null : 'none';
     discord.style.display = score > 50 ? '' : 'none';
     gameoverscreen.style.display = 'block';
-    guessbox.disabled = true;
     comment.innerText = '';
     fetch(
         "https://guestbook.rose.systems/animals",
