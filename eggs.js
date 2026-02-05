@@ -320,7 +320,7 @@ function egg_manipulate_li(li, guess, guess_id) {
         setTimeout(()=>{ li.style.top=0; }, 10)
     }
     if (guess == 'sidewinder') { li.style.rotate = '-90deg'; }
-    if (guess_id = 'Q2525560') {
+    if (guess_id == 'Q2525560') {
         li.classList.add('wheelspider')
     }
 }
