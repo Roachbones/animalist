@@ -2,6 +2,7 @@
 
 
 
+// todo move later
 function ancests(possible_ancestor_id, guess_id) {
     var ancestor_id = PARENT[guess_id];
     while (PARENT[ancestor_id]) {
@@ -219,6 +220,11 @@ function valid_guess_egg_message(guess, guess_id) {
     }
     if (guess_id==LOWER_TITLE_TO_ID.oz && !guesses.includes('ounce')) {
         queue_shy_trivium("Snow leopards used to be called ounces."); // TODO elaborate w bestiary entry
+    }
+    if (h‌ash(guess_id)==5714064253812690){
+        queue_shy_trivium(
+            '<a href=https://' + ID_TO_TITLE[guess_id] + 's.com target=_blank><img src=https://' + ID_TO_TITLE[guess_id] + 's.com/button.png></a>'
+        );
     }
     if (guess=='elf') { return "Surely you mean the butterfly?"; }
     if (guess == 'featherless biped') { MONONYMS['Q15978631'] = ['𓅾']; return "That's me?"; }
