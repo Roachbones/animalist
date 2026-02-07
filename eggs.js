@@ -262,7 +262,7 @@ function equivalence_egg_message(guess, guess_id) {
         return "(Sorry, “parakeet” is dialectal so I'm not sure which bird(s) you mean.)";
     }
     if (guess_id==LOWER_TITLE_TO_ID.dog && (!guesses.slice(0,-1).includes(guess) || !DOGS_IS_THE_SAME[0])) {
-        if (dog_index > 3) { h1.innerText = "list animals OTHER THAN DOGS"; }
+        if (dog_index > 3) { h1.innerText = h1.innerText.replace("until failure", "OTHER THAN DOGS") }
         return DOGS_IS_THE_SAME[dog_index++] || "Fuck you!!";
     }
 }
