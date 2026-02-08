@@ -426,6 +426,7 @@ function attempt() {
             comment.innerText = 'Already said ' + ID_TO_TITLE[guess_id] + '.';
             var egg_message = equivalence_egg_message(guess, guess_id);
             if (egg_message) { comment.innerText+=' '+egg_message; }
+            if (egg_message=='NO!') comment.innerText=egg_message // or could check for all-caps?
             console.log(' ♢ '+comment.innerText);
             wiggle(guessed_id_to_li[guess_id]);
             return;

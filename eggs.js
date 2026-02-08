@@ -247,7 +247,8 @@ const DOGS_IS_THE_SAME = [
     "Dogs are the same animal!",
     "They aren't that different!",
     "They're all the same!!",
-    "Stop listing dogs!!"
+    "Stop listing dogs!!",
+    "THAT'S A DOG AGAIN!!"
 ]
 dog_index = 0;
 function equivalence_egg_message(guess, guess_id) {
@@ -263,7 +264,7 @@ function equivalence_egg_message(guess, guess_id) {
     }
     if (guess_id==LOWER_TITLE_TO_ID.dog && (!guesses.slice(0,-1).includes(guess) || !DOGS_IS_THE_SAME[0])) {
         if (dog_index > 3) { h1.innerText = h1.innerText.replace("until failure", "OTHER THAN DOGS") }
-        return DOGS_IS_THE_SAME[dog_index++] || "Fuck you!!";
+        return DOGS_IS_THE_SAME[dog_index++] || "NO!";
     }
 }
 
