@@ -422,7 +422,8 @@ function queue_final_trivia() {
     if (
         !trivia.innerText // No trivia so far
         && score > 9 // Enough guesses to criticize
-        && guessed_descendant[LOWER_TITLE_TO_ID.bird] && guessed_descendant[LOWER_TITLE_TO_ID.insect] // Doesn't seem to be a challenge run like "only name birds"
+        && !currentChallenge
+        && guessed_descendant[LOWER_TITLE_TO_ID.bird] && guessed_descendant[LOWER_TITLE_TO_ID.insect] // Doesn't seem to be a self-imposed challenge like "only name birds"
     ) {
         for (common_id of COMMONS) {
             if (Math.random() < 0.1) break;

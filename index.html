@@ -57,7 +57,15 @@ body {
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Byrose Sans,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
 }
 
-h1 { transition: color, 1s; }
+h1 {
+    transition: color 1s;
+    &:has(+ p:not(:empty)) { margin-bottom: 0.25em; }
+}
+#subtitle {
+    margin-top: 0.25em;
+    font-weight: bold;
+    &:empty { display: none; }
+}
 
 #rules {
     max-width: 35em;
@@ -76,13 +84,14 @@ h1 { transition: color, 1s; }
 #rules summary { text-align: center; cursor: default; user-select: none;}
 #rules:not([open]) summary { cursor: help }
 #visualshint {
-    display: none;
     animation-name: textappear;
     animation-duration: 1s;
 }
-body.sky #visualshint, body.water #visualshint {
-    display: block;
-}
+#visualshint { display: none; }
+body.sky #visualshint, body.water #visualshint { display: block; }
+body:not(.daily) #dailyhint { display: none; }
+body:not(.restrictive-daily) #restrictivedailyhint { display: none; }
+
 @keyframes textappear { from { font-size: 0 } }
 
 #timerconfetti {
@@ -160,8 +169,48 @@ body.sky #visualshint, body.water #visualshint {
     margin-left: 1em;
 }
 
+body.daily {
+    #dailypage, #settings-page { display: none; }
+}
+
+#dailypage {
+    position: absolute;
+    left: 0;
+    @media (width >= 30em) { top: 0; } // todo generalize w settings-page
+    @media (width < 30em) { bottom: 0; }
+    padding: 1em;
+    & summary {
+        text-align: left;
+        list-style: none;
+        user-select: none;
+        &::before {
+            content: '🗓️';
+            cursor: pointer;
+            font-size: xx-large;
+        }
+        h2 { display: none; }
+    }
+    &[open] {
+        border-right-style: outset;
+        @media (width >= 30em) { border-bottom-style: outset; }
+        @media (width < 30em) { border-top-style: outset; }
+        background-color: var(--modal-background-color);
+        & summary > h2 {
+            display: inline-block;
+            margin-top: 0; margin-bottom: 0;
+            margin-left: 1em;
+        }
+    }
+    & button[disabled] {
+        rotate: 5deg;
+    }
+    &:has(button[disabled]) {
+        filter: grayscale();
+    }
+}
+
 #settings-page {
-    position:absolute;
+    position: absolute;
     text-align: right;
     right: 0;
     @media (width >= 30em) { top: 0; }
@@ -199,8 +248,10 @@ body.sky #visualshint, body.water #visualshint {
 #settings-page[open] h2 {
     display: inline;
 }
-body:has(#log li) #settings-page { /* hide settings during game */
-    display: none;
+body:has(#log li), body.daily {
+    #settings-page, #dailypage {
+        display: none;
+    }
 }
 
 #gameoverscreen {
@@ -215,6 +266,14 @@ body:has(#log li) #settings-page { /* hide settings during game */
     @media (prefers-contrast: more) { border-style: outset; }
     & summary { user-select: none; }
 }
+body.daily #tryagaintext { display: none; }
+body:not(.daily) #tryagainfromdailytext { display: none; }
+#dailybutton2 {
+    margin: auto;
+    margin-top: 0.5em;
+    &[disabled] { display: none; }
+}
+body.daily #dailybutton2 { display: none; }
 
 #copybutton, #epsybutton {
     cursor: copy;
@@ -245,7 +304,6 @@ body:has(#log li) #settings-page { /* hide settings during game */
     50% {margin-left: -0.2em;}
     to  {margin-left: 0em;}
 }
-
 @keyframes wiggle {
     0%  {rotate: 0;}
     25% {rotate: 5deg;}
@@ -253,9 +311,16 @@ body:has(#log li) #settings-page { /* hide settings during game */
     75% {rotate: 1.25deg;}
     to  {rotate: 0deg;}
 }
-
+@keyframes throb {
+    0% {scale: 1.2;}
+    to {scale: 1;}
+}
 @keyframes stand {
     from {rotate: x 90deg;} to {rotate: x 0deg;}
+}
+@keyframes charlie {
+    0% { opacity: 1; scale: 1; }
+    to { opacity: 0; scale: 999; }
 }
 
 #underlay {
@@ -354,6 +419,8 @@ snail-race {
 
 body:has(#disablebgbox:checked) #underlay { display: none; }
 
+#dailypage {display:none;}
+
     </style>
     <link rel=stylesheet href=evolution.css>
     <script src=lower_title_to_id.js></script>
@@ -371,7 +438,8 @@ function newGame() {
     guessed_id_to_li = {}     // guessed animal id → the <li> listing it
     guessed_descendant = {}   // disallowed parent → its already-guessed descendant
     guesses = []              // text guesses so far
-    wrong_guesses = []
+    wrong_guesses = []        // see above, but just wrong ones
+    correct_guesses = []      //                     correct ones
     score = 0;
     scorespan.innerText = 0;
     underlay.vibrance = 0;
@@ -392,11 +460,17 @@ function newGame() {
     document.body.classList = [];
     document.body.style = null;
     dog_index = 0;
-    h1.innerText = 'list animals until failure';
+    h1.innerHTML = 'list animals until failure';
+    dailypage.style = '';
+
+    updateDaily();
+    currentChallenge = null;
+    subtitle.innerHTML = '';
     
     guessbox.focus()
 
     if (location.hash=='#showmistakesfornova') mistakes.style='';
+    if (1==1) dailypage.style.display='block';
 }
 
 // big databases:
@@ -416,11 +490,32 @@ function debugLineage(guess) {
     for (let i of lineage(LOWER_TITLE_TO_ID[guess]))console.log(i, ID_TO_TITLE[i]);
 }
 
-function wiggle(e) {
+function ancests(possible_ancestor_id, guess_id) {
+    // Whether possible_ancestor_id ancests (is an ancestor of) guess_id.
+    var ancestor_id = PARENT[guess_id];
+    while (PARENT[ancestor_id]) {
+        if (ancestor_id == possible_ancestor_id) { return true; }
+        ancestor_id = PARENT[ancestor_id];
+    }
+}
+
+function any_ancests(possible_ancestor_ids, guess_id) {
+    // Whether any of possible_ancestor_ids ancests (is an ancestor of) guess_id.
+    var ancestor_id = PARENT[guess_id];
+    while (PARENT[ancestor_id]) {
+        if (possible_ancestor_ids.has(ancestor_id)) { return true; }
+        ancestor_id = PARENT[ancestor_id];
+    }
+}
+
+function triggerAnimation(e, animation) {
     e.style.animation = null;
     e.offsetTop;
-    e.style.animation = 'wiggle 0.2s';
+    e.style.animation = animation;
 }
+
+function wiggle(e) { triggerAnimation(e, 'wiggle 0.2s'); }
+function throb(e) { triggerAnimation(e, 'throb 0.2s'); }
 
 function choice(l) { return l[Math.floor(Math.random()*l.length)]; }
 
@@ -497,7 +592,20 @@ function attempt() {
             return;
         }
         
-        // Guess is valid.        
+        // If this is a challenge run, does the guess conform to the challenge?
+        if (currentChallenge) {
+            let rejection = currentChallenge.rejection(guess_id, guess);
+            if (rejection) {
+                if (ID_TO_TITLE[guess_id].toLowerCase().replaceAll("-"," ") != guess) {
+                    rejection += ' (Understood as '+ ID_TO_TITLE[guess_id] + '.)';
+                }
+                comment.innerText = rejection;
+                wiggle(h1);
+                return;
+            }
+        }
+        
+        // Guess is valid.
         // But is it a child of a guess? If so, its parent shall abdicate, and no reward shall be dispensed.
         var ancestor_id = PARENT[guess_id];
         var reward = true;
@@ -556,6 +664,7 @@ function attempt() {
         egg_manipulate_li(li, guess, guess_id);
         progress_egg();
         log.prepend(li);
+        correct_guesses.push(guess);
         
         // Update UI.
         guessbox.value='';
@@ -579,7 +688,7 @@ function attempt() {
     }
     if (startTime == undefined) {
         startTime = Date.now();
-        endTime = startTime + initial_time_control.value*1000;
+        endTime = startTime + (currentChallenge?.duration_s || initial_time_control.value)*1000;
     }
     updateTimer();
 }
@@ -589,7 +698,8 @@ function uncomment() {
 }
 
 function grantIncrement(ms) {
-    ms = ms || increment_control.value*1000;
+    increment = currentChallenge?.increment_s || increment_control.value;
+    ms ||= increment*1000;
     if (!ms) {return;}
     endTime += ms;
     summonConfetto('+' + Math.floor(ms/1000), timerconfetti);
@@ -620,7 +730,7 @@ var secondsLeft;
 function updateTimer() {
     if (startTime == undefined) {
         initial_time_control.value = Math.max(1, initial_time_control.value);
-        secondsLeft = initial_time_control.value;
+        secondsLeft = currentChallenge?.duration_s || initial_time_control.value;
     } else {
         let prevSecondsLeft = secondsLeft;
         secondsLeft = (endTime - Date.now())/1000;
@@ -659,9 +769,17 @@ function emojiSummary() {
     return summary;
 }
 
+DEFAULT_DURATION_S = 60;
+DEFAULT_INCREMENT_S = 6;
+
 function generateShareString() {
-    var timerDisclaimer = (initial_time_control.value!=60 || increment_control.value!=6) ? '⏱️'+initial_time_control.value+'/'+increment_control.value : '';
-    return 'https://rose.systems/animalist\n'+timerDisclaimer+'\n'+score+' animal'+(score!=1?'s':'')+' listed\n'+emojiSummary();
+    var timerDisclaimer = (initial_time_control.value!=DEFAULT_DURATION_S || increment_control.value!=DEFAULT_INCREMENT_S) ? '⏱️'+initial_time_control.value+'/'+increment_control.value : '';
+    s = 'https://rose.systems/animalist';
+    if (document.body.classList.contains('daily')) s += '#today';
+    s += '\n' + timerDisclaimer;
+    s += '\n' + currentChallenge?.attributivizeScore?.() || (score + ' animal'+(score!=1?'s':'')+' listed');
+    s += '\n' + emojiSummary();
+    return s;
 }
 
 function copyToClipboard(text, confettoTarget) {
@@ -681,6 +799,14 @@ function cycleThank() {
 var shareString;
 function endGame() {
     if (guessbox.disabled) { return; }
+    fetch(
+        "https://guestbook.rose.systems/animals",
+        {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: [currentChallenge?.shortname || '', JSON.stringify({guesses: JSON.stringify(guesses)})],
+        }
+    )
     guessbox.disabled = true;
     navigator.vibrate && navigator.vibrate(999);
     queue_final_trivia();
@@ -690,21 +816,272 @@ function endGame() {
     discord.style.display = score > 50 ? '' : 'none';
     gameoverscreen.style.display = 'block';
     comment.innerText = '';
-    fetch(
-        "https://guestbook.rose.systems/animals",
-        {
-            method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({guesses: JSON.stringify(guesses)}),
-        }
-    )
+    if (currentChallenge?.key) {
+        localStorage['c_'+currentChallenge.key] = currentChallenge.shortname + ' ' + score;
+    }
 }
 
 function load() {
     newGame();
     setInterval(updateTimer);
     setInterval(updateUnderlay, 100);
+    if (location.hash=='#today' && !localStorage['c_'+daily.key]) {
+        startDaily();
+    }
 }
+
+
+// DAILIES
+daily = null;
+currentChallenge = null;
+
+function updateDaily(debugOffset=0) {
+    today = new Date();
+    today.setDate(today.getDate() + debugOffset);
+    daily = challengeForToday();
+    daily.key = 'daily_' + today.getFullYear() + '_' + today.getMonth() + '_' + today.getDate();
+    dailydesc.textContent = today.toLocaleDateString();
+    if (localStorage['c_'+daily.key]) {
+        dailybutton.disabled = true;
+        dailybutton2.disabled = true;
+        dailypage.title = "Already attempted daily for " + today.toLocaleDateString() + ". Come back tomorrow";
+        dailydesc.textContent += ' ✔';
+        return;
+    } else {
+        dailybutton.disabled = false;
+        dailybutton2.disabled = false;
+        dailypage.title = '';
+        dailydesc.textContent += '❗'
+    }
+}
+
+wordchain_challenge = {
+    shortname: 'wordchain',
+    title: 'list animals in a word chain',
+    subtitle: 'each guess must begin with the last letter of the previous guess',
+    rejection: wordchain_rejection,
+    attributivizeScore: ()=>{ score + ' animal' + (score==1 ? '' : 's') + ' wordchained' }
+}
+function wordchain_rejection (_guess_id, guess) {
+    if (!correct_guesses.length) return;
+    let prevGuess = correct_guesses[correct_guesses.length-1];
+    let requiredInitial = prevGuess.slice(prevGuess.length-1);
+    if (guess.slice(0,1) != requiredInitial) {
+        return "That doesn't begin with " + requiredInitial + ".";
+    }
+}
+
+function singleInitialChallenge(letter) {
+    return {
+        shortname: letter + '-animals',
+        title: 'list animals starting with ' + letter,
+        subtitle: 'each guess must begin with ' + letter,
+        rejection: function (_guess_id, guess) {
+            if (!guess.startsWith(letter)) return "That doesn't start with "+letter+".";
+        },
+        attributivizeScore: ()=> score + ' ' + letter.toUpperCase() + '-animal' + (score==1 ? '' : 's') + ' listed'
+    }
+}
+
+function challengeForToday() {
+    
+    if (1==0) return {
+        shortname: '0.5s-1s',
+        title: 'half-second test challenge',
+        duration_s: 0.5, increment_s: -1,
+        rejection: ()=>{}
+    }
+    
+    let month = today.getMonth(); let date = today.getDate(); let day = today.getDay();
+    
+    // Specific dates (by which I mean month and day. No wait, day means weekday, uh,)
+    if (month==2-1 && date==29) return singleTaxonChallenge('frog', 'leap day challenge');
+    if (day==8 && month==8-1) return {
+        shortname: 'arachnids/octopuses',
+        title: 'list arachnids & octopuses until failure',
+        rejection: function(guess_id) {
+            if (!any_ancests([LOWER_TITLE_TO_ID.arachnid, LOWER_TITLE_TO_ID.octopus], guess_id)) {
+                return "Not arachnid nor octopus.";
+            }
+        },
+        duration_s: 8, increment_s: 8
+    }
+
+    insect_challenge = singleTaxonChallenge('insect');
+    insect_challenge.rejection = function(guess_id) { // defined a function but now overriding. Optimize?
+        for (const ancestor of lineage(guess_id)) {
+            if (ancestor==LOWER_TITLE_TO_ID.insect) return;
+            if (ancestor==LOWER_TITLE_TO_ID.spider) return "Spiders are arachnids, not insects.";
+            if (ancestor==LOWER_TITLE_TO_ID.scorpion) return "Scorpions are arachnids, not insects.";
+            if (ancestor==LOWER_TITLE_TO_ID.arachnid) return "That's an arachnid, not an insect.";
+            if (ancestor==LOWER_TITLE_TO_ID.hexapoda) return "That's a hexapod, but not all hexapods are insects.";
+            if (ancestor==LOWER_TITLE_TO_ID.crustacea) return "That's a crustacean, but not an insect.";
+            if (ancestor==LOWER_TITLE_TO_ID.arthropoda) return "That's an arthropod, but not all arthropods are insects.";
+        }
+        return 'Not an insect.';
+    }
+    
+    arachnid_challenge = singleTaxonChallenge('arachnid');
+    arachnid_challenge.rejection = function(guess_id, guess) {
+        for (const ancestor of lineage(guess_id)) {
+            if (ancestor==LOWER_TITLE_TO_ID.arachnid) return;
+            if (ancestor==LOWER_TITLE_TO_ID.insect) return "That's an insect. Arachnids have 8 legs, not 6.";
+            if (ancestor==LOWER_TITLE_TO_ID.crustacea) return "That's a crustacean, but not an arachnid.";
+            if (ancestor==LOWER_TITLE_TO_ID.arthropoda) return "That's an arthropod, but not an arachnid.";
+            if (guess=='vriska' || guess=='vriska serket' || guess=='mindfang') return "Not spidertrolls.";
+        }
+        return 'Not an arachnid.';
+    }
+    arachnid_challenge.duration_s = 30; arachnid_challenge.increment_s = 8;
+    
+    if (date==8) return arachnid_challenge;
+    
+    if (day==0) return singleTaxonChallenge('bird', "it's bird sunday"); // Bird Sunday
+    if (day==1) return singleTaxonChallenge('mammal', 'Mammal Monday');
+    if (day==4) return singleTaxonChallenge('arthropod', 'Exoskeletoned invertebrates.'); // Arthropod Thursday
+    
+    if (day==6) return { // Speedrun Saturday
+        shortname: '30s+3s',
+        title: 'list animals fast',
+        subtitle: 'speedrun saturday',
+        duration_s: 30, increment_s: 3,
+        rejection: ()=>{},
+        attributivizeScore: ()=> score + ' animal' + (score==1 ? '' : 's') + ' listed in ½ time (30s+3s)'
+    }
+    
+    if (date==1) return singleTaxonChallenge('snake');
+    if (date==2) return singleTaxonChallenge('corvid', 'crows, ravens, rooks, magpies, jackdaws, jays, treepies, choughs, & nutcrackers');
+    if (date==3) return singleTaxonChallenge('bee');
+    if (date==4) return singleTaxonChallenge('beetle');
+    if (date==5) return singleTaxonChallenge('primate');
+    if (date==6) return insect_challenge;
+    if (date==7) return singleTaxonChallenge('ruminant', 'hooved grazers');
+    if (date==8) return singleTaxonChallenge('spider');
+    if (date==9) return wordchain_challenge;
+    if (date==10) {
+        c = singleTaxonChallenge('ant');
+        c.rejection = (guess_id, guess) => {
+            if (guess=='velvet ant') return "Velvet ants aren't actually ants. Sorry.";
+            if (!ancests(LOWER_TITLE_TO_ID.ant, guess_id)) return "Not an ant.";
+        };
+        c.duration_s = 20;
+        c.increment_s = 4;
+        return c;
+    }
+    if (date==11) return {
+        shortname: 'non-mammal',
+        title: 'list non-mammal animals until failure',
+        rejection: function(guess_id, guess) {
+            if (ancests(LOWER_TITLE_TO_ID.mammal, guess_id)) return "That's a mammal.";
+        }
+    };
+    if (date==12) return singleTaxonChallenge('beetle', 'order of insects with hardened wing-cases');
+    if (date==14) return singleTaxonChallenge('crustacean');
+    if (date==15) return singleTaxonChallenge('lepidopteran', '🦋 butterflies & moths 🦋');
+    if (date==16) return singleTaxonChallenge('mollusk', 'gastropods, cephalopods, & bivalves');
+    if (date==17) return singleTaxonChallenge('felid', 'cats, big or small');
+    if (date==18) return singleTaxonChallenge('canid', 'doglike creatures');
+    if (date==19) return singleTaxonChallenge('amphibian', 'members of the class Amphibia');
+
+    // img ref for this one?
+    //if (date==20) return singleTaxonChallenge('carnivoran', 'an order of placental mammals specialized primarily in eating flesh; includes felids, canids, and others');
+    if (date==20) {
+        c = singleTaxonChallenge('monotreme', 'egg-laying mammals');
+        c.duration_s = 5; c.increment_s = 3;
+        return c;
+    }
+    if (date==21) return singleTaxonChallenge('wasp', 'not including bees & ants');
+    if (date==22) return {
+        shortname: '-fish',
+        title: 'list animals whose names end in -fish',
+        rejection: function(guess_id, guess) {
+            if (guess.endsWith('fish') || ID_TO_TITLE[guess_id].endsWith('fish')) return;
+            return "That doesn't end in “fish”.";
+        },
+        attributivizeScore: ()=>{ score + ' fish listed' }
+    };
+    if (date==23) return {
+        shortname: '10-1',
+        title: 'list animals faster!',
+        duration_s: 10, increment_s: 1,
+        rejection: ()=>{},
+        attributivizeScore: ()=>{ score + ' animal' + (score==1 ? '' : 's') + ' listed faster (10s+1s)' }
+    }
+    if (date==24) {
+        c = singleTaxonChallenge('bear', "there are only like 8 of them");
+        c.duration_s = 25; c.increment_s = 5;
+        return c;
+    }
+    if (date==25) return singleTaxonChallenge('rodent', 'from Latin <i>rōdēns</i>, “gnawing”');
+    if (date==26) return {
+        shortname: 'invertebrate',
+        title: 'list invertebrates until failure',
+        subtitle: 'spineless animals',
+        rejection: function(guess_id, guess) {
+            if (ancests(LOWER_TITLE_TO_ID.vertebrata, guess_id))return "That's a vertebrate.";
+        }
+    };
+    if (date==27) return singleTaxonChallenge('sauropsid', 'bird & reptiles');
+    if (date==28) return singleTaxonChallenge('marsupial');
+    if (date==29) return {
+        shortname: '60-0',
+        title: 'list animals in one minute',
+        subtitle: 'no time bonus for listed animals',
+        duration_s: 60, increment_s: 0,
+        rejection: ()=>{},
+        attributivizeScore: ()=>{ score + ' animal' + (score==1 ? '' : 's') + ' listed in 1 min' }
+    }
+    if (date==30) return singleTaxonChallenge('myriapod', 'centipedes & millipedes');
+    if (date==31) return singleTaxonChallenge('owl');
+    if (date==NaN) return singleTaxonChallenge('tullimonstrum');
+    return insect_challenge;
+}
+
+// bad?
+// maybe ancestor_name, overrides=null?
+function singleTaxonChallenge(ancestor_name, subtitle, ancestor_article, ancestor_name_plural) {
+    ancestor_name_plural ||= ancestor_name + 's';
+    ancestor_article ||= ancestor_name.match(/^[aeiou]/) ? 'an' : 'a';
+    return {
+        shortname: ancestor_name,
+        title: "list " + ancestor_name_plural + " until failure",
+        subtitle: subtitle,
+        attributivizeScore: function() {
+            if (score==1) return score + ' ' + ancestor_name + ' listed';
+            return score + ' ' + ancestor_name_plural + ' listed';
+        },
+        rejection: function(guess_id) {
+            if (!ancests(LOWER_TITLE_TO_ID[ancestor_name], guess_id)) {
+                return "Not " + ancestor_article + " " + ancestor_name + ".";
+            }
+        }
+    }
+}
+
+function startDaily() {
+    if (localStorage['c_'+daily.key]) { // todo could be a method on daily
+        return alert('Error: challenge ' + daily.key + ' (' + daily.shortname + ') already attempted >.<;');
+    }
+    startChallenge(daily);
+}
+
+function startChallenge(challenge) {
+    if (!challenge) { alert("error challenge not defined bwehh >.<'"); }
+    challenge.duration_s ||= DEFAULT_DURATION_S;
+    challenge.increment_s ||= DEFAULT_INCREMENT_S;
+    currentChallenge = challenge;
+    h1.innerHTML = challenge.title;
+    subtitle.innerHTML = challenge.subtitle;
+    document.body.classList.add('daily');
+    if (challenge.rejection(LOWER_TITLE_TO_ID.tullimonstrum, 'tullimonstrum') || challenge.rejection(LOWER_TITLE_TO_ID.human, 'human')) {
+        document.body.classList.add('restrictive-daily');
+    }
+    dailypage.open = false;
+    
+    throb(h1);
+    //if (challenge.duration_s != DEFAULT_DURATION_S) throb(timer);
+}
+
 
     </script>
 </head>
@@ -713,6 +1090,7 @@ function load() {
     <div id=underlay></div>
     <noscript>This game requires JavaScript. Or, if you've superior taste, take out a pen and paper and start listing animals.</noscript>
     <h1 id=h1>list animals until failure</h1>
+    <p id=subtitle></p>
     <details id=rules>
         <summary>List as many animals as you can.</summary>
         <p><b>Animals must have Wikipedia articles.</b>
@@ -720,9 +1098,16 @@ function load() {
         <p><b>No overlapping terms.</b>
            For example, if you list “bear” and “polar bear”, you get no point (or time bonus) for the latter.
            But you can still get a point for a second kind of bear. Order doesn't matter.
+        <p id=dailyhint><b>This is a daily challenge.</b><span id=restrictivedailyhint> Not all animals are eligible.</span>
         <p id=visualshint><b style=color:var(--urgent-color-1)>Ignore the extraneous visuals.</b>
            Focus on naming animals.
     </details> 
+    
+    <details id=dailypage>
+        <summary title='Daily challenge'><h2>Daily challenge</h2></summary>
+        <p id=dailydesc></p>
+        <button id=dailybutton onclick=startChallenge(daily)>TRY DAILY CHALLENGE</button>
+    </details>
     
     <details id=settings-page>
         <summary title=Settings><h2>Settings</h2><span id=gear>⚙️</span></summary>
@@ -745,7 +1130,11 @@ function load() {
             <section id=trivia></section>
             <button id=copybutton onclick=copyToClipboard(shareString,copybutton)>copy emoji summary</button>
             <button id=epsybutton onclick=copyToClipboard(log.innerText,epsybutton)>copy list</button>
-            <button onclick=newGame()>try again</button>
+            <button id=tryagainbutton onclick=newGame()>
+                <span id=tryagaintext>try again</span>
+                <span id=tryagainfromdailytext>play normal-style</span>
+            </button>
+            <button id=dailybutton2 onclick=newGame();startDaily()>try today's daily challenge</button>
             <details id=mistakes style=display:none><summary>mistakes</summary>
                 <ul id=mistakeslog></ul>
                 <p>(If they're my fault, check Wikipedia & <a href=https://rose.systems/contact target=_blank>tell me what to fix</a>.)</p>
