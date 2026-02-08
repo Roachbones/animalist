@@ -421,14 +421,14 @@ function queue_final_trivia() {
     }
     if (
         !trivia.innerText // No trivia so far
-        && score > 9 // Enough guesses to criticize
+        && (score > 9 || currentChallenge) // Enough guesses to criticize
         && (
             currentChallenge
             || guessed_descendant[LOWER_TITLE_TO_ID.bird] && guessed_descendant[LOWER_TITLE_TO_ID.insect] // Doesn't seem to be a self-imposed challenge like "only name birds"
         )
     ) {
         for (common_id of COMMONS) {
-            if (Math.random() < 0.1) break;
+            if (Math.random() < 0.05) break;
             if (currentChallenge?.rejection?.(common_id, ID_TO_TITLE[common_id].toLowerCase())) continue;  // If these common animal isn't allowed per the challenge, skip it
             if (!guessed_ids.includes(common_id) && !guessed_descendant[common_id]) {
                 YOU_FORGOT_STAR = YOU_FORGOT_STARS[Math.floor(Math.random()**3 * YOU_FORGOT_STARS.length)];
