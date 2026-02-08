@@ -872,14 +872,15 @@ function wordchain_rejection (_guess_id, guess) {
 }
 
 function singleInitialChallenge(letter) {
+    const LETTER = letter.toUpperCase();
     return {
-        shortname: letter + '-animals',
-        title: 'list animals starting with ' + letter,
-        subtitle: 'each guess must begin with ' + letter,
+        shortname: LETTER + '-animals',
+        title: 'list animals starting with ' + LETTER,
+        subtitle: 'each guess must begin with ' + LETTER,
         rejection: function (_guess_id, guess) {
-            if (!guess.startsWith(letter)) return "That doesn't start with "+letter+".";
+            if (!guess.startsWith(letter)) return "That doesn't start with "+LETTER+".";
         },
-        attributivizeScore: ()=> score + ' ' + letter.toUpperCase() + '-animal' + (score==1 ? '' : 's') + ' listed'
+        attributivizeScore: ()=> score + ' ' + LETTER + '-animal' + (score==1 ? '' : 's') + ' listed'
     }
 }
 
@@ -976,6 +977,11 @@ function challengeForToday() {
         }
     };
     if (date==12) return singleTaxonChallenge('beetle', 'order of insects with hardened wing-cases');
+    if (date==13) {
+        let letters = 'etaoinshrdlcumwfg';
+        letter = letters[(day + today.getFullYear()) % letters.length];
+        return singleInitialChallenge(letter);
+    }
     if (date==14) return singleTaxonChallenge('crustacean');
     if (date==15) return singleTaxonChallenge('lepidopteran', '🦋 butterflies & moths 🦋');
     if (date==16) return singleTaxonChallenge('mollusk', 'gastropods, cephalopods, & bivalves');
@@ -1071,7 +1077,7 @@ function startChallenge(challenge) {
     challenge.increment_s ||= DEFAULT_INCREMENT_S;
     currentChallenge = challenge;
     h1.innerHTML = challenge.title;
-    subtitle.innerHTML = challenge.subtitle;
+    subtitle.innerHTML = challenge.subtitle || '';
     document.body.classList.add('daily');
     if (challenge.rejection(LOWER_TITLE_TO_ID.tullimonstrum, 'tullimonstrum') || challenge.rejection(LOWER_TITLE_TO_ID.human, 'human')) {
         document.body.classList.add('restrictive-daily');
