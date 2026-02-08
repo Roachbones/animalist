@@ -365,6 +365,13 @@ function queue_final_trivia() {
     if (guessed_ids.includes('Q26972265') && guessed_ids.includes('Q38584')) {
         queue_trivium_once("You listed both dingos and dogs, so I gave you the benefit of the doubt, but <a href=https://en.wikipedia.org/wiki/Dingo#Taxonomy>there's disagreement on whether the dingo is its own species of canid, a subspecies of grey wolf, or simply a breed of dog.</a>");
     }
+    if (!trivia.innerText) {
+        let sharks = 0; // todo optimize
+        for (guessed_id of guessed_ids) {
+            if (ID_TO_TITLE[guessed_id]?.endsWith('shark') || ancests(LOWER_TITLE_TO_ID.shark, guessed_id)) sharks++;
+        }
+        if (sharks > 7) queue_trivium_once('Sharks are older than trees.');
+    }
     if (!trivia.innerText && shy_trivia[0]) {
         queue_trivium_once(shy_trivia.pop());
     }
