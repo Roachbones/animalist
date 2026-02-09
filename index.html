@@ -541,6 +541,17 @@ function tryAttempt() {
     }
 }
 
+
+
+function any_ancests(possible_ancestor_ids, guess_id) {
+    // Whether any of possible_ancestor_ids ancests (is an ancestor of) guess_id.
+    var ancestor_id = PARENT[guess_id];
+    while (PARENT[ancestor_id]) {
+        if (possible_ancestor_ids.has(ancestor_id)) { return true; }
+        ancestor_id = PARENT[ancestor_id];
+    }
+}
+
 function attempt() {
     var verbatim_guess = guessbox.value;
     var guess = guessbox.value.trim().toLowerCase().replaceAll("-"," ").replaceAll('’',"'").replaceAll(/ +/g, ' ');
