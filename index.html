@@ -415,7 +415,7 @@ function attempt() {
         guess = 'brown crab';
     }
     
-    if (LOWER_TITLE_TO_ID[guess]) {
+    if (LOWER_TITLE_TO_ID.hasOwnProperty(guess)) {
         var guess_id = LOWER_TITLE_TO_ID[guess];
         
         // It's an animal. But does it conflict with one already guessed?
