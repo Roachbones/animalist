@@ -253,7 +253,7 @@ body:has(#log li) #settings-page { /* hide settings during game */
     transition-timing-function: ease-in-out,      ease-out, ease-out;
     z-index: -1;
     & { background-image: url("media/tile_ether.svg"); }
-    &.nosvg { background-image: url("media/tile_ether.png"); }
+    & { background-image: url("media/tile_ether.png"); } /* trying nosvg */
     @media (prefers-color-scheme: dark) {
         background-color: black;
         body.sky & { mix-blend-mode: color; }
