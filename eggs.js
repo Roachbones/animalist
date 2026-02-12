@@ -124,6 +124,7 @@ function invalid_guess_egg_message(guess) {
 
     // Just not animals
     if (guess=='algae' || guess=='seaweed') { return "No."; }
+    if (guess=='kelp') return "Not a plant, but not an animal either.";
     if (guess=='amoeba') {
         queue_shy_trivium("<a href=https://en.wikipedia.org/wiki/Amoeba>Learn what an amoeba is</a>");
         return "Not really a kind of animal.";
@@ -139,12 +140,13 @@ function invalid_guess_egg_message(guess) {
         queue_trivium("The word “scabies” actually comes from the Latin «<a href=//en.wiktionary.org/wiki/scabo#Latin>scabō</a>», a verb meaning to scratch or scrape. It's easy to assume that “scabies” refers to the parasites, but it basically just means “the itches”.");
         return "Nice try, but the animal that causes scabies isn't called “a scabie”."
     }
-    if (guess=='tree' || guess=='moss') { return "Animals, not plants, please."; }
+    if (guess=='tree' || guess=='moss' || guess=='flower' || guess=='apple') { return "Animals, not plants, please."; }
     if (guess=='yeast') { return "That's fungus."; }
     if (guess=='mold') { return "That's fungus, typically."; }
     if (guess=='plant') { h1.innerText = "list ANIMALS until failure"; return ' '; }
     if (guess=='fungus' || guess=='fungi' || guess=='virus' || guess=='diatom' || guess=='germ' || guess=='cordyceps') { return "No." }
     if (guess=='car') return "With wheels?";
+    if (guess=='funnel web') return "Just the web?";
 
     if (guess=='cryptobug') { return "That's a brand name."; }
     if (guess=='mockingjay') { return "Not actually a real bird."; }
@@ -175,11 +177,13 @@ function invalid_guess_egg_message(guess) {
     if (guess=='secretariat' || guess=='clever hans' || guess=='potoooooooo') {
         return "If individuals counted, you could just name people.";
     }
+    if (guess=='nemo') return "And what kind of fish is he?";
 
     if (guess=='hint' || h==613114319434169 || (guess=='help' && (guessed_ids.length || rules.open))) {
         return choice(['Try thinking of ']) + choice(['bugs','farm animals','dinosaurs','fish. Many fish names just end in -fish']) + '.';
     }
     if (guess=='help') { rules.open = true; return ' '; }
+    if (guess=='a') return "No need to recite the alphabet.";
     if (h==6386118624072996) { return "You can't fool me."; }
 }
 
