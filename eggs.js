@@ -147,6 +147,7 @@ function invalid_guess_egg_message(guess) {
     if (guess=='fungus' || guess=='fungi' || guess=='virus' || guess=='diatom' || guess=='germ' || guess=='cordyceps') { return "No." }
     if (guess=='car') return "With wheels?";
     if (guess=='funnel web') return "Just the web?";
+    if (guess=='star') return "So close! That is a shape.";
 
     if (guess=='cryptobug') { return "That's a brand name."; }
     if (guess=='mockingjay') { return "Not actually a real bird."; }
