@@ -266,6 +266,7 @@ function equivalence_egg_message(guess, guess_id) {
     if (guess=='parakeet' && guesses.includes('parrot')) {
         return "(Sorry, “parakeet” is dialectal so I'm not sure which bird(s) you mean.)";
     }
+    if ((guess=='possum' && guesses.includes('opossum')) || (guess=='opossum' && guesses.includes('possum'))) return "Sorry but they're used interchangeably.";
     if (guess_id==LOWER_TITLE_TO_ID.dog && (!guesses.slice(0,-1).includes(guess) || !DOGS_IS_THE_SAME[0])) {
         if (dog_index > 3) { h1.innerText = h1.innerText.replace("until failure", "OTHER THAN DOGS") }
         return DOGS_IS_THE_SAME[dog_index++] || "NO!";
@@ -312,6 +313,9 @@ function ancestry_egg_message(guess, descendant_id, ancestor_id) {
     }
     if (descendant_id==LOWER_TITLE_TO_ID.rattlesnake && ancestor_id==LOWER_TITLE_TO_ID.viper) {
         return "(Rattlesnakes are pit vipers.)";
+    }
+    if (descendant_id==LOWER_TITLE_TO_ID.wallaby && ancestor_id==LOWER_TITLE_TO_ID.kangaroo) {
+        return "(I know they're usually different, but the antilopine wallaroo is called either.)";
     }
     if (descendant_id==LOWER_TITLE_TO_ID.elk && ancestor_id==LOWER_TITLE_TO_ID.deer) return "(Yes, elk are deer.)";
     if (descendant_id==LOWER_TITLE_TO_ID.moose && ancestor_id==LOWER_TITLE_TO_ID.deer) return "(Yes, moose are deer.)";
