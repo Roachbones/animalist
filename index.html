@@ -105,9 +105,9 @@ body.sky #visualshint, body.water #visualshint {
     /* @media (prefers-reduced-motion: no-preference) { */
         transition-property: font-size;
         transition-duration: 1s;
-    &::after {
+    /*&::after {
         content: attr(content);
-    }
+    } doesn't always trigger repaint so let's just set textcontent instead */ 
     &[content^="0:1"] {
         font-size: 2em;
         color: var(--urgent-color-1);
@@ -595,7 +595,9 @@ function updateTimer() {
         endGame();
         secondsLeft = 0;
     }
-    timer.setAttribute('content', Math.floor(secondsLeft/60) + ":" + Math.floor(secondsLeft%60).toString().padStart(2,0));
+    let timerText = Math.floor(secondsLeft/60) + ":" + Math.floor(secondsLeft%60).toString().padStart(2,0);
+    timer.setAttribute('content', timerText);
+    timer.textContent = timerText;
 }
 
 function emojiSummary() {
