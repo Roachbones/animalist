@@ -267,7 +267,10 @@ function equivalence_egg_message(guess, guess_id) {
     if (guess=='parakeet' && guesses.includes('parrot')) {
         return "(Sorry, “parakeet” is dialectal so I'm not sure which bird(s) you mean.)";
     }
-    if ((guess=='possum' && guesses.includes('opossum')) || (guess=='opossum' && guesses.includes('possum'))) return "Sorry but they're used interchangeably.";
+    if ((guess=='possum' && guesses.includes('opossum')) || (guess=='opossum' && guesses.includes('possum'))) {
+        queue_shy_trivium("Some would have you believe that “possum” and “opossum” are different creatures, but in colloquial language the terms are interchangeable. For example, the Virginia (o)possum is called both terms. The Wikipedia page for Possum even starts “The possums (sometimes opossums)”.");
+        return "Sorry but they're used interchangeably.";
+    }
     if (guess_id==LOWER_TITLE_TO_ID.dog && (!guesses.slice(0,-1).includes(guess) || !DOGS_IS_THE_SAME[0])) {
         if (dog_index > 3) { h1.innerText = h1.innerText.replace("until failure", "OTHER THAN DOGS") }
         return DOGS_IS_THE_SAME[dog_index++] || "NO!";
