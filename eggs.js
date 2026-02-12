@@ -199,6 +199,7 @@ function valid_guess_egg_message(guess, guess_id) {
     if (guess == 'mule') {
         return 'Kind of a weird case, but sure, it counts.';
     }
+    if (guess == 'sturddlefish') return "I GUESS?";
     if (guess == 'killer hornet') {
         return "Okay, I'll allow it, but you should just call it the Asian giant hornet.";
     }
