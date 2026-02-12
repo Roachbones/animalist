@@ -318,6 +318,9 @@ function ancestry_egg_message(guess, descendant_id, ancestor_id) {
     if (descendant_id==LOWER_TITLE_TO_ID.wallaby && ancestor_id==LOWER_TITLE_TO_ID.kangaroo) {
         return "(I know they're usually different, but the antilopine wallaroo is called either.)";
     }
+    if (descendant_id=='Q499627' && ancestor_id==LOWER_TITLE_TO_ID.ladybug && guesses.includes('ladybug')) {
+        return "(Yes, the Asian lady beetle is a ladybug.)";
+    }
     if (descendant_id==LOWER_TITLE_TO_ID.elk && ancestor_id==LOWER_TITLE_TO_ID.deer) return "(Yes, elk are deer.)";
     if (descendant_id==LOWER_TITLE_TO_ID.moose && ancestor_id==LOWER_TITLE_TO_ID.deer) return "(Yes, moose are deer.)";
     //if (descendant_id=='Q727919' && ancestor_id=='Q83902') {
