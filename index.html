@@ -339,6 +339,7 @@ snail-race {
 }
 @keyframes crawl { to { margin-left: -1em; } }
 
+body:has(#disablebgbox:checked) #underlay { display: none; }
 
     </style>
     <link rel=stylesheet href=evolution.css>
@@ -686,7 +687,8 @@ function load() {
         <summary title=Settings><h2>Settings</h2><span id=gear>⚙️</span></summary>
         <label>initial time (s): <input type=number size=2 id=initial_time_control min=1 value=60></label>
         <label>time increment (s): <input type=number size=2 id=increment_control min=0 value=6></label>
-        <button onclick="initial_time_control.value=60;increment_control.value=6">reset to defaults</button>
+        <label><input type=checkbox id=disablebgbox></input>disable animated backgrounds</label>
+        <button onclick="initial_time_control.value=60;increment_control.value=6;disablebgbox.checked=0">reset to defaults</button>
     </details>
    
     <p>Score: <span id=scorespan>0</span></p>
