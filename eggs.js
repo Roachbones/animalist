@@ -167,7 +167,8 @@ function invalid_guess_egg_message(guess) {
         || guess=='worker bee' || guess=='queen bee'
         || guess=='lab mouse' || guess=='laboratory mouse' || guess=='lab rat'
         || guess=='parasite'
-        || guess=='harvester ant') {
+        || guess=='harvester ant'
+        || guess=='woodboring beetle' || guess=='wood boring beetle') {
         return "That's more of an occupation, isn't it?";
     }
     if (guess=='polyp') { return "That's more of a shape, really."; }
