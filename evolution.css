@@ -18,6 +18,7 @@ body {
 body.sky {
     background-color: lightskyblue;
     background-image: url(media/tile_clouds.svg);
+    &:has(#disablebgbox:checked) { background-image: none; }
     @media (prefers-color-scheme: dark) {
         background-color: midnightblue;
         background-blend-mode: soft-light;
@@ -32,6 +33,7 @@ body.sky {
 body.water {
     background-color: lightseagreen;
     background-image: url(media/tile_water.svg);
+    &:has(#disablebgbox:checked) { background-image: none; }
     @media (prefers-color-scheme: dark) {
         background-color: navy;
     }
