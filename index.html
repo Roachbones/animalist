@@ -197,8 +197,8 @@ body:has(#log li) #settings-page { /* hide settings during game */
     animation-timing-function: cubic-bezier(.18,.89,.33,1.33);
     background-color: var(--modal-background-color);
     padding: 1em;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0; right: 0; margin-inline: auto;
+    width: fit-content; max-width: 20em;
     @media (prefers-contrast: more) { border-style: outset; }
     & summary { user-select: none; }
 }
