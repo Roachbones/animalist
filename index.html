@@ -862,7 +862,7 @@ function updateDaily(debugOffset=0) {
         dailybutton.disabled = false;
         dailybutton2.disabled = false;
         dailypage.title = '';
-        dailydesc.textContent += '❗'
+        dailydesc.textContent += '❗';
     }
 }
 
@@ -895,8 +895,25 @@ function singleInitialChallenge(letter) {
     }
 }
 
+alphabeticalChallenge = {
+    shortname: 'alphabetical',
+    title: 'list animals in alphabetical order',
+    subtitle: 'abcdefghijklmnopqrstuvwxyz',
+    rejection: function (_guess_id, guess) {
+        let prevGuess = correct_guesses[correct_guesses.length-1];
+        if (prevGuess && guess.localeCompare(prevGuess)<0) return "That alphabetically precedes" + prevGuess + ".";
+    },
+    attributivizeScore: ()=> score + (score==1 ? '' : 's') + ' listed alphabetically'
+}
+
+invisibleTimerChallenge = {
+    shortname: 'invisibletimer',
+    title: 'list animals invisibly timed',
+    subtitle: "the timer is invisible. maybe it's easier without the big red countdown",
+    rejection: ()=>{}
+}
+
 function challengeForToday() {
-    
     if (1==0) return {
         shortname: '0.5s-1s',
         title: 'half-second test challenge',
@@ -946,7 +963,6 @@ function challengeForToday() {
     }
     arachnid_challenge.duration_s = 30; arachnid_challenge.increment_s = 8;
     
-    if (date==8) return arachnid_challenge;
     
     if (day==0) return singleTaxonChallenge('bird', "it's bird sunday"); // Bird Sunday
     if (day==1) return singleTaxonChallenge('mammal', 'Mammal Monday');
@@ -958,7 +974,7 @@ function challengeForToday() {
         subtitle: 'speedrun saturday',
         duration_s: 30, increment_s: 3,
         rejection: ()=>{},
-        attributivizeScore: ()=> score + ' animal' + (score==1 ? '' : 's') + ' listed in ½ time (30s+3s)'
+        attributivizeScore: ()=> score + ' animal' + (score==1 ? '' : 's') + ' listed fast (30s+3s)'
     }
     
     if (date==1) return singleTaxonChallenge('snake');
@@ -968,18 +984,17 @@ function challengeForToday() {
     if (date==5) return singleTaxonChallenge('primate');
     if (date==6) return insect_challenge;
     if (date==7) return singleTaxonChallenge('ruminant', 'hooved grazers');
-    if (date==8) return singleTaxonChallenge('spider');
+    if (date==8) return arachnid_challenge;
     if (date==9) return wordchain_challenge;
-    if (date==10) {
-        c = singleTaxonChallenge('ant');
-        c.rejection = (guess_id, guess) => {
-            if (guess=='velvet ant') return "Velvet ants aren't actually ants. Sorry.";
-            if (!ancests(LOWER_TITLE_TO_ID.ant, guess_id)) return "Not an ant.";
-        };
-        c.duration_s = 20;
-        c.increment_s = 4;
-        return c;
+    
+    if (date==10) return {
+        shortname: '10-1',
+        title: 'list animals faster!',
+        duration_s: 10, increment_s: 1,
+        rejection: ()=>{},
+        attributivizeScore: ()=>{ score + ' animal' + (score==1 ? '' : 's') + ' listed faster (10s+1s)' }
     }
+    
     if (date==11) return {
         shortname: 'non-mammal',
         title: 'list non-mammal animals until failure',
@@ -987,7 +1002,7 @@ function challengeForToday() {
             if (ancests(LOWER_TITLE_TO_ID.mammal, guess_id)) return "That's a mammal.";
         }
     };
-    if (date==12) return singleTaxonChallenge('beetle', 'order of insects with hardened wing-cases');
+    if (date==12) return singleTaxonChallenge('beetle', 'insects with hardened wing-cases');
     if (date==13) {
         let letters = 'etaoinshrdlcumwfg';
         letter = letters[(day + today.getFullYear()) % letters.length];
@@ -1007,7 +1022,7 @@ function challengeForToday() {
         c.duration_s = 5; c.increment_s = 3;
         return c;
     }
-    if (date==21) return singleTaxonChallenge('wasp', 'not including bees & ants');
+    //if (date==21) return singleTaxonChallenge('wasp', 'not including bees & ants');
     if (date==22) return {
         shortname: '-fish',
         title: 'list animals whose names end in -fish',
@@ -1017,27 +1032,13 @@ function challengeForToday() {
         },
         attributivizeScore: ()=>{ score + ' fish listed' }
     };
-    if (date==23) return {
-        shortname: '10-1',
-        title: 'list animals faster!',
-        duration_s: 10, increment_s: 1,
-        rejection: ()=>{},
-        attributivizeScore: ()=>{ score + ' animal' + (score==1 ? '' : 's') + ' listed faster (10s+1s)' }
-    }
     if (date==24) {
         c = singleTaxonChallenge('bear', "there are only like 8 of them");
         c.duration_s = 25; c.increment_s = 5;
         return c;
     }
     if (date==25) return singleTaxonChallenge('rodent', 'from Latin <i>rōdēns</i>, “gnawing”');
-    if (date==26) return {
-        shortname: 'invertebrate',
-        title: 'list invertebrates until failure',
-        subtitle: 'spineless animals',
-        rejection: function(guess_id, guess) {
-            if (ancests(LOWER_TITLE_TO_ID.vertebrata, guess_id))return "That's a vertebrate.";
-        }
-    };
+    if (date==26) return alphabeticalChallenge;
     if (date==27) return singleTaxonChallenge('sauropsid', 'bird & reptiles');
     if (date==28) return singleTaxonChallenge('marsupial');
     if (date==29) return {
@@ -1048,8 +1049,30 @@ function challengeForToday() {
         rejection: ()=>{},
         attributivizeScore: ()=>{ score + ' animal' + (score==1 ? '' : 's') + ' listed in 1 min' }
     }
-    if (date==30) return singleTaxonChallenge('myriapod', 'centipedes & millipedes');
+
+    if (date==30) return {
+        shortname: 'invertebrate',
+        title: 'list invertebrates until failure',
+        subtitle: 'spineless animals',
+        rejection: function(guess_id, guess) {
+            if (ancests(LOWER_TITLE_TO_ID.vertebrata, guess_id))return "That's a vertebrate.";
+        }
+    };
+    
+    //if (date==30) return singleTaxonChallenge('myriapod', 'centipedes & millipedes');
     if (date==31) return singleTaxonChallenge('owl');
+    
+    if (date==32) {
+        c = singleTaxonChallenge('ant');
+        c.rejection = (guess_id, guess) => {
+            if (guess=='velvet ant') return "Velvet ants aren't actually ants. Sorry.";
+            if (!ancests(LOWER_TITLE_TO_ID.ant, guess_id)) return "Not an ant.";
+        };
+        c.duration_s = 20;
+        c.increment_s = 4;
+        return c;
+    }
+
     if (date==NaN) return singleTaxonChallenge('tullimonstrum');
     return insect_challenge;
 }
@@ -1086,6 +1109,7 @@ function startChallenge(challenge) {
     if (!challenge) { alert("error challenge not defined bwehh >.<'"); }
     challenge.duration_s ||= DEFAULT_DURATION_S;
     challenge.increment_s ||= DEFAULT_INCREMENT_S;
+    challenge.attributivizeScore ||= ()=> score + 'animal' + (score==1 ? '' : 's') + ' listed';
     currentChallenge = challenge;
     h1.innerHTML = challenge.title;
     subtitle.innerHTML = challenge.subtitle || '';
@@ -1096,7 +1120,7 @@ function startChallenge(challenge) {
     dailypage.open = false;
     
     throb(h1);
-    //if (challenge.duration_s != DEFAULT_DURATION_S) throb(timer);
+    if (challenge.duration_s != DEFAULT_DURATION_S) throb(timer);
 }
 
 
