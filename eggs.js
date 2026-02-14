@@ -328,6 +328,12 @@ function ancestry_egg_message(guess, descendant_id, ancestor_id) {
     if (descendant_id==LOWER_TITLE_TO_ID['king cobra'] && ancestor_id==LOWER_TITLE_TO_ID.cobra) {
         return "(I know king cobras aren't “true cobras”, but come on, it has cobra in the name)";
     }
+    if (descendant_id==LOWER_TITLE_TO_ID.mosquito && ancestor_id == LOWER_TITLE_TO_ID.fly) {
+        if (guess=='fly') { // you don't know what a fly is if you're guessing it after mosquito
+            queue_shy_trivium("A “fly” is an insect with one pair of wings. Other winged insects typically have two pairs. Dragonflies, damselflies, and dobsonflies aren't flies. Crane flies, robber flies, gnats, and mosquitos are flies.");
+        }
+        return "(Yes, mosquitos are flies.)";
+    }
     if (descendant_id==LOWER_TITLE_TO_ID.elk && ancestor_id==LOWER_TITLE_TO_ID.deer) return "(Yes, elk are deer.)";
     if (descendant_id==LOWER_TITLE_TO_ID.moose && ancestor_id==LOWER_TITLE_TO_ID.deer) return "(Yes, moose are deer.)";
     //if (descendant_id=='Q727919' && ancestor_id=='Q83902') {
