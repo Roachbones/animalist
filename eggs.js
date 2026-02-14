@@ -176,7 +176,7 @@ function invalid_guess_egg_message(guess) {
         return "That can actually refer to a lot of different animals.";
     }
 
-    if (guess=='secretariat' || guess=='clever hans' || guess=='potoooooooo') {
+    if (guess=='secretariat' || guess=='clever hans' || guess=='potoooooooo' || guess=='wojtek') {
         return "If individuals counted, you could just name people.";
     }
     if (guess=='nemo') return "And what kind of fish is he?";
