@@ -404,6 +404,18 @@ function newGame() {
 // ID_TO_TITLE: id to sentence-case title
 // PARENT: id to parent's id
 
+function* lineage(guess_id) {
+    yield guess_id;
+    var ancestor_id = PARENT[guess_id];
+    while (PARENT[ancestor_id]) {
+        yield ancestor_id;
+        ancestor_id = PARENT[ancestor_id];
+    }
+}
+function debugLineage(guess) {
+    for (let i of lineage(LOWER_TITLE_TO_ID[guess]))console.log(i, ID_TO_TITLE[i]);
+}
+
 function wiggle(e) {
     e.style.animation = null;
     e.offsetTop;
