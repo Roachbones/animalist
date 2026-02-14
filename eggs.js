@@ -154,6 +154,7 @@ function invalid_guess_egg_message(guess) {
     if (guess=='mockingjay') { return "Not actually a real bird."; }
     if (guess=='jabberjay') { return "Come on, you know that one's fictional."; }
     if (guess=='pikachu') { return "What? No. That is a Pokémon."; }
+    if (guess=='dewgong') { return "That's the Pokémon."; }
     if (guess=='black panther') { return "Not really a distinct animal."; }
     if (guess=='white elephant') { return "That's not really a distinct kind of elephant."; }
     if (guess=='kudu') { return 'Lesser or greater?'; }
