@@ -162,7 +162,7 @@ function invalid_guess_egg_message(guess) {
     if (guess=='yellow butterfly') { return "Lots of butterflies are yellow. Can you be more specific?"; }
     if (guess=='green snake') { return "So many snakes are green. Which one?"; }
     if (guess=='brown squirrel') { return "That's not really a distinct kind of squirrel."; }
-    if (guess=='mantaray') { return "It's two words, actually."; }
+    if (guess=='mantaray' || guess=='fruitbat') { return "It's two words, actually."; }
     if (guess=='carrier pigeon' || guess=='homing pigeon' || guess=='war pigeon' || guess=='mail pigeon' || guess=='messenger pigeon'
         || guess=='cleaner shrimp'
         || guess=='worker bee' || guess=='queen bee'
