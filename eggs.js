@@ -88,7 +88,7 @@ function invalid_guess_egg_message(guess) {
         return "That's a culinary term for any crab killed while vulnerable from a recent molt.";
     }
     if (guess=='shellfish') { return "That's more of a culinary term. Try naming a specific shellfish."; }
-    if (guess=='kipper') { return "That's more of a culinary term; it's a herring or salmon corpse that has been split and salted."; }
+    if (guess=='kipper') { return "That's more of a culinary term; it's a herring or salmon corpse, split and salted."; }
     if (guess=='haggis' || guess == 'wild haggis') { return 'Left-footed or right-footed?'; }
     if (guess=='pork' || guess=='ham' || guess=='beef' || guess=='steak' || guess=='mutton' || guess=='veal' || guess=='escargot') {
         return "That term only refers to the animal's corpse.";
