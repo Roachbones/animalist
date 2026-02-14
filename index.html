@@ -123,6 +123,19 @@ body.sky #visualshint, body.water #visualshint {
     min-height: 1.3em;
     padding: 1em;
 }
+.error {
+    color: red;
+    font-family: serif;
+    rotate: -5deg;
+    &::before {
+        content: 'Error';
+        font-size: xx-large;
+        font-weight: bold;
+    }
+    & p:first-child {
+        font-size: small;
+    }
+}
 
 #guessbox { font-size: 16px; }
 #guessbox[disabled] { opacity: 1; } /* Safari workaround (disabled textboxes have low opacity, which ghosts through gameoverscreen) */
@@ -400,9 +413,25 @@ function wiggle(e) {
 function choice(l) { return l[Math.floor(Math.random()*l.length)]; }
 
 function appendp(element, text) {
-    var p = document.createElement('p');
-    p.innerText = text;
+    let p = document.createElement('p');
+    p.textContent = text;
     element.append(p);
+    return p;
+}
+
+function tryAttempt() {
+    try {
+        attempt();
+    } catch (error) {
+        console.error(error);
+        let errorReport = document.createElement('div');
+        errorReport.classList.add('error');
+        appendp(errorReport, error);
+        if (!guessed_ids.length) {
+            appendp(errorReport, 'Try refreshing?');
+        }
+        comment.append(errorReport);
+    }
 }
 
 function attempt() {
@@ -544,7 +573,7 @@ function attempt() {
 }
 
 function uncomment() {
-    comment.innerText='';
+    comment.textContent='';
 }
 
 function grantIncrement(ms) {
@@ -698,8 +727,6 @@ function load() {
         <div id=timerconfetti></div>
     </div>
     
-    <!-- Someone please explain to me why I need this wrapper element instead of applying transform:perspective(30rem) to gameoverscreen!
-         I can't just apply perspective to body bc it messes with the settings-page positioning (inconsistent in browsers; mdn notes this)-->
     <three-dimensional style=perspective:30rem;display:block>
         <section id=gameoverscreen>
             <h2>game over</h2>
@@ -720,12 +747,12 @@ function load() {
             </details>
         </section>
     </three-dimensional>
-    
+
     <output id=comment for=guessbox></output>
     <!--<div id=yetanothercontainer style=overflow-x:clip>-->
     <solar-system>
         <!--<div id=belt><div id=orbiter><div id=kettle><img id=prey src=media/bird.svg><img id=predator src=media/eagle.svg></div></div></div>-->
-        <input id=guessbox autofocus autocomplete=off onkeydown="if(event.key==`Enter`){attempt()}" oninput=uncomment()>
+        <input id=guessbox autofocus autocomplete=off onkeydown="if(event.key==`Enter`){tryAttempt()}" oninput=uncomment()>
     </solar-system>
     <ul id=log></ul>
     <!--</div>-->
