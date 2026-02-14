@@ -2,7 +2,7 @@ THANKS=[
     "(thanks to <a href=https://mou.sh target=_blank>Olive</a> for playtesting)",
     "(thanks to <a href=https://devin.gay target=_blank>Devin</a> for early playtesting)",
     "(thanks to <a href=https://novalinium.com target=_blank>Nova</a> for appreciation and encouragement)",
-    "(thanks to Denizens of the Book of Creation Undone)",
+    "(thanks to denizens of the Book of Creation Undone)",
     "(thanks to Lynn Hughes for data advice)",
     "(thanks to <a href=https://electr1.ca target=_blank>Teri</a> for early playtesting)",
     "(thanks to <a href=https://soapie.space target=_blank>Sophie</a> et al for early playtesting)",
