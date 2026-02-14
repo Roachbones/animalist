@@ -107,7 +107,7 @@ function invalid_guess_egg_message(guess) {
         return "Not quite how it's spelled.";
     }
     if (guess=='dear' && !guesses.includes('deer')) { return "Wrong spelling, dear."; }
-    if (guess=='muscle' || guess=='mussle' && guessed_ids.includes(lower_title_to_id.mussel)) {
+    if ((guess=='muscle' || guess=='mussle') && !guessed_ids.includes(LOWER_TITLE_TO_ID.mussel)) {
         queue_trivium("The modern spelling “mussel”, distinguished from “muscle”, has been recorded since the 1600s, but wasn't fully established until the 1870s.");
         return "Not quite how it's spelled.";
     }
