@@ -563,6 +563,7 @@ function tryAttempt() {
 }
 
 function attempt() {
+    if (guessbox.value=='!debuglose') endTime=1;
     var verbatim_guess = guessbox.value;
     var guess = guessbox.value.trim().toLowerCase().replaceAll("-"," ").replaceAll('’',"'").replaceAll(/ +/g, ' ');
     if (!guess) { return; }
