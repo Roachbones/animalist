@@ -1,16 +1,6 @@
 // Tiny little features nobody will notice, tucked away here so as not to clutter the mains.
 
 
-
-// todo move later
-function ancests(possible_ancestor_id, guess_id) {
-    var ancestor_id = PARENT[guess_id];
-    while (PARENT[ancestor_id]) {
-        if (ancestor_id == possible_ancestor_id) { return true; }
-        ancestor_id = PARENT[ancestor_id];
-    }
-}
-
 major_groups = {
     Bird: 'Q5113'
 }

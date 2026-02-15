@@ -19,6 +19,7 @@ function updateDaily(debugOffset=0) {
         dailypage.title = '';
         dailydesc.textContent += '❗';
     }
+    return daily;
 }
 
 wordchainChallenge = {
@@ -110,7 +111,7 @@ function challengeForToday() {
         shortname: 'arachnids/octopuses',
         title: 'list arachnids & octopuses until failure',
         rejection: function(guess_id) {
-            if (!any_ancests([LOWER_TITLE_TO_ID.arachnid, LOWER_TITLE_TO_ID.octopus], guess_id)) {
+            if (!anyAncestsOrIs([LOWER_TITLE_TO_ID.arachnid, LOWER_TITLE_TO_ID.octopus], guess_id)) {
                 return "Not arachnid nor octopus.";
             }
         },
@@ -174,7 +175,7 @@ function challengeForToday() {
         shortname: 'non-mammal',
         title: 'list non-mammal animals until failure',
         rejection: function(guess_id, guess) {
-            if (ancests(LOWER_TITLE_TO_ID.mammal, guess_id)) return "That's a mammal.";
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.mammal, guess_id)) return "That's a mammal.";
         }
     };
     if (date==12) return singleTaxonChallenge('beetle', 'insects with hardened wing-cases');
@@ -231,7 +232,7 @@ function challengeForToday() {
         title: 'list invertebrates until failure',
         subtitle: 'spineless animals',
         rejection: function(guess_id, guess) {
-            if (ancests(LOWER_TITLE_TO_ID.vertebrata, guess_id))return "That's a vertebrate.";
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.vertebrata, guess_id)) return "That's a vertebrate.";
         }
     };
     //if (date==30) return singleTaxonChallenge('myriapod', 'centipedes & millipedes');
@@ -240,7 +241,7 @@ function challengeForToday() {
         c = singleTaxonChallenge('ant');
         c.rejection = (guess_id, guess) => {
             if (guess=='velvet ant') return "Velvet ants aren't actually ants. Sorry.";
-            if (!ancests(LOWER_TITLE_TO_ID.ant, guess_id)) return "Not an ant.";
+            if (!ancestsOrIs(LOWER_TITLE_TO_ID.ant, guess_id)) return "Not an ant.";
         };
         c.duration_s = 20;
         c.increment_s = 4;
@@ -261,7 +262,7 @@ function singleTaxonChallenge(ancestor_name, subtitle, ancestor_article, ancesto
         title: "list " + ancestor_name_plural + " until failure",
         subtitle: subtitle,
         rejection: function(guess_id) {
-            if (!ancests(LOWER_TITLE_TO_ID[ancestor_name], guess_id)) {
+            if (!ancestsOrIs(LOWER_TITLE_TO_ID[ancestor_name], guess_id)) {
                 return "Not " + ancestor_article + " " + ancestor_name + ".";
             }
         },

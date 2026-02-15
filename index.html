@@ -419,9 +419,9 @@ snail-race {
 
 body:has(#disablebgbox:checked) #underlay { display: none; }
 
-#dailypage {display:none;}
-
 body.invisibletimer #timer { visibility: hidden; }
+
+#dailypage {display:none;}
 
     </style>
     <link rel=stylesheet href=evolution.css>
@@ -493,6 +493,7 @@ function debugLineage(guess) {
     for (let i of lineage(LOWER_TITLE_TO_ID[guess]))console.log(i, ID_TO_TITLE[i]);
 }
 
+function ancestsOrIs(a, b) { return a==b || ancests(a,b); }
 function ancests(possible_ancestor_id, guess_id) {
     // Whether possible_ancestor_id ancests (is an ancestor of) guess_id.
     var ancestor_id = PARENT[guess_id];
@@ -502,7 +503,8 @@ function ancests(possible_ancestor_id, guess_id) {
     }
 }
 
-function any_ancests(possible_ancestor_ids, guess_id) {
+function anyAncestsOrIs(a, b) { return a.includes(b) || ancests(a,b); }
+function anyAncests(possible_ancestor_ids, guess_id) {
     // Whether any of possible_ancestor_ids ancests (is an ancestor of) guess_id.
     var ancestor_id = PARENT[guess_id];
     while (PARENT[ancestor_id]) {
@@ -529,22 +531,24 @@ function appendp(element, text) {
     return p;
 }
 
+function reportError(e) {
+    console.error(error);
+    let errorReport = document.createElement('div');
+    errorReport.classList.add('error');
+    appendp(errorReport, error);
+    if (!guessed_ids.length) {
+        appendp(errorReport, 'Try refreshing?');
+    }
+    comment.append(errorReport);
+}
+
 function tryAttempt() {
     try {
         attempt();
     } catch (error) {
-        console.error(error);
-        let errorReport = document.createElement('div');
-        errorReport.classList.add('error');
-        appendp(errorReport, error);
-        if (!guessed_ids.length) {
-            appendp(errorReport, 'Try refreshing?');
-        }
-        comment.append(errorReport);
+        reportError(e);
     }
 }
-
-
 
 function any_ancests(possible_ancestor_ids, guess_id) {
     // Whether any of possible_ancestor_ids ancests (is an ancestor of) guess_id.
@@ -791,7 +795,7 @@ function generateShareString() {
     s = 'https://rose.systems/animalist';
     if (document.body.classList.contains('daily')) s += '#today';
     s += '\n' + timerDisclaimer;
-    s += '\n' + currentChallenge?.attributivizeScore?.() || (score + ' animal'+(score!=1?'s':'')+' listed');
+    s += '\n' + (currentChallenge?.attributivizeScore?.() || (score + ' animal'+(score!=1?'s':'')+' listed'));
     s += '\n' + emojiSummary();
     return s;
 }
@@ -839,14 +843,15 @@ function load() {
     newGame();
     setInterval(updateTimer);
     setInterval(updateUnderlay, 100);
-    if (location.hash=='#today' && !localStorage['c_'+daily.key]) {
+    if (location.hash=='#today') {
         startDaily();
     }
 }
 
 function startDaily() {
     if (localStorage['c_'+daily.key]) { // todo could be a method on daily
-        return alert('Error: challenge ' + daily.key + ' (' + daily.shortname + ') already attempted >.<;');
+        comment.textContent = "Already attempted today's daily challenge (" + daily.title + ")."; // todo include sharestring
+        return;
     }
     startChallenge(daily);
 }
