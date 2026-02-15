@@ -151,7 +151,7 @@ function challengeForToday() {
     if (day==0) return singleTaxonChallenge('bird', "it's bird sunday"); // Bird Sunday
     if (day==1) return singleTaxonChallenge('mammal', 'Mammal Monday');
     if (day==4) return singleTaxonChallenge('arthropod', 'Exoskeletoned invertebrates.'); // Arthropod Thursday
-    if (day==6) return { // Speedrun Saturday
+    if (day==6) return { // todo scrap this one?
         shortname: '30s+3s',
         title: 'list animals fast',
         subtitle: 'speedrun saturday',
@@ -171,7 +171,7 @@ function challengeForToday() {
     if (date==10) return {
         shortname: '10-1',
         title: 'list animals faster!',
-        duration_s: 10, increment_s: 1,
+        duration_s: 10, increment_s: 2,
         rejection: ()=>{},
         attributivizeScore: ()=>{ score + ' animal' + (score==1 ? '' : 's') + ' listed faster (10s+1s)' }
     }
@@ -199,8 +199,8 @@ function challengeForToday() {
             if (ancestsOrIs(LOWER_TITLE_TO_ID.mustelid, guess_id)) return "That's a mustelid, not a felid.";
             return "Not a felid.";
         }
-        c.duration_s = 50;
-        c.increment_s = 5;
+        c.duration_s = 40;
+        c.increment_s = 6;
         return c;
     }
     if (date==18) {
@@ -211,8 +211,8 @@ function challengeForToday() {
             if (ancestsOrIs(LOWER_TITLE_TO_ID.mustelid, guess_id)) return "That's a mustelid, not a canid.";
             return "Not a canid.";
         }
-        c.duration_s = 50;
-        c.increment_s = 5;
+        c.duration_s = 40;
+        c.increment_s = 6;
         return c;
     }
     if (date==19) return singleTaxonChallenge('amphibian', 'members of the class Amphibia');
@@ -221,7 +221,7 @@ function challengeForToday() {
     //if (date==20) return singleTaxonChallenge('carnivoran', 'an order of placental mammals specialized primarily in eating flesh; includes felids, canids, and others');
     if (date==20) {
         c = singleTaxonChallenge('monotreme', 'egg-laying mammals');
-        c.duration_s = 5; c.increment_s = 3;
+        c.duration_s = 5; c.increment_s = 4;
         return c;
     }
     //if (date==21) return singleTaxonChallenge('wasp', 'not including bees & ants');
@@ -241,6 +241,7 @@ function challengeForToday() {
         return c;
     }
     if (date==25) return singleTaxonChallenge('rodent', 'from Latin <i>rōdēns</i>, “gnawing”');
+    // todo that's a mustelid
     if (date==26) return alphabeticalChallenge;
     if (date==27) return singleTaxonChallenge('sauropsid', 'bird & reptiles');
     if (date==28) return singleTaxonChallenge('marsupial');
