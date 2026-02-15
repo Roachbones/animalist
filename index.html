@@ -531,7 +531,15 @@ function appendp(element, text) {
     return p;
 }
 
-function reportError(e) {
+function reportError(error) {
+    fetch(
+        "https://guestbook.rose.systems/animalserror",
+        {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({e: {e: error.toString(), u: location.toString()}}),
+        }
+    )
     console.error(error);
     let errorReport = document.createElement('div');
     errorReport.classList.add('error');
@@ -546,16 +554,7 @@ function tryAttempt() {
     try {
         attempt();
     } catch (error) {
-        reportError(e);
-    }
-}
-
-function any_ancests(possible_ancestor_ids, guess_id) {
-    // Whether any of possible_ancestor_ids ancests (is an ancestor of) guess_id.
-    var ancestor_id = PARENT[guess_id];
-    while (PARENT[ancestor_id]) {
-        if (possible_ancestor_ids.has(ancestor_id)) { return true; }
-        ancestor_id = PARENT[ancestor_id];
+        reportError(error);
     }
 }
 
@@ -822,7 +821,7 @@ function endGame() {
         {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
-            body: [currentChallenge?.shortname || '', JSON.stringify({guesses: JSON.stringify(guesses)})],
+            body: JSON.stringify({guesses:JSON.stringify(guesses),r:document.referrer}),
         }
     )
     guessbox.disabled = true;
