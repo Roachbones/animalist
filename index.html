@@ -422,7 +422,10 @@ body:has(#disablebgbox:checked) #underlay { display: none; }
 
 body.invisibletimer #timer { visibility: hidden; }
 
-body:not(.dailiesbeta) #dailypage {display:none;}
+body:not(.dailiesbeta) {
+    #dailypage {display:none;}
+    /* #dailybutton2 {display:none;} */
+}
 
     </style>
     <link rel=stylesheet href=evolution.css>
@@ -857,6 +860,7 @@ function startDaily() {
 }
 
 function startChallenge(challenge) {
+    uncomment();
     if (!challenge) { alert("error challenge not defined bwehh >.<'"); }
     challenge.duration_s ||= DEFAULT_DURATION_S;
     challenge.increment_s ||= DEFAULT_INCREMENT_S;
@@ -932,7 +936,7 @@ function startChallenge(challenge) {
                 <span id=tryagaintext>try again</span>
                 <span id=tryagainfromdailytext>play normal-style</span>
             </button>
-            <button id=dailybutton2 onclick=newGame();startDaily()>try today's daily challenge</button>
+            <button id=dailybutton2 onclick=newGame();startDaily()>try today's daily challenge (beta)</button>
             <details id=mistakes style=display:none><summary>mistakes</summary>
                 <ul id=mistakeslog></ul>
                 <p>(If they're my fault, check Wikipedia & <a href=https://rose.systems/contact target=_blank>tell me what to fix</a>.)</p>
