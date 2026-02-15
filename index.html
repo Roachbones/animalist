@@ -821,7 +821,7 @@ function endGame() {
         {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({guesses:JSON.stringify(guesses),r:document.referrer}),
+            body: JSON.stringify({guesses:JSON.stringify(guesses),r:{r:document.referrer,c:currentChallenge?.shortname}}),
         }
     )
     guessbox.disabled = true;
