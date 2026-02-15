@@ -65,6 +65,7 @@ h1 {
     &:has(+ p:not(:empty)) { margin-bottom: 0.25em; }
 }
 #subtitle {
+    transition: color 2s;
     margin-top: 0.25em;
     font-weight: bold;
     &:empty { display: none; }
@@ -468,6 +469,7 @@ function newGame() {
     guessbox.value = '';
     guessbox.disabled = null;
     h1.style = '';
+    subtitle.style = '';
     gameoverscreen.style = '';
     visualshint.style = '';
     underlay.style = '';
@@ -704,6 +706,7 @@ function attempt() {
         for (word of (guess+' '+ID_TO_TITLE[guess_id]).replace('bird','-').split(/[ -]/)) {
             if (CSS.supports('color', word) && word!='field' && word!='canvas' && word!='mark' && word!='highlight') {
                 h1.style.color = word;
+                subtitle.style.color = word;
                 break;
             }
         }
