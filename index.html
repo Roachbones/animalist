@@ -17,6 +17,7 @@ html {color-scheme: light dark;}
     --modal-background-color: #ddd;
     --urgent-color-1: #e93;
     --urgent-color-2: #c11;
+    --friendly-color: purple;
     @media (prefers-contrast: more) {
         --background-color: white;
         --foreground-color: #111;
@@ -33,11 +34,13 @@ html {color-scheme: light dark;}
     --modal-background-color: #666;
     --urgent-color-1: #e93;
     --urgent-color-2: #c11;
+    --friendly-color: plum;
     @media (prefers-contrast: more) {
         --background-color: #111;
         --foreground-color: white;
         --modal-background-color: #333;
         --confetti-color: #ccf;
+        --friendly-color: lavender;
     }
   }
 }
@@ -111,6 +114,7 @@ body:not(.restrictive-daily) #restrictivedailyhint { display: none; }
 #timer {
     font-family: monospace;
     font-size: 1em;
+
     /* @media (prefers-reduced-motion: no-preference) { */
         transition-property: font-size;
         transition-duration: 1s;
@@ -125,6 +129,11 @@ body:not(.restrictive-daily) #restrictivedailyhint { display: none; }
         font-size: min(31vw, 62vh);
         color: var(--urgent-color-2);
     }
+}
+body:has(input#toasthastebox:checked) #timer {
+    font-family: cursive;
+    color: var(--friendly-color);
+    font-size: 1rem;
 }
 
 #comment {
@@ -830,7 +839,7 @@ function endGame() {
         }
     )
     guessbox.disabled = true;
-    navigator.vibrate && navigator.vibrate(999);
+    navigator.vibrate && toasthastebox.checked && navigator.vibrate(999);
     queue_final_trivia();
     cycleThank();
     shareString = generateShareString();
@@ -847,6 +856,7 @@ function load() {
     newGame();
     setInterval(updateTimer);
     setInterval(updateUnderlay, 100);
+    loadSettings();
     if (location.hash=='#today') {
         startDaily();
     }
@@ -885,6 +895,21 @@ function startChallenge(challenge) {
     if (challenge.duration_s != DEFAULT_DURATION_S) throb(timer);
 }
 
+CONFIG = [
+    'disablebgbox','toasthastebox'
+]
+
+function loadSettings() {
+    for (i of CONFIG) {
+        document.getElementById(i).checked = localStorage['setting_'+i];
+    }
+}
+
+function saveSettings() {
+    for (i of CONFIG) {
+        localStorage['setting_'+i] = document.getElementById(i).checked ? 1 : '';
+    }
+}
 
     </script>
 </head>
@@ -916,7 +941,8 @@ function startChallenge(challenge) {
         <summary title=Settings><h2>Settings</h2><span id=gear>⚙️</span></summary>
         <label>initial time (s): <input type=number size=2 id=initial_time_control min=1 value=60></label>
         <label>time increment (s): <input type=number size=2 id=increment_control min=0 value=6></label>
-        <label><input type=checkbox id=disablebgbox></input>disable animated backgrounds</label>
+        <label><input type=checkbox id=disablebgbox onchange=saveSettings()></input>disable animated backgrounds</label>
+        <label><input type=checkbox id=toasthastebox onchange=saveSettings()></input>less scary timer</label>
         <button onclick="initial_time_control.value=60;increment_control.value=6;disablebgbox.checked=0">reset to defaults</button>
     </details>
    
