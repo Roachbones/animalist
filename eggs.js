@@ -139,6 +139,8 @@ function invalid_guess_egg_message(guess) {
     if (guess=='car') return "With wheels?";
     if (guess=='funnel web') return "Just the web?";
     if (guess=='star') return "So close! That is a shape.";
+    if (guess=='mantaray' || guess=='fruitbat') { return "It's two words, actually."; }
+    if (guess=='sand piper') { return "It's one word, actually."; }
 
     if (guess=='cryptobug') { return "That's a brand name."; }
     if (guess=='mockingjay') { return "Not actually a real bird."; }
@@ -152,7 +154,6 @@ function invalid_guess_egg_message(guess) {
     if (guess=='yellow butterfly') { return "Lots of butterflies are yellow. Can you be more specific?"; }
     if (guess=='green snake') { return "So many snakes are green. Which one?"; }
     if (guess=='brown squirrel') { return "That's not really a distinct kind of squirrel."; }
-    if (guess=='mantaray' || guess=='fruitbat') { return "It's two words, actually."; }
     if (guess=='carrier pigeon' || guess=='homing pigeon' || guess=='war pigeon' || guess=='mail pigeon' || guess=='messenger pigeon'
         || guess=='cleaner shrimp'
         || guess=='worker bee' || guess=='queen bee'
@@ -161,6 +162,10 @@ function invalid_guess_egg_message(guess) {
         || guess=='harvester ant'
         || guess=='woodboring beetle' || guess=='wood boring beetle') {
         return "That's more of an occupation, isn't it?";
+    }
+    if (guess=='flying ant') {
+        queue_shy_trivium("<a href=https://en.wikipedia.org/wiki/Nuptial_flight target=_blank>Ant colonies reproduce by sending off <dfn>alates</dfn> (winged individuals) to mate and create new nests. The queen sheds its wings once it settles down.</a>");
+        return "Most ant colonies produce winged individuals from time to time.";
     }
     if (guess=='polyp') { return "That's more of a shape, really."; }
     if (guess=='larva' || guess=='larvae') { return "Many animals have a larval stage. Can you be more specific?"; }
