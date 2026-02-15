@@ -96,7 +96,11 @@ twoWordChallenge = {
     noun: 'two-word animal'
 }
 
-
+function debugWipeDailyHistory() {
+    for (i in localStorage) {
+        if (i.startsWith('c_daily_')) localStorage.removeItem(i);
+    }
+}
 function challengeForToday() {
     if (1==0) return {
         shortname: '0.5s-1s',
@@ -187,8 +191,30 @@ function challengeForToday() {
     if (date==14) return singleTaxonChallenge('crustacean');
     if (date==15) return singleTaxonChallenge('lepidopteran', '🦋 butterflies & moths 🦋');
     if (date==16) return singleTaxonChallenge('mollusk', 'gastropods, cephalopods, & bivalves');
-    if (date==17) return singleTaxonChallenge('felid', 'cats, big or small');
-    if (date==18) return singleTaxonChallenge('canid', 'doglike creatures');
+    if (date==17) {
+        c = singleTaxonChallenge('felid', 'cats, big or small');
+        c.rejection = function(guess_id, guess) {
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.felid, guess_id)) return;
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.canid, guess_id)) return "That's a canid, not a felid.";
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.mustelid, guess_id)) return "That's a mustelid, not a felid.";
+            return "Not a felid.";
+        }
+        c.duration_s = 50;
+        c.increment_s = 5;
+        return c;
+    }
+    if (date==18) {
+        c = singleTaxonChallenge('canid', 'doglike creatures');
+        c.rejection = function(guess_id, guess) {
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.canid, guess_id)) return;
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.felid, guess_id)) return "That's a felid, not a canid.";
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.mustelid, guess_id)) return "That's a mustelid, not a canid.";
+            return "Not a canid.";
+        }
+        c.duration_s = 50;
+        c.increment_s = 5;
+        return c;
+    }
     if (date==19) return singleTaxonChallenge('amphibian', 'members of the class Amphibia');
 
     // img ref for this one?
@@ -226,7 +252,6 @@ function challengeForToday() {
         rejection: ()=>{},
         verbed: 'listed in 1 min'
     }
-
     if (date==30) return {
         shortname: 'invertebrate',
         title: 'list invertebrates until failure',
@@ -247,7 +272,6 @@ function challengeForToday() {
         c.increment_s = 4;
         return c;
     }
-
     if (date==NaN) return singleTaxonChallenge('tullimonstrum');
     return insectChallenge;
 }
