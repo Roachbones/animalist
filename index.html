@@ -421,7 +421,7 @@ body:has(#disablebgbox:checked) #underlay { display: none; }
 
 body.invisibletimer #timer { visibility: hidden; }
 
-#dailypage {display:none;}
+body:not(.dailiesbeta) #dailypage {display:none;}
 
     </style>
     <link rel=stylesheet href=evolution.css>
@@ -473,7 +473,7 @@ function newGame() {
     guessbox.focus()
 
     if (location.hash=='#showmistakesfornova') mistakes.style='';
-    if (location.hash=='#today' || location.hash=='#enabledaily') dailypage.style.display='block';
+    if (location.hash=='#today' || location.hash=='#enabledaily') document.body.classList.add('dailiesbeta');
 }
 
 // big databases:
@@ -863,7 +863,7 @@ function startChallenge(challenge) {
         challenge.noun ||= 'animal';
         challenge.pluralNoun ||= challenge.noun+'s';
         challenge.verbed ||= 'listed';
-        challenge.attributivizeScore ||= ()=> score + ' ' + (score==1 ? noun : pluralNoun) + ' ' + challenge.verbed;
+        challenge.attributivizeScore ||= ()=> score + ' ' + (score==1 ? challenge.noun : challenge.pluralNoun) + ' ' + challenge.verbed;
     }
     currentChallenge = challenge;
     h1.innerHTML = challenge.title;
