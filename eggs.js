@@ -112,6 +112,7 @@ function invalid_guess_egg_message(guess) {
     if (guess=='any') { return "Any what?"; }
     var h = h‌ash(guess);
     if (h==7182294905658010 || h==6344346315172974) { return "Adorable guess, but it's spelled “rosy”."; }
+    if (guess=='cuddlefish') return "Cute, but it's actually “cuttlefish”.";
 
     // Just not animals
     if (guess=='algae' || guess=='seaweed') { return "No."; }
@@ -131,16 +132,19 @@ function invalid_guess_egg_message(guess) {
         queue_trivium("The word “scabies” actually comes from the Latin «<a href=//en.wiktionary.org/wiki/scabo#Latin>scabō</a>», a verb meaning to scratch or scrape. It's easy to assume that “scabies” refers to the parasites, but it basically just means “the itches”.");
         return "Nice try, but the animal that causes scabies isn't called “a scabie”."
     }
-    if (guess=='tree' || guess=='moss' || guess=='flower' || guess=='apple') { return "Animals, not plants, please."; }
+    if (guess=='tree' || guess=='moss' || guess=='flower' || guess=='apple' || guess=='venus flytrap' || guess=='venus fly trap') { return "Animals, not plants, please."; }
     if (guess=='yeast') { return "That's fungus."; }
     if (guess=='mold') { return "That's fungus, typically."; }
     if (guess=='plant') { h1.innerText = "list ANIMALS until failure"; return ' '; }
     if (guess=='fungus' || guess=='fungi' || guess=='virus' || guess=='diatom' || guess=='germ' || guess=='cordyceps') { return "No." }
     if (guess=='car') return "With wheels?";
-    if (guess=='funnel web') return "Just the web?";
+    if (guess=='funnel web' || guess=='funnelweb') return "Just the web?";
     if (guess=='star') return "So close! That is a shape.";
-    if (guess=='mantaray' || guess=='fruitbat') { return "It's two words, actually."; }
+    if (guess=='mantaray' || guess=='fruitbat' || guess=='dungbeetle' | guess=='spidermonkey') {
+        return "It's two words, actually.";
+    }
     if (guess=='sand piper') { return "It's one word, actually."; }
+    if (guess=='dumbo squid') return "It's an octopus, actually.";
 
     if (guess=='cryptobug') { return "That's a brand name."; }
     if (guess=='mockingjay') { return "Not actually a real bird."; }
@@ -334,7 +338,7 @@ function ancestry_egg_message(guess, descendant_id, ancestor_id) {
         return "(Yes, mosquitos are flies.)";
     }
     if (descendant_id==LOWER_TITLE_TO_ID.bobcat && ancestor_id==LOWER_TITLE_TO_ID.lynx) {
-        return "Yes, bobcats are lynxes. If you want credit for both, name of the other three lynxes.";
+        return "Yes, bobcats are lynxes. If you want credit for both, name one of the other three lynxes.";
     }
     if (descendant_id==LOWER_TITLE_TO_ID.elk && ancestor_id==LOWER_TITLE_TO_ID.deer) return "(Yes, elk are deer.)";
     if (descendant_id==LOWER_TITLE_TO_ID.moose && ancestor_id==LOWER_TITLE_TO_ID.deer) return "(Yes, moose are deer.)";
