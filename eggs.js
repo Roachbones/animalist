@@ -261,14 +261,14 @@ function equivalence_egg_message(guess, guess_id) {
         return "Pigeons and doves are basically the same. They share a Wikipedia page.";
     }
     if (guess_id == 'Q18099' && (guess=='bison' || guess=='buffalo') && guesses.includes('bison') && guesses.includes('buffalo')) {
-        queue_trivium_once("You might argue this game should interpret “bison” as <a href=https://en.wikipedia.org/wiki/Bison><i>Bison bison</i>, aka the American buffalo</a>, and interpret “buffalo” as <a href=https://en.wikipedia.org/wiki/True_buffalo><i>true</i> buffalo</a>, but since the American (and <a href=https://en.wikipedia.org/wiki/European_bison>European</a>) bison are colloquially known as “buffalo”, I think it's fair to treat them as interchangable terms. So anyone wanting points for buffalo has to name a specific one, like the African buffalo or dwarf buffalo or water buffalo.");
+        queue_trivium_once("You might argue this game should interpret “bison” as <a href=https://en.wikipedia.org/wiki/Bison><i>Bison bison</i>, aka the American buffalo</a>, and interpret “buffalo” as <a href=https://en.wikipedia.org/wiki/True_buffalo><i>true</i> buffalo</a>, but since the American (and <a href=https://en.wikipedia.org/wiki/European_bison>European</a>) bison are colloquially known as “buffalo”, I think it's fair to treat them as interchangable terms. So anyone wanting points for buffalo too has to name a specific one, like the African buffalo or dwarf buffalo or water buffalo.");
         return "Sorry, but “buffalo” and “bison” have been interchanged for centuries.";
     }
     if (guess=='parakeet' && guesses.includes('parrot')) {
         return "(Sorry, “parakeet” is dialectal so I'm not sure which bird(s) you mean.)";
     }
     if ((guess=='possum' && guesses.includes('opossum')) || (guess=='opossum' && guesses.includes('possum'))) {
-        queue_shy_trivium("Some would have you believe that “possum” and “opossum” are different creatures, but in colloquial language the terms are interchangeable. For example, the Virginia (o)possum is called both terms. The Wikipedia page for Possum even starts “The possums (sometimes opossums)”.");
+        queue_shy_trivium("Some would have you believe “possum” and “opossum” are mutually exclusive terms, but in colloquial language they are interchangeable. For example, the Virginia (o)possum is called both. The Wikipedia page for Possum even starts “The possums (sometimes opossums)”.");
         return "Sorry but they're used interchangeably.";
     }
     if (guess_id==LOWER_TITLE_TO_ID.dog && (!guesses.slice(0,-1).includes(guess) || !DOGS_IS_THE_SAME[0])) {
