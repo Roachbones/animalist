@@ -59,6 +59,7 @@ function invalid_guess_egg_message(guess) {
     if (guess=='wolfdog') { return "Well, which is it? Wolf or dog?"; }
     if (guess=='xyzzy') { return 'Nothing happens.'; }
     if (guess=='fish') { return 'Surely you can name a specific kind of fish. I believe in you!'; }
+    if (guess=='invertebrate' || guess=='invert') return "97% of animals are invertebrates. Surely you can be more specific?";
     if (guess=='yellowfin') { return "So many fish have yellow fins. Can you be more specific?"; }
 
     if (guess=='plankton') {
