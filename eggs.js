@@ -103,6 +103,7 @@ function invalid_guess_egg_message(guess) {
         return "Not quite how it's spelled.";
     }
     if (guess=='pink toed tarantula') return "It's “pinktoe”, actually.";
+    if (LOWER_TITLE_TO_ID[guess.replace('black tipped','blacktip')]) return "It's “blacktip”, actually.";
     if (guess=='caterpiller') {
         // TODO review this one
         queue_trivium("“caterpillar” is spelled with “-pillar”, not “-piller”, but the etymology derives from the Middle English «<a href=https://en.wiktionary.org/wiki/piller#Etymology_1>piller</a>», meaning to plunder. Presumably because they eat so much.");
