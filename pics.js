@@ -5,20 +5,20 @@ ARTIST_OLIVE={
  "attribution": "taken by <a href=https://mou.sh target=_blank>my friend olive</a>"
 }
 ID_TO_PICS={
- "Q267735": [
-  {
-   "artist": ARTIST_OLIVE,
-   "alt": "American crow",
-   "title": "the American crow",
-   "src": "https://mou.sh/birds/American Crow.jpg"
-  }
- ],
  "Q27075861": [
   {
    "artist": ARTIST_OLIVE,
    "alt": "American goldfinch",
    "title": "the American goldfinch",
    "src": "https://mou.sh/birds/American Goldfinch.jpg"
+  }
+ ],
+ "Q805774": [
+  {
+   "artist": ARTIST_OLIVE,
+   "alt": "Baltimore oriole",
+   "title": "the Baltimore oriole",
+   "src": "https://mou.sh/birds/Baltimore Oriole (female).jpg"
   }
  ],
  "Q736052": [
@@ -37,6 +37,22 @@ ID_TO_PICS={
    "src": "https://mou.sh/birds/Blue Jay.jpg"
   }
  ],
+ "Q27050": [
+  {
+   "artist": ARTIST_OLIVE,
+   "alt": "brant",
+   "title": "the brant",
+   "src": "https://mou.sh/birds/Brant.jpg"
+  }
+ ],
+ "Q576762": [
+  {
+   "artist": ARTIST_OLIVE,
+   "alt": "bufflehead",
+   "title": "the bufflehead",
+   "src": "https://mou.sh/birds/Bufflehead.jpg"
+  }
+ ],
  "Q26733": [
   {
    "artist": ARTIST_OLIVE,
@@ -51,6 +67,14 @@ ID_TO_PICS={
    "alt": "common goldeneye",
    "title": "the common goldeneye",
    "src": "https://mou.sh/birds/Common Goldeneye (female).jpg"
+  }
+ ],
+ "Q1424486": [
+  {
+   "artist": ARTIST_OLIVE,
+   "alt": "common grackle",
+   "title": "the common grackle",
+   "src": "https://mou.sh/birds/Common Grackle (male).jpg"
   }
  ],
  "Q18875": [
@@ -184,6 +208,12 @@ ID_TO_PICS={
    "artist": ARTIST_OLIVE,
    "alt": "northern flicker",
    "title": "the northern flicker",
+   "src": "https://mou.sh/birds/Northern Flicker (female).jpg"
+  },
+  {
+   "artist": ARTIST_OLIVE,
+   "alt": "northern flicker",
+   "title": "the northern flicker",
    "src": "https://mou.sh/birds/Northern Flicker (male).jpg"
   }
  ],
@@ -203,12 +233,28 @@ ID_TO_PICS={
    "src": "https://mou.sh/birds/Osprey.jpg"
   }
  ],
+ "Q189609": [
+  {
+   "artist": ARTIST_OLIVE,
+   "alt": "red-breasted merganser",
+   "title": "the red-breasted merganser",
+   "src": "https://mou.sh/birds/Red-Breasted Merganser (male).jpg"
+  }
+ ],
  "Q457471": [
   {
    "artist": ARTIST_OLIVE,
    "alt": "red-tailed hawk",
    "title": "the red-tailed hawk",
    "src": "https://mou.sh/birds/Red-Tailed Hawk.jpg"
+  }
+ ],
+ "Q26691": [
+  {
+   "artist": ARTIST_OLIVE,
+   "alt": "red-throated loon",
+   "title": "the red-throated loon",
+   "src": "https://mou.sh/birds/Red-Throated Loon.jpg"
   }
  ],
  "Q754043": [
@@ -219,6 +265,14 @@ ID_TO_PICS={
    "src": "https://mou.sh/birds/Red-Winged Blackbird.jpg"
   }
  ],
+ "Q842599": [
+  {
+   "artist": ARTIST_OLIVE,
+   "alt": "song sparrow",
+   "title": "the song sparrow",
+   "src": "https://mou.sh/birds/Song Sparrow.jpg"
+  }
+ ],
  "Q389691": [
   {
    "artist": ARTIST_OLIVE,
@@ -227,12 +281,20 @@ ID_TO_PICS={
    "src": "https://mou.sh/birds/Spotted Sandpiper.jpg"
   }
  ],
- "Q31836": [
+ "Q922192": [
   {
    "artist": ARTIST_OLIVE,
-   "alt": "tree swift",
-   "title": "the tree swift",
-   "src": "https://mou.sh/birds/Tree Swift.jpg"
+   "alt": "tree swallow",
+   "title": "the tree swallow",
+   "src": "https://mou.sh/birds/Tree Swallow.jpg"
+  }
+ ],
+ "Q245181": [
+  {
+   "artist": ARTIST_OLIVE,
+   "alt": "turkey vulture",
+   "title": "the turkey vulture",
+   "src": "https://mou.sh/birds/Turkey Vulture.jpg"
   }
  ],
  "Q26844": [
@@ -241,6 +303,12 @@ ID_TO_PICS={
    "alt": "wild turkey",
    "title": "the wild turkey",
    "src": "https://mou.sh/birds/Wild Turkey (female).jpg"
+  },
+  {
+   "artist": ARTIST_OLIVE,
+   "alt": "wild turkey",
+   "title": "the wild turkey",
+   "src": "https://mou.sh/birds/Wild Turkey (male).jpg"
   }
  ],
  "Q322159": [
@@ -249,6 +317,12 @@ ID_TO_PICS={
    "alt": "wood duck",
    "title": "the wood duck",
    "src": "https://mou.sh/birds/Wood Duck (female).jpg"
+  },
+  {
+   "artist": ARTIST_OLIVE,
+   "alt": "wood duck",
+   "title": "the wood duck",
+   "src": "https://mou.sh/birds/Wood Duck (male).jpg"
   }
  ],
  "Q134277": [
