@@ -376,6 +376,8 @@ function queue_trivium_once(html) {
 }
 
 function queue_trivium(html) {
+    if (queuedTrivia.has(html)) return;
+    queuedTrivia.add(html);
     let p = document.createElement('p');
     p.innerHTML = html;
     p.classList.add('trivium');
@@ -385,6 +387,8 @@ function queue_trivium(html) {
 
 shy_trivia = [] // trivia to only be shown alone, if there is no other eligible trivia; and then, only once
 function queue_shy_trivium(html) {
+    if (queuedTrivia.has(html)) return;
+    queuedTrivia.add(html);
     if (!localStorage.triviaHashes.split(' ').includes(''+h‌ash(html))) {
         shy_trivia.push(html);
     }
