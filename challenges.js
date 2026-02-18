@@ -147,10 +147,20 @@ function challengeForToday() {
         }
         return 'Not an arachnid.';
     }
-    arachnidChallenge.duration_s = 30; arachnidChallenge.increment_s = 8;
-    if (day==0) return singleTaxonChallenge('bird', "it's bird sunday"); // Bird Sunday
+    arachnidChallenge.duration_s = 38; arachnidChallenge.increment_s = 8;
+    if (day==0) return singleTaxonChallenge('bird', "Bird Sunday"); // Bird Sunday
     if (day==1) return singleTaxonChallenge('mammal', 'Mammal Monday');
-    if (day==4) return singleTaxonChallenge('arthropod', 'Exoskeletoned invertebrates.'); // Arthropod Thursday
+    if (day==4) {
+        arthropodConfusion = 0;
+        c = singleTaxonChallenge('arthropod', 'Arthropod Thursday. (Exoskeletoned invertebrates. Bugs, more or less.)'); // Arthropod Thursday
+        c.rejection = function(guess_id, guess) {
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.arthropod, guess_id)) return;
+            if (arthropodConfusion++==4) {
+                queue_shy_trivium("<a href=https://en.wikipedia.org/wiki/Arthropod target=_blank>Read about arthropods</a> or <a href=https://rose.systems/bugs target=_blank>browse my arthropod photos</a>.");
+            }
+            return "Not an arthropod.";
+        }
+    }
     if (day==6) return { // todo scrap this one?
         shortname: '30s+3s',
         title: 'list animals fast',
@@ -159,6 +169,7 @@ function challengeForToday() {
         rejection: ()=>{},
         attributivizeScore: ()=> score + ' animal' + (score==1 ? '' : 's') + ' listed fast (30s+3s)'
     }
+
     if (date==1) return singleTaxonChallenge('snake');
     if (date==2) return singleTaxonChallenge('corvid', 'crows, ravens, rooks, magpies, jackdaws, jays, treepies, choughs, & nutcrackers');
     if (date==3) return singleTaxonChallenge('bee');
@@ -185,7 +196,7 @@ function challengeForToday() {
     if (date==12) return singleTaxonChallenge('beetle', 'insects with hardened wing-cases');
     if (date==13) {
         let letters = 'etaoinshrdlcumwfg';
-        letter = letters[(day + today.getFullYear()) % letters.length];
+        letter = letters[(date + day + today.getFullYear()) % letters.length];
         return singleInitialChallenge(letter);
     }
     if (date==14) return singleTaxonChallenge('crustacean');
@@ -221,7 +232,7 @@ function challengeForToday() {
     //if (date==20) return singleTaxonChallenge('carnivoran', 'an order of placental mammals specialized primarily in eating flesh; includes felids, canids, and others');
     if (date==20) {
         c = singleTaxonChallenge('monotreme', 'egg-laying mammals');
-        c.duration_s = 5; c.increment_s = 4;
+        c.duration_s = 5; c.increment_s = 6;
         return c;
     }
     //if (date==21) return singleTaxonChallenge('wasp', 'not including bees & ants');
@@ -240,8 +251,16 @@ function challengeForToday() {
         c.duration_s = 25; c.increment_s = 5;
         return c;
     }
-    if (date==25) return singleTaxonChallenge('rodent', 'from Latin <i>rōdēns</i>, “gnawing”');
-    // todo that's a mustelid
+    if (date==25) {
+        c = singleTaxonChallenge('rodent', 'from Latin <i>rōdēns</i>, “gnawing”');
+        c.rejection = function(guess_id, guess) {
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.rodent, guess_id)) return;
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.mustelid, guess_id)) return "That's a mustelid, not a rodent.";
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.mustelid, guess_id)) return "That's a marsupial, not a rodent.";
+            return "Not a rodent.";
+        }
+        return c;
+    }
     if (date==26) return alphabeticalChallenge;
     if (date==27) return singleTaxonChallenge('sauropsid', 'bird & reptiles');
     if (date==28) return singleTaxonChallenge('marsupial');
@@ -258,6 +277,7 @@ function challengeForToday() {
         title: 'list invertebrates until failure',
         subtitle: 'spineless animals',
         rejection: function(guess_id, guess) {
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.human, guess_id)) return "I definitely have a spine.";
             if (ancestsOrIs(LOWER_TITLE_TO_ID.vertebrata, guess_id)) return "That's a vertebrate.";
         }
     };
