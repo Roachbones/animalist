@@ -179,8 +179,16 @@ body:has(input#toasthastebox:checked) #timer {
     margin-left: 1em;
 }
 
-body.daily {
-    #dailypage, #settings-page { display: none; }
+/* Dailyless challenges are probably haxx but whatever support this too */
+/* Hide time controls for challenges */
+body.challenge .timecontrollabel {
+    input {display:none;}
+    &::after { content: "[Locked]"; }
+}
+/* Hide time controls during play */
+body:has(log li) .timecontrollabel {
+    input {display:none;}
+    &::after { content: "[Locked]"; }
 }
 
 #dailypage {
@@ -230,7 +238,8 @@ body.daily {
     & summary { list-style: none; }
     & label {
         display: block;
-        margin: 0.25em;}
+        margin: 0.25em;
+    }
 }
 #gear {
     display: inline-block;
@@ -259,8 +268,8 @@ body.daily {
 #settings-page[open] h2 {
     display: inline;
 }
-body:has(#log li), body.daily {
-    #settings-page, #dailypage {
+body:has(#log li) {
+    #dailypage, #settingspage {
         display: none;
     }
 }
@@ -876,6 +885,7 @@ function startDaily() {
 }
 
 function startChallenge(challenge) {
+    // todo re-Load()? to wipe guesses
     uncomment();
     if (!challenge) { alert("error challenge not defined bwehh >.<'"); }
     challenge.duration_s ||= DEFAULT_DURATION_S;
@@ -889,7 +899,8 @@ function startChallenge(challenge) {
     currentChallenge = challenge;
     h1.innerHTML = challenge.title;
     subtitle.innerHTML = challenge.subtitle || '';
-    document.body.classList.add('daily');
+    if (challenge.key) document.body.classList.add('daily');
+    document.body.classList.add('challenge');
     document.body.classList.add(challenge.shortname);
     if (challenge.rejection(LOWER_TITLE_TO_ID.tullimonstrum, 'tullimonstrum') || challenge.rejection(LOWER_TITLE_TO_ID.human, 'human')) {
         document.body.classList.add('restrictive-daily');
@@ -944,8 +955,8 @@ function saveSettings() {
     
     <details id=settings-page>
         <summary title=Settings><h2>Settings</h2><span id=gear>⚙️</span></summary>
-        <label>initial time (s): <input type=number size=2 id=initial_time_control min=1 value=60></label>
-        <label>time increment (s): <input type=number size=2 id=increment_control min=0 value=6></label>
+        <label class=timecontrollabel>initial time (s): <input type=number size=2 id=initial_time_control min=1 value=60></label>
+        <label class=timecontrollabel>time increment (s): <input type=number size=2 id=increment_control min=0 value=6></label>
         <label><input type=checkbox id=disablebgbox onchange=saveSettings()></input>disable animated backgrounds</label>
         <label><input type=checkbox id=toasthastebox onchange=saveSettings()></input>friendlier timer</label>
         <button onclick="initial_time_control.value=60;increment_control.value=6;disablebgbox.checked=0">reset to defaults</button>
