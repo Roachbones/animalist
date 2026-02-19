@@ -591,10 +591,6 @@ function attempt() {
     if (!guess) { return; }
     guesses.push(guess);
     console.log(guess);
-    if (guess=='crab') {
-        comment.innerText = "(Carcinization makes it hard to define “crab”, so I'm going to pretend you said “brown crab”.)";
-        guess = 'brown crab';
-    }
     
     if (LOWER_TITLE_TO_ID.hasOwnProperty(guess)) {
         var guess_id = LOWER_TITLE_TO_ID[guess];

@@ -196,6 +196,7 @@ function invalid_guess_egg_message(guess) {
 awoo = 'awo';
 function valid_guess_egg_message(guess, guess_id) {
     if (guesses.length <= 7 && (guess_id==LOWER_TITLE_TO_ID.human || guess_id==LOWER_TITLE_TO_ID.crow)) { bteq(); }
+    if (guess=='crab') return "(Carcinization makes it hard to define “crab”, so I'm pretending you said “brown crab”.)";
     if (guess == 'unicorn') {
         return "You probably didn't mean the genus of goblin spider named after its characteristic pointed facial projection, but whatever, sure.";
     }
