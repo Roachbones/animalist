@@ -232,7 +232,14 @@ function challengeForToday() {
     //if (date==20) return singleTaxonChallenge('carnivoran', 'an order of placental mammals specialized primarily in eating flesh; includes felids, canids, and others');
     if (date==20) {
         c = singleTaxonChallenge('monotreme', 'egg-laying mammals');
-        c.duration_s = 5; c.increment_s = 6;
+        c.duration_s = 9; c.increment_s = 6;
+        c.queueFinalTrivia = ()=>{
+            if (score<3) {
+                queue_trivium("<a href=https://en.wikipedia.org/wiki/Monotreme target=_blank>The only extant monotremes are the platypus and echnidnas.</a>");
+            } else {
+                queue_trivium("You sure know your monotremes.");
+            }
+        }
         return c;
     }
     //if (date==21) return singleTaxonChallenge('wasp', 'not including bees & ants');
