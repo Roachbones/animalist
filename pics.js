@@ -426,9 +426,9 @@ ID_TO_PICS={
  "Q2275862": [
   {
    "artist": ARTIST_VIV,
-   "alt": "red-banded leafhopper",
+   "alt": "two red-banded leafhoppers",
    "src": "https://rose.systems/bugs/thumb/red-banded_leafhopper.jpg",
-   "title": "a red-banded leafhopper"
+   "title": "red-banded leafhoppers"
   }
  ],
  "Q1919026": [
