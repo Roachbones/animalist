@@ -172,7 +172,7 @@ function challengeForToday() {
 
     if (date==1) return singleTaxonChallenge('snake');
     if (date==2) return singleTaxonChallenge('corvid', 'crows, ravens, rooks, magpies, jackdaws, jays, treepies, choughs, & nutcrackers');
-    if (date==3) return singleTaxonChallenge('bee');
+    if (date==3) return singleTaxonChallenge('hymenopteran','wasps, bees, ants, and sawflies');
     if (date==4) return singleTaxonChallenge('beetle');
     if (date==5) return singleTaxonChallenge('primate');
     if (date==6) return insectChallenge;
