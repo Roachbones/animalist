@@ -255,7 +255,7 @@ function challengeForToday() {
     };
     if (date==24) {
         c = singleTaxonChallenge('bear', "there are only like 8 of them");
-        c.duration_s = 25; c.increment_s = 5;
+        c.duration_s = 25; c.increment_s = 6;
         return c;
     }
     if (date==25) {
@@ -297,7 +297,7 @@ function challengeForToday() {
             if (!ancestsOrIs(LOWER_TITLE_TO_ID.ant, guess_id)) return "Not an ant.";
         };
         c.duration_s = 20;
-        c.increment_s = 4;
+        c.increment_s = 7;
         return c;
     }
     if (date==NaN) return singleTaxonChallenge('tullimonstrum');
