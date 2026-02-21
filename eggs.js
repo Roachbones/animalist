@@ -59,7 +59,7 @@ function invalid_guess_egg_message(guess) {
     if (guess=='zedonk' || guess=='zorse') {
         return "The "+guess+" doesn't have its own English Wikipedia page; it's merely a subheading on Zebroid.";
     }
-    if (guess=='wolfdog') { return "Well, which is it? Wolf or dog?"; }
+    if (guess=='wolfdog' || guess=='wolf dog') { return "Well, which is it? Wolf or dog?"; }
     if (guess=='xyzzy') { return 'Nothing happens.'; }
     if (guess=='fish') { return 'Surely you can name a specific kind of fish. I believe in you!'; }
     if (guess=='invertebrate' || guess=='invert') return "97% of animals are invertebrates. Surely you can be more specific?";
