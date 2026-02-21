@@ -187,6 +187,7 @@ function invalid_guess_egg_message(guess) {
     if (guess=='nemo') return "And what kind of fish is he?";
 
     if (guess=='hint' || h==613114319434169 || (guess=='help' && (guessed_ids.length || rules.open))) {
+        if (currentChallenge) return "Maybe read Wikipedia later.";
         return choice(['Try thinking of ']) + choice(['bugs','farm animals','dinosaurs','fish. Many fish names just end in -fish']) + '.';
     }
     if (guess=='help') { rules.open = true; return ' '; }
