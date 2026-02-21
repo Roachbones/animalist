@@ -61,18 +61,18 @@ alphabeticalChallenge = {
     },
     orthographic: true,
     attributivizeScore: ()=> score + ' animal' + (score==1 ? '' : 's') + ' listed alphabetically'
-}
+};
 
 invisibleTimerChallenge = {
     shortname: 'invisibletimer',
     title: 'list animals invisibly timed',
     subtitle: "the timer is invisible. maybe it's easier without the big red countdown",
     rejection: ()=>{}
-}
+};
 
 oneWordChallenge = {
     shortname: 'one-word',
-    title: 'list one-word animals',
+    title: 'list one-word animals until failure',
     subtitle: "all guesses must be exactly one word",
     rejection: function (_guess_id, guess) {
         let wordCount = guess.split(' ').length;
@@ -80,10 +80,10 @@ oneWordChallenge = {
     },
     orthographic: true,
     noun: 'one-word animal'
-}
+};
 twoWordChallenge = {
     shortname: 'two-word',
-    title: 'list two-word animals',
+    title: 'list two-word animals until failure',
     subtitle: "all guesses must be exactly two words",
     rejection: function (_guess_id, guess) {
         let wordCount = guess.split(' ').length;
@@ -94,7 +94,22 @@ twoWordChallenge = {
     },
     orthographic: true,
     noun: 'two-word animal'
-}
+};
+
+dinoChallenge = {
+    shortname: 'dino',
+    title: 'list non-bird dinosaurs until failure',
+    rejection: function (guessId, guess) {
+        if (guess=='pterodactyl') return "Pterodactyls aren't technically dinosaurs. Don't blame me.";
+        for (const ancestor of lineage(guessId)) {
+            if (ancestor==LOWER_TITLE_TO_ID.bird) return "That's a bird.";
+            if (ancestor==LOWER_TITLE_TO_ID.dinosaur) return;
+            if (ancestor==LOWER_TITLE_TO_ID.pterosaur) return "Pterosaurs aren't technically dinosaurs.";
+        }
+        return "Not a dinosaur.";
+    },
+    noun: 'non-bird dinosaur'
+};
 
 function debugWipeDailyHistory() {
     for (i in localStorage) {
@@ -176,7 +191,8 @@ function challengeForToday() {
     if (date==4) return singleTaxonChallenge('beetle');
     if (date==5) return singleTaxonChallenge('primate');
     if (date==6) return insectChallenge;
-    if (date==7) return singleTaxonChallenge('ruminant', 'hooved grazers');
+    //if (date==7) return singleTaxonChallenge('ruminant', 'hooved grazers');
+    if (date==7) return dinoChallenge;
     if (date==8) return arachnidChallenge;
     if (date==9) return wordchainChallenge;
     if (date==10) return {

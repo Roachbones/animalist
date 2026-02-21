@@ -87,6 +87,7 @@ function invalid_guess_egg_message(guess) {
     if (guess=='cornish game hen' || guess=='cornish hen') { return "That's a culinary term. It's just chicken."; }
     if (guess=='imitation crab') return 'Really?';
     if (guess=='roe') return "I don't think that counts.";
+    if (guess=='thagomizer') return "That's just the tail.";
 
     // Misspellings
     if (guess=='pidgeon' || guess.endsWith(' pidgeon')) {
