@@ -347,6 +347,7 @@ function ancestry_egg_message(guess, descendant_id, ancestor_id) {
         return "(Yes, mosquitos are flies.)";
     }
     if (descendant_id==LOWER_TITLE_TO_ID.bobcat && ancestor_id==LOWER_TITLE_TO_ID.lynx) {
+        if (guess=='lynx') queue_shy_trivium("<a href=https://en.wikipedia.org/wiki/Bobcat target=_blank>The bobcat is also known as the <i>bay lynx</i> or <i>red lynx</i>.</a>");
         return "Yes, bobcats are lynxes. If you want credit for both, name one of the other three lynxes.";
     }
     if (descendant_id==LOWER_TITLE_TO_ID.elk && ancestor_id==LOWER_TITLE_TO_ID.deer) return "(Yes, elk are deer.)";
@@ -394,7 +395,6 @@ function queue_trivium(html) {
 shy_trivia = [] // trivia to only be shown alone, if there is no other eligible trivia; and then, only once
 function queue_shy_trivium(html) {
     if (queuedTrivia.has(html)) return;
-    queuedTrivia.add(html);
     if (!localStorage.triviaHashes.split(' ').includes(''+h‌ash(html))) {
         shy_trivia.push(html);
     }
