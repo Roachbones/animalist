@@ -50,7 +50,7 @@ function invalid_guess_egg_message(guess) {
     if (guess=='jumping bean') {
         return "Well, the jumping bean is the moth larva, but it's also the seed pod. So I don't think you can say that a jumping bean is itself an animal. But I'd definitely accept “jumping bean moth”.";
     }
-    if (guess=='semislug' || guess=='semi slug') {
+    if (guess=='semislug' || guess=='semi slug' || guess=='quasislug' || guess=='quasi slug') {
         return "I don't know that animal. Sorry, I'm not that slug-savvy.";
     }
     if (guess=='soweli' || guess == 'waso' || guess == 'kala' || guess == 'pipi' || guess=='akesi') {
