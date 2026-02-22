@@ -201,13 +201,14 @@ body:has(log li) .timecontrollabel {
         text-align: left;
         list-style: none;
         user-select: none;
-        &::before {
-            content: '🗓️';
+        calendar-icon {
             cursor: pointer;
             font-size: xx-large;
+            display: inline-block;
         }
         h2 { display: none; }
     }
+    &:not([open]) calendar-icon:hover {scale:1.1;}
     &[open] {
         border-right-style: outset;
         @media (width >= 30em) { border-bottom-style: outset; }
@@ -944,7 +945,7 @@ function saveSettings() {
     </details> 
     
     <details id=dailypage>
-        <summary title='Daily challenge'><h2>Daily challenge</h2></summary>
+        <summary title='Daily challenge'><calendar-icon>🗓️</calendar-icon><h2>Daily challenge</h2></summary>
         <p id=dailydesc></p>
         <button id=dailybutton onclick=startChallenge(daily)>TRY DAILY CHALLENGE</button>
     </details>
