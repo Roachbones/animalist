@@ -53,7 +53,7 @@ function invalid_guess_egg_message(guess) {
     if (guess=='semislug' || guess=='semi slug' || guess=='quasislug' || guess=='quasi slug') {
         return "I don't know that animal. Sorry, I'm not that slug-savvy.";
     }
-    if (guess=='soweli' || guess == 'waso' || guess == 'kala' || guess == 'pipi' || guess=='akesi') {
+    if (guess=='soweli' || guess == 'waso' || guess == 'kala' || guess == 'pipi' || guess=='akesi' || guess=='kijetesantakalu') {
         return 'musi ni li sona ala e toki pona.';
     }
     if (guess=='zedonk' || guess=='zorse') {
