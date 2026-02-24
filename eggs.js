@@ -441,9 +441,22 @@ function queue_final_trivia() {
             || guessed_descendant[LOWER_TITLE_TO_ID.bird] && guessed_descendant[LOWER_TITLE_TO_ID.insect] // Doesn't seem to be a self-imposed challenge like "only name birds"
         )
     ) {
+        // First search for erroneous generic terms
+        let guessWords = new Set();
+        for (let g of guesses) {
+            for (let w of g.split(' ')) {
+                guessWords.add(w.toLowerCase());
+            }
+        }
+        for (let g of guessed_ids) {
+            for (let w of ID_TO_TITLE[g].split(' ')) {
+                guessWords.add(w.toLowerCase());
+            }
+        }
         for (common_id of COMMONS) {
             if (Math.random() < 0.00) break; // TODO change back to .05
             if (currentChallenge?.rejection?.(common_id, ID_TO_TITLE[common_id].toLowerCase())) continue;  // If these common animal isn't allowed per the challenge, skip it
+            if (guessWords.has(ID_TO_TITLE[common_id]?.toLowerCase())) continue; // sloppy way to prevent bad critique from erroneous parentage
             if (!guessed_ids.includes(common_id) && !guessed_descendant[common_id]) {
                 YOU_FORGOT_STAR = YOU_FORGOT_STARS[Math.floor(Math.random()**3 * YOU_FORGOT_STARS.length)];
                 queue_trivium_once(YOU_FORGOT_STAR.replace('*',ID_TO_TITLE[common_id].toLowerCase()));
