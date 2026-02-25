@@ -739,6 +739,7 @@ for k,v in {
     'waterbug': 'true water bug', 'water bug': 'true water bug',
     'bristletail': 'archaeognatha', # disambig w/o list
     'peeper': 'spring peeper',
+    'mona': 'mona monkey', # stretch
     #'rockhopper': 'rockhopper penguin', #dubious species but maybe should work?
     # these probably should have a wiki presence but they don't?
     'rubber ducky isopod': 'cubaris',
@@ -814,6 +815,10 @@ lower_title_to_id['shrimp'] = lower_title_to_id['caridea']
 lower_title_to_id['jellyfish'] = 'Q272388'
 id_to_title['Q272388'] = 'Scyphozoa (true jellyfish)'
 
+MOLIDAE = 'Q726231'
+lower_title_to_id['sunfish'] = MOLIDAE
+id_to_title[MOLIDAE] = 'Molidae (ocean sunfish)'
+
 id_to_title['Q8332'] = 'Red fox' # otherwise defaults to domesticated silver fox
 id_to_title['Q468500'] = 'Eastern gray squirrel'
 #id_to_title['Q30263'] = 'Seal'
@@ -843,8 +848,6 @@ for letter in 'abcdefghijklmnopqrstuvwxyz':
 print('Applying manual hierarchy adjustments.')
 # quokkas are not kangaroos
 id_to_parent[lower_title_to_id['quokka']] = id_to_parent[lower_title_to_id['kangaroo']]
-# walruses are not seals
-#id_to_parent[lower_title_to_id['walrus']] = id_to_parent[lower_title_to_id['seal']]
 # dogs are not wolves
 id_to_parent[lower_title_to_id['dog']] = 'Q149892' # Canis
 # give the Australians the benefit of the doubt re: dingo
@@ -951,6 +954,11 @@ id_to_title[CORVUS] = 'Corvus (crows & ravens)'
 id_to_title['Q25357'] = 'Common raven'
 regroup(CORVUS, ['Crow','Raven'])
 
+print(' Rearranging condors.')
+NEW_WORLD_VULTURE = 'Q184858'
+CONDOR = dummy('Condor',NEW_WORLD_VULTURE)
+id_to_parent['Q15042113'] = CONDOR # Vultur
+id_to_parent['Q10763377'] = CONDOR # Gymnogyps
 
 print(' Rearranging pinnipeds into seals, sea lions, and walrus.')
 PINNIPED = 'Q30263'
@@ -1133,6 +1141,8 @@ NGSD = dummy('New Guinea singing dog','Q149892')
 #id_to_title['Q272388'] = 'Scyphozoa (true jellyfish)';
 
 id_to_title[lower_title_to_id['mergus']] = 'Merganser'
+
+id_to_title['Q995960'] = 'Agaonidae' # Not 'Fig wasp'; there are others
 
 # UGH wikidata dumps take so long!
 # todo import patches of them or something?
