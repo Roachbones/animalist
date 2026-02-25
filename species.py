@@ -985,7 +985,15 @@ for i in id_to_parent:
 RHOPALOCERA = 'Q21075224'
 steal(RHOPALOCERA,PAPILIONOIDEA) # Rhopalocera otherwise gets 'butterfly'
 
-
+print(' Tidying mites.')
+ACARI = 'Q19137'
+lower_title_to_id['mite'] = ACARI
+lower_title_to_id['mites'] = ACARI
+id_to_title[ACARI] = 'Mite'
+# Ticks aren't mites
+TICK = 'Q10304508'
+ARACHNID = 'Q1358'
+id_to_parent[TICK] = ARACHNID
 
 # Todo could refactor this into regroup
 print(' Rearranging leopard frogs.')
