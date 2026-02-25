@@ -162,9 +162,6 @@ if 0:
     assert print('Done trimming.')
 
 
-
-# I guess we should try mining paraphyletic groups from enwiki.
-# For egrets and mites and yellowjackets and maybe planarians.
 if 0:
     pgroup_name_to_taxon_name = {}
     print('Hunting paraphyletic groups.')
@@ -201,22 +198,11 @@ else:
     print(' Loaded paraphyletic groups.')
 
 
-# TO GET LINKTARGET ID FROM CATEGORY TITLE example
-# cat sources/enwiki-*-linktarget.sql | sed 's/(/\n/g' | grep 14,Set_index_articles_on_animal_common_names
-# so, ignore following block
-LINKTARGET_SQL_GZ = 'sources/enwiki-20251220-linktarget.sql.gz'
-if 0:
-    with gzip.open(LINKTARGET_SQL_GZ,'rt') as file:
-        for line in file:
-            INSERT_INTO = 'INSERT INTO `linktarget` VALUES '
-            if not line.startswith(INSERT_INTO): continue
-            line = line[len(INSERT_INTO):-2]
-            f = line.find('Set_index_articles_on_animal_common_names')
-            if f>0:
-                print(line[f-22:f+62])  # whatever I just need the one number
 
 CATEGORYLINKS_SQL_GZ = 'enwiki-20251220-categorylinks.sql.gz'
 if 0:
+    # Example of how to get a linktarget ID from a category title:
+    # cat sources/enwiki-*-linktarget.sql | sed 's/(/\n/g' | grep 14,Set_index_articles_on_animal_common_names
     SIAOACN_LINKTARGET = 66045319
     SIAOACN_LINKTARGET_SNAKES = 45414978
     SIAOACN_LINKTARGET_SPIDERS = 64955362
@@ -247,11 +233,6 @@ if 0:
 else:
     with open('intermediate/siaoacn_ids.json','r') as file:
         siaoacn_ids = json.load(file)
-
-
-
-
-
 
 
 if 0:
@@ -314,7 +295,7 @@ with open('intermediate/latest-all-trimmed.json') as file:
 id_to_parent['Q188212'] = 'Q48178' # Tiger shark has incomplete ancestry otherwise
 
 
-
+# currently unused
 if 0:
     i = 0
     print('Mining Wikipedia Template:Taxonomies (temtaxes)')
@@ -327,9 +308,6 @@ if 0:
         body = p.find('revision').find('text').text
         if body is None: continue
         body = HTML_COMMENT_PATTERN.sub('', body)
-        #parsed = wikitextparser.parse(body)
-        #templates = [t for t in parsed.templates if t.name.strip().lower() == '≈≈≈≈‱‱‱‱‱‱‱‱']
-        #if not templates: continue
         # wikitextparser isn't very accurate so let's just wing this
         DETL = "{{Don't edit this line {{{machine code|}}}"
         if not DETL in body:
@@ -430,7 +408,6 @@ print('Hunting untitled taxons.')
 # (For comparison, Outlook loads like 30mb on initial page load even when logged out.)
 # But a lot of these taxons don't have enwiki sitelinks. Let's get rid of them to save space.
 
-
 # First make a taxon-to-children lookup since this would be slow otherwise.
 # todo maybe build this as building id_to_parent
 print(' Indexing children.')
@@ -456,11 +433,10 @@ for taxon_id in list(id_to_parent):
     del id_to_parent[taxon_id]
 print(' New Animalia size:',len(id_to_parent))
 
-del id_to_children # We don't need this index anymore.
+del id_to_children # Don't need this index anymore.
 
 
-
-
+# todo move this to later?
 print('Discarding non-animal titles.')
 id_to_title = {taxon_id: title for taxon_id, title in id_to_title.items() if taxon_id in id_to_parent}
 
@@ -489,13 +465,9 @@ for taxon_id in id_to_title:
                 #print('added alias',alias,taxon_id)
 
 
-
-
-# sible roaches and termites
 lower_title_to_id['roach'] = 'Q25309'
 lower_title_to_id['cockroach'] = 'Q25309'
-# id_to_parent['Q546583'] = id_to_parent['Q25309'] # actually Wikipedia says they're cockroaches
-#id_to_parent['Q25309'] = 'Q2087279'
+
 
 # Ok, we have all we need from wikidata. Now mine enwiki
 h={}
@@ -691,16 +663,12 @@ for lower_title in list(lower_title for lower_title in lower_title_to_id if ' ('
     i += 1
 print('',i,'deparentheticaled titles indexed.')
 
-## Manual adjustments ##
 
-#lower_title_to_id['me'] = lower_title_to_id['human']
 lower_title_to_id['you'] = lower_title_to_id['human']
 lower_title_to_id['rose'] = lower_title_to_id['human']
 lower_title_to_id['vivian'] = lower_title_to_id['human']
 lower_title_to_id['vivian rose'] = lower_title_to_id['human']
 lower_title_to_id['featherless biped'] = lower_title_to_id['human']
-
-lower_title_to_id['longcat'] = lower_title_to_id['cat']
 
 # People can't get their mind off dogs. Politely remind them these are all the same animal.
 DOGS = ['basset hound', 'bassethound', 'beagle', 'bloodhound', 'border collie', 'borzoi', 'boston terrier', 'boxer', 'bulldog', 'chihuahua', 'cocker spaniel', 'collie', 'corgi', 'dachshund', 'dalmatian', 'dalmation', 'doberman', 'dobermann', 'doge', 'foxhound', 'french bulldog', 'gazehound', 'german shepherd', 'great dane', 'greyhound', 'harehound', 'harrier', 'hound', 'husky', 'labrador', 'labrador retriever', 'lapdog', 'mastiff', 'mongrel', 'mudi', 'mutt', 'otterhound', 'pitbull', 'pomeranian', 'poodle', 'pug', 'rottweiler', 'saint bernard', 'samoyed', 'sheep dog', 'sheepdog', 'shiba inu', 'shih tzu', 'siberian husky', 'sled dog', 'st bernard', 'st. bernard', 'terrier', 'toy dog', 'toy poodle', 'wild dog', 'yorkshire terrier', 'golden retriever', 'yorkie', 'malamute', 'spaniel', 'schnauzer']
@@ -714,6 +682,7 @@ for cat in ('tabby','siamese'):
 for k,v in {
     # Easter eggs
     'dropbear': 'koala', 'drop bear':'koala',
+    'longcat': 'cat',
     # Younglings
     'caterpillar': 'lepidoptera',
     'maggot': 'diptera',
@@ -1230,9 +1199,6 @@ for lower_title, hieroglyphs in {
 with open('mononyms.js','w') as file:
     file.write('MONONYMS='+json.dumps(mononyms, indent=1, ensure_ascii=False))
 
-
-S=['Insects','Mammals','Amphibians','Birds','Lizards']
-#file.write('SLICES='+json.dumps(S))
 
 
 print('\nFinished in',(time.time()-t0)/60/60,'hours.')
