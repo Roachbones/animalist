@@ -111,6 +111,22 @@ dinoChallenge = {
     noun: 'non-bird dinosaur'
 };
 
+batChallenge = singleTaxonChallenge('bat');
+antChallenge = singleTaxonChallenge('ant');
+antChallenge.rejection = (guess_id, guess) => {
+    if (guess=='velvet ant') return "Velvet ants aren't actually ants. Sorry.";
+    if (!ancestsOrIs(LOWER_TITLE_TO_ID.ant, guess_id)) return "Not an ant.";
+};
+monotremeChallenge = singleTaxonChallenge('monotreme', 'egg-laying mammals');
+monotremeChallenge.duration_s = 9;
+monotremeChallenge.queueFinalTrivia = ()=>{
+    if (score<3) {
+        queue_trivium("<a href=https://en.wikipedia.org/wiki/Monotreme target=_blank>The only extant monotremes are the platypus and echnidnas.</a>");
+    } else {
+        queue_trivium("You sure know your monotremes.");
+    }
+}
+
 function debugWipeDailyHistory() {
     for (i in localStorage) {
         if (i.startsWith('c_daily_')) localStorage.removeItem(i);
@@ -246,18 +262,8 @@ function challengeForToday() {
 
     // img ref for this one?
     //if (date==20) return singleTaxonChallenge('carnivoran', 'an order of placental mammals specialized primarily in eating flesh; includes felids, canids, and others');
-    if (date==20) {
-        c = singleTaxonChallenge('monotreme', 'egg-laying mammals');
-        c.duration_s = 9; c.increment_s = 6;
-        c.queueFinalTrivia = ()=>{
-            if (score<3) {
-                queue_trivium("<a href=https://en.wikipedia.org/wiki/Monotreme target=_blank>The only extant monotremes are the platypus and echnidnas.</a>");
-            } else {
-                queue_trivium("You sure know your monotremes.");
-            }
-        }
-        return c;
-    }
+    if (date==20) return batChallenge;
+    if (date==21) return antChallenge;
     //if (date==21) return singleTaxonChallenge('wasp', 'not including bees & ants');
     if (date==22) return {
         shortname: '-fish',
@@ -304,17 +310,13 @@ function challengeForToday() {
             if (ancestsOrIs(LOWER_TITLE_TO_ID.vertebrata, guess_id)) return "That's a vertebrate.";
         }
     };
-    //if (date==30) return singleTaxonChallenge('myriapod', 'centipedes & millipedes');
-    if (date==31) return singleTaxonChallenge('owl');
-    if (date==32) {
-        c = singleTaxonChallenge('ant');
-        c.rejection = (guess_id, guess) => {
-            if (guess=='velvet ant') return "Velvet ants aren't actually ants. Sorry.";
-            if (!ancestsOrIs(LOWER_TITLE_TO_ID.ant, guess_id)) return "Not an ant.";
-        };
-        c.duration_s = 20;
-        c.increment_s = 7;
-        return c;
+    //if (date==30) return;
+    if (date==31) {
+        let options = [
+            singleTaxonChallenge('owl'),
+            singleTaxonChallenge('myriapod', 'centipedes & millipedes')
+        ];
+        return options[month % options.length];
     }
     if (date==NaN) return singleTaxonChallenge('tullimonstrum');
     return insectChallenge;
