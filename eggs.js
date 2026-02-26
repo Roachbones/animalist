@@ -242,6 +242,13 @@ function valid_guess_egg_message(guess, guess_id) {
     if (guess_id==LOWER_TITLE_TO_ID.oz && !guesses.includes('ounce')) {
         queue_shy_trivium("Snow leopards used to be called ounces."); // TODO elaborate w bestiary entry
     }
+    if (
+        guessed_ids[guessed_ids.length-2]==LOWER_TITLE_TO_ID.lion &&
+        guessed_ids[guessed_ids.length-1]==LOWER_TITLE_TO_ID.tiger &&
+        guess_id==LOWER_TITLE_TO_ID.bear
+    ) {
+        return "I'M MELTING!!!!!"; // this is funnier
+    }
     if (h‌ash(guess_id)==5714064253812690){
         queue_shy_trivium(
             '<a href=https://' + ID_TO_TITLE[guess_id] + 's.com target=_blank><img src=https://' + ID_TO_TITLE[guess_id] + 's.com/button.png width=88 height=31></a>'
