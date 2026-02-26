@@ -236,7 +236,7 @@ body:has(log li) .timecontrollabel {
     @media (width >= 30em) { top: 0; }
     @media (width < 30em) { bottom: 0; }
     padding: 1em;
-    & summary { list-style: none; }
+    & > summary { list-style: none; }
     & label {
         display: block;
         margin: 0.25em;
@@ -439,6 +439,10 @@ snail-race {
 @keyframes crawl { to { margin-left: -1em; } }
 
 body:has(#disablebgbox:checked) #underlay { display: none; }
+
+/* debug */
+body:has(#disablebodybgmovementbox:checked) { animation: none; }
+body:has(#disableunderlaybgmovementbox:checked) #underlay { animation: none; }
 
 body.invisibletimer #timer { visibility: hidden; }
 
@@ -762,6 +766,7 @@ function summonConfetto(text, parent) {
 }
 
 function updateUnderlay() {
+    if (disablebgsaturationbox?.checked) return;
     underlay.style.opacity = underlay.style.backgroundImage ? score/7 : -1 + (score/50);
     if (score == 60) { visualshint.style.display = 'block'; }
     underlay.vibrance = Math.max(0, underlay.vibrance*0.99);
@@ -956,7 +961,15 @@ function saveSettings() {
         <label class=timecontrollabel>time increment (s): <input type=number size=2 id=increment_control min=0 value=6></label>
         <label><input type=checkbox id=disablebgbox onchange=saveSettings()></input>disable animated backgrounds</label>
         <label><input type=checkbox id=toasthastebox onchange=saveSettings()></input>friendlier timer</label>
+
         <button onclick="initial_time_control.value=60;increment_control.value=6;disablebgbox.checked=0">reset to defaults</button>
+
+        <details style=padding-top:1em;margin-bottom:-1em><summary><small>experimental settings</small></summary>
+            <label><input type=checkbox id=disablebodybgmovementbox onchange=saveSettings()></input>disable body bg movement (clouds/water)</label>
+            <label><input type=checkbox id=disableunderlaybgmovementbox onchange=saveSettings()></input>disable underlay bg movement (colorful turbulence)</label>
+            <label><input type=checkbox id=disablebgsaturationbox onchange=saveSettings()></input>disable bg saturation</label>
+        </details>
+
     </details>
    
     <p>Score: <span id=scorespan>0</span></p>
