@@ -740,6 +740,8 @@ for k,v in {
     'bristletail': 'archaeognatha', # disambig w/o list
     'peeper': 'spring peeper',
     'mona': 'mona monkey', # stretch
+    'pipi': 'plebidonax deltoides',
+    'daddy long legs': 'opiliones', 'daddy longlegs': 'opiliones',
     #'rockhopper': 'rockhopper penguin', #dubious species but maybe should work?
     # these probably should have a wiki presence but they don't?
     'rubber ducky isopod': 'cubaris',

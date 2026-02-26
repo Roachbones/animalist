@@ -233,6 +233,9 @@ function valid_guess_egg_message(guess, guess_id) {
     if (guess=='house spider') {
         queue_trivium("The term “house spider” can refer to <a href=https://en.wikipedia.org/wiki/House_spider>multiple kinds of spider</a>, but it has <a href=extras/praiſe_of_the_houſe_Spider>a single entry in a 1600s bestiary that goes on and on about its wondrous beauty.</a>.");
     }
+    if (guess=='daddy longlegs' || guess=='daddy long legs') {
+        return "(That's dialectal, so I'm guessing you mean harvestman rather than crane fly or cellar spider.)";
+    }
     if (guess=='poodle moth') {
         queue_shy_trivium("I allowed “poodle moth”, but that's not really the name of an animal. An adorable photo captioned “Poodle moth, Venezuela” went viral after being taken in Canaima National Park in 2009. Its species is unknown; we only know it kinda resembles the poorly-understood <i>Artace</i> genus. So if you're in Venezuela, consider photographing moths!");
     }
