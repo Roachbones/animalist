@@ -273,6 +273,8 @@ with open('intermediate/latest-all-trimmed.json') as file:
             'Q693690' # Bull
         ]: continue
         parent_id = wikidatum_prop_entity(wikidatum, PARENT_TAXON)
+        # todo can remove next wikidata refresh
+        if wikidatum['id']=='Q76824533': parent_id='Q11878382'
         if parent_id: id_to_parent[wikidatum['id']] = parent_id
         aka_taxon_id = wikidatum_prop_entity(wikidatum, TAXON_KNOWN_BY_THIS_COMMON_NAME)
         # WOULD BE FIXED BY getting taxon from enwiki page instead of multiply-valued TKBYCN
@@ -740,7 +742,7 @@ for k,v in {
     'bristletail': 'archaeognatha', # disambig w/o list
     'peeper': 'spring peeper',
     'mona': 'mona monkey', # stretch
-    'pipi': 'plebidonax deltoides',
+    'pipi': 'paphies australis',
     'daddy long legs': 'opiliones', 'daddy longlegs': 'opiliones',
     #'rockhopper': 'rockhopper penguin', #dubious species but maybe should work?
     # these probably should have a wiki presence but they don't?
@@ -1215,6 +1217,8 @@ for lower_title, hieroglyphs in {
     else:
         print('including hieroglyphic mononyms:',hieroglyphs,lower_title)
         mononyms[lower_title_to_id[lower_title]] = hieroglyphs
+
+mononyms['Q53636'] = ['🐸']
 
 with open('mononyms.js','w') as file:
     file.write('MONONYMS='+json.dumps(mononyms, indent=1, ensure_ascii=False))
