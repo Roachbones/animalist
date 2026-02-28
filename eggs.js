@@ -294,6 +294,9 @@ function equivalence_egg_message(guess, guess_id) {
         queue_shy_trivium("Some would have you believe “possum” and “opossum” are mutually exclusive terms, but in colloquial language they are interchangeable. For example, the Virginia (o)possum is called both. The Wikipedia page for Possum even starts “The possums (sometimes opossums)”.");
         return "Sorry but they're used interchangeably.";
     }
+    if (guess=='fainting goat' || guess=='myotonic goat') {
+        return "Having myotonia congenita doesn't make you a different animal.";
+    }
     if (guess_id==LOWER_TITLE_TO_ID.dog && (!guesses.slice(0,-1).includes(guess) || !DOGS_IS_THE_SAME[0])) {
         if (dog_index > 3) { h1.innerText = h1.innerText.replace("until failure", "OTHER THAN DOGS") }
         return DOGS_IS_THE_SAME[dog_index++] || "NO!";
