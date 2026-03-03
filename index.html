@@ -443,6 +443,8 @@ body:has(#disablebgbox:checked) #underlay { display: none; }
 /* debug */
 body:has(#disablebodybgmovementbox:checked) { animation: none; }
 body:has(#disableunderlaybgmovementbox:checked) #underlay { animation: none; }
+body:has(#disableunderlayfilterbox:checked) #underlay { filter: none; }
+body:has(#disableunderlayopacitybox:checked) #underlay { opacity: none; }
 
 body.invisibletimer #timer { visibility: hidden; }
 
@@ -820,7 +822,8 @@ DEFAULT_DURATION_S = 60;
 DEFAULT_INCREMENT_S = 6;
 
 function generateShareString() {
-    var timerDisclaimer = (initial_time_control.value!=DEFAULT_DURATION_S || increment_control.value!=DEFAULT_INCREMENT_S) ? '⏱️'+initial_time_control.value+'/'+increment_control.value : '';
+    let timerDisclaimer = '';
+    if (!currentChallenge) timerDisclaimer = (initial_time_control.value!=DEFAULT_DURATION_S || increment_control.value!=DEFAULT_INCREMENT_S) ? '⏱️'+initial_time_control.value+'/'+increment_control.value : '';
     s = 'https://rose.systems/animalist';
     if (document.body.classList.contains('daily')) s += '#today';
     s += '\n' + timerDisclaimer;
@@ -968,6 +971,8 @@ function saveSettings() {
             <label><input type=checkbox id=disablebodybgmovementbox onchange=saveSettings()></input>disable body bg movement (clouds/water)</label>
             <label><input type=checkbox id=disableunderlaybgmovementbox onchange=saveSettings()></input>disable underlay bg movement (colorful turbulence)</label>
             <label><input type=checkbox id=disablebgsaturationbox onchange=saveSettings()></input>disable bg saturation/opacity changes</label>
+            <!--<label><input type=checkbox id=disableunderlayfilterbox onchange=saveSettings()></input>disable underlay filter (saturate)</label>
+            <label><input type=checkbox id=disableunderlayopacitybox onchange=saveSettings()></input>disable underlay opacity</label>-->
         </details>
 
     </details>
