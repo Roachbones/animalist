@@ -141,7 +141,10 @@ function invalid_guess_egg_message(guess) {
     if (guess=='tree' || guess=='moss' || guess=='flower' || guess=='apple' || guess=='venus flytrap' || guess=='venus fly trap') { return "Animals, not plants, please."; }
     if (guess=='yeast') { return "That's fungus."; }
     if (guess=='mold') { return "That's fungus, typically."; }
-    if (guess=='plant') { h1.innerText = "list ANIMALS until failure"; return ' '; }
+    if (guess=='plant') {
+        if (!currentChallenge) { h1.textContent = "list ANIMALS until failure"; }
+        return "Plants aren't animals.";
+    }
     if (guess=='fungus' || guess=='fungi' || guess=='virus' || guess=='diatom' || guess=='germ' || guess=='cordyceps') { return "No." }
     if (guess=='car') return "With wheels?";
     if (guess=='funnel web' || guess=='funnelweb') return "Just the web?";
