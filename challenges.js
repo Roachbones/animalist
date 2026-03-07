@@ -299,6 +299,12 @@ function challengeForToday() {
         orthographic: true,
         noun: 'fish'
     };
+    if (date==23) {
+        cetaceanChallenge = singleTaxonChallenge("cetacean","dolphins, porpoises, & whales");
+        waterfowlChallenge = singleTaxonChallenge("waterfowl","ducks, geese, & swans",null,"waterfowl");
+        options = [cetaceanChallenge, waterfowlChallenge];
+        return options[month % options.length];
+    }
     if (date==24) {
         c = singleTaxonChallenge('bear', "there are only like 8 of them");
         c.duration_s = 25; c.increment_s = 6;
