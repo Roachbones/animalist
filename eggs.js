@@ -63,7 +63,6 @@ function invalid_guess_egg_message(guess) {
     if (guess=='xyzzy') { return 'Nothing happens.'; }
     if (guess=='fish') { return 'Surely you can name a specific kind of fish. I believe in you!'; }
     if (guess=='invertebrate' || guess=='invert') return "97% of animals are invertebrates. Surely you can be more specific?";
-    if (guess=='yellowfin') { return "So many fish have yellow fins. Can you be more specific?"; }
 
     if (guess=='plankton') {
         queue_shy_trivium("<a href=https://en.wikipedia.org/wiki/Plankton>read about plankton</a>");
@@ -300,6 +299,7 @@ function equivalence_egg_message(guess, guess_id) {
     if (guess=='fainting goat' || guess=='myotonic goat') {
         return "Having myotonia congenita doesn't make you a different animal.";
     }
+    if (guess=='silver fox') return "Silver foxes are actually just red foxes.";
     if (guess_id==LOWER_TITLE_TO_ID.dog && (!guesses.slice(0,-1).includes(guess) || !DOGS_IS_THE_SAME[0])) {
         if (dog_index > 3) { h1.innerText = h1.innerText.replace("until failure", "OTHER THAN DOGS") }
         return DOGS_IS_THE_SAME[dog_index++] || "NO!";
@@ -348,6 +348,7 @@ function ancestry_egg_message(guess, descendant_id, ancestor_id) {
         return "(Rattlesnakes are pit vipers.)";
     }
     if (descendant_id==LOWER_TITLE_TO_ID.wallaby && ancestor_id==LOWER_TITLE_TO_ID.kangaroo) {
+        queue_shy_trivium("The antilopine wallaroo is known as an antilopine kangaroo when large, an antilopine wallaby when small, or an antilopine wallaroo when of intermediate size.");
         return "(I know they're usually different, but the antilopine wallaroo is called either.)";
     }
     if (descendant_id=='Q499627' && ancestor_id==LOWER_TITLE_TO_ID.ladybug && guesses.includes('ladybug')) {

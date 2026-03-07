@@ -11,6 +11,8 @@ Currently disorganized.
 # todo: remove duplicate: wasp vs wasps
 # todo: fix "you left out mouse"
 # todo: list times in settings when locked
+# todo: FluffyTwig — Yesterday at 10:57 PM Found 4 more that aren't accepted for some reason. Haolong, Mierasaurus, Yantaloong, and Yeneen
+# todo: gentler update mechanism for direct redirects
 
 import xml.etree.ElementTree as ET
 import json
@@ -46,6 +48,9 @@ mi = inf
 i = 0
 
 ENWIKI_DUMP_PATH = 'enwiki-20251120-pages-articles-multistream.xml.bz2'
+ENWIKI_DUMP_PATH = 'sources/enwiki-20260201-pages-articles-multistream.xml.bz2'
+CATEGORYLINKS_SQL_GZ = 'sources/enwiki-latest-categorylinks.sql.gz'
+
 
 def json_dumps_sans_keyquotes(d):
     return '{'+''.join('\n '+k+':"'+v+'"')+'\n}'
@@ -191,6 +196,7 @@ if 0:
             print(' ', template_kv['name'], '⇝', taxon_name)
     with open('intermediate/paraphyletics.json','w') as file:
         json.dump(pgroup_name_to_taxon_name, file, indent=1)
+    print('Paraphyletics json written.')
 else:
     print('Loading preprocessed paraphyletic groups from paraphyletics.json.')
     with open('intermediate/paraphyletics.json') as file:
@@ -199,7 +205,6 @@ else:
 
 
 
-CATEGORYLINKS_SQL_GZ = 'enwiki-20251220-categorylinks.sql.gz'
 if 0:
     # Example of how to get a linktarget ID from a category title:
     # cat sources/enwiki-*-linktarget.sql | sed 's/(/\n/g' | grep 14,Set_index_articles_on_animal_common_names
@@ -230,9 +235,11 @@ if 0:
                 siaoacn_ids.append(page_id)
     with open('intermediate/siaoacn_ids.json','w') as file:
         json.dump(siaoacn_ids,file)
+    print(' siaoacn ids dumped.')
 else:
     with open('intermediate/siaoacn_ids.json','r') as file:
         siaoacn_ids = json.load(file)
+    print('siaoacn ids loaded.')
 
 
 if 0:
@@ -247,7 +254,7 @@ if 0:
             i += 1
             if i%100000==0:print(i,'lines read....')
             instanceof = wikidatum_prop_entity(wikidatum, 'P31')
-            if instanceof not in ('Q55983715','Q502895'): continue
+            if instanceof not in ('Q55983715','Q502895','Q23038290'): continue
             if not wikidatum_prop_entity(wikidatum, TAXON_KNOWN_BY_THIS_COMMON_NAME):
                 print('Taxonless common name:',wikidatum['id'],'/'.join(wikidatum_names(wikidatum)))
             if wikidatum['id']=='Q188212':e()
@@ -270,7 +277,8 @@ with open('intermediate/latest-all-trimmed.json') as file:
         if wikidatum['id'] in [
             'Q48428', # Birds of prey
             'Q43806', # Invertebrate
-            'Q693690' # Bull
+            'Q693690', # Bull
+            'Q5032447', # redundant dingo
         ]: continue
         parent_id = wikidatum_prop_entity(wikidatum, PARENT_TAXON)
         # todo can remove next wikidata refresh
@@ -295,14 +303,14 @@ with open('intermediate/latest-all-trimmed.json') as file:
 
 # Should be in wikidata but isn't
 id_to_parent['Q188212'] = 'Q48178' # Tiger shark has incomplete ancestry otherwise
-
+id_to_parent['Q56326812'] = 'Q7901176' # protarctos isn't a spider. Fixed in wikidata
 
 # currently unused
 if 0:
     i = 0
     print('Mining Wikipedia Template:Taxonomies (temtaxes)')
     temtaxes = {}
-    for p in pages('enwiki-20251120-pages-articles-multistream.xml.bz2'):
+    for p in pages(ENWIKI_DUMP_PATH):
         title = p.find('title').text
         if not title.startswith('Template:Taxonomy/'): continue
         i+=1
@@ -366,6 +374,7 @@ if 0>9999:
 
 # wasp and paper wasp don't quite interfere
 
+id_to_parent['Q3781201'] = 'Q138259'
 
 print(len(id_to_parent),'parentages.')
 
@@ -480,7 +489,7 @@ if 0:
     i = 0
     print('Mining enwiki redirects.')
     redirects = {} # redirects[source] = target
-    for p in pages('enwiki-20251120-pages-articles-multistream.xml.bz2'):
+    for p in pages(ENWIKI_DUMP_PATH):
         title = p.find('title').text
         #body = tree.find('revision').find('text')
         if title.startswith('Wikipedia:') or title.startswith('Template:') or title.startswith('Draft:') or title.startswith('Category:'): continue
@@ -700,8 +709,9 @@ for k,v in {
     'cross fox': 'red fox',
     'highland cow': 'cow',
     'pony': 'horse', 'stallion': 'horse', 'shetland pony': 'horse', 'clydesdale': 'horse', 'arabian horse':'horse',
-    'mustang': 'horse', 'shetland horse': 'horse', 'clydesdale horse':'horse',
+    'mustang': 'horse', 'shetland horse': 'horse', 'clydesdale horse':'horse',"miniature horse":'horse',
     'mare': 'equine',
+    'teacup pig':'pig',
     'pygmy goat': 'goat', 'fainting goat':'goat', 'myotonic goat':'goat',
     'pheasant': 'common pheasant',
     'mackerel': 'atlantic mackerel',
@@ -731,6 +741,10 @@ for k,v in {
     'asian carp': 'black amur',
     'petrel': 'procellariiformes',
     'moray': 'moray eel', # otherwise goes to honeycomb moray fsr
+    'ant mimicking spider':'myrmarachne',
+    # recovered from dump updates
+    '🦞': 'lobster',
+    #'pelican spider':'archaeidae',
     # Picking one
     'spitting cobra': 'rinkhals',
     'warbler': 'garden warbler',
@@ -746,6 +760,7 @@ for k,v in {
     'daddy long legs': 'opiliones', 'daddy longlegs': 'opiliones',
     #'rockhopper': 'rockhopper penguin', #dubious species but maybe should work?
     # these probably should have a wiki presence but they don't?
+    'desert spider': 'stegodyphus lineatus',
     'rubber ducky isopod': 'cubaris',
     'peacock jumping spider': 'peacock spider',
     'blue insularis': 'trimeresurus insularis',
@@ -756,7 +771,8 @@ for k,v in {
     'brazilian jewel tarantula':'typhochlaena seladonia',
     'brown wasp mantidfly':'wasp mantidfly',
     'garlic snail':'oxychilus alliarius','garlic glass snail':'oxychilus alliarius',
-    'graceful decorator crab': 'oregonia gracilis',
+    'graceful decorator crab': 'oregonia gracilis', #done
+    "hancock's flatworm":"pseudobiceros hancockanus",
     'fresh water crocodile': 'freshwater crocodile',
     'swamp hen': 'swamphen',
     'deep sea isopod': 'giant isopod',
@@ -774,6 +790,8 @@ for k,v in {
     'white owl': 'snowy owl',
     # would be solved by taking taxon from wikipedia instead of wikidata: elephant, neaderthal?
     'crab': 'brown crab',
+    # fixes from dump updates
+    '🦆':'duck'
 }.items():
     lower_title_to_id[k] = lower_title_to_id[v]
 
@@ -840,8 +858,14 @@ del lower_title_to_id['zorse']
 del lower_title_to_id['zedonk']
 del lower_title_to_id['egg']
 del lower_title_to_id['alien']
-del lower_title_to_id['invertebrate']
-
+#del lower_title_to_id['invertebrate']
+for delendum in [
+    'test','finger','albino squirrel','silver fox','🐥','약'
+]:
+    del lower_title_to_id[delendum]
+for lt in list(lower_title_to_id):
+    if lower_title_to_id[lt] == lower_title_to_id['crash bandicoot'] and not lt.startswith('crash bandicoot'):
+        del lower_title_to_id[lt]
 
 # The single-letter names are all a stretch.
 for letter in 'abcdefghijklmnopqrstuvwxyz':
@@ -1195,7 +1219,7 @@ for lower_title, hieroglyphs in {
      'african sacred ibis': ['𓅝', '𓅞'],
      'baboon': ['𓃷', '𓃻'], 'bennu heron': ['𓆀'], 'bovine': ['𓃜'], 'cattle egret': ['𓅥'],
      'egyptian cobra': ['𓆗', '𓆘'], 'cormorant': ['𓅧'], 'cow': ['𓃔', '𓃖', '𓃠','𓃒', '𓃓', '𓃽', '𓃾', '𓄀'], 'nile crocodile': ['𓆊', '𓆌'],
-     'donkey': ['𓃘'], 'duck': ['𓅹'], 'dung beetle': ['𓆣'],
+     'donkey': ['𓃘'], 'dung beetle': ['𓆣'],
      'egyptian centipede': ['𓆨'], 'egyptian vulture': ['𓄿', '𓅀', '𓆂'], 'elephant': [], #𓃰
      'eurasian wigeon': ['𓅰'], 'falcon': ['𓅃'],
      'flamingo': ['𓅟'], 'flesh fly': ['𓆦'],
@@ -1229,8 +1253,18 @@ print('\nFinished in',(time.time()-t0)/60/60,'hours.')
 
 
 # todo: don't use quotes for some of the js keys, to save space
-
-
-
 # todo: 4 toed sloth
 # todo: badger?
+
+
+
+
+
+
+
+
+
+
+
+
+
