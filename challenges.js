@@ -111,6 +111,25 @@ dinoChallenge = {
     noun: 'non-bird dinosaur'
 };
 
+fishChallenge = {
+    shortname: 'nontetrapodvertebrate',
+    title: 'list non-tetrapod vertebrates until failure',
+    subtitle: 'Fish Friday',
+    rejection: function (guessId, guess) {
+        for (const ancestor of lineage(guessId)) {
+            if (ancestor==LOWER_TITLE_TO_ID.tetrapod) return "That's a tetrapod.";
+            if (ancestor==LOWER_TITLE_TO_ID.mammal) return "That's a tetrapod. Mammals are tetrapods.";
+            if (ancestor==LOWER_TITLE_TO_ID.cetacean) return "It sure looks like a fish, but it's taxonomically a tetrapod.";
+            if (ancestor==LOWER_TITLE_TO_ID.vertebrate) return;
+        }
+        if (guessId==LOWER_TITLE_TO_ID.tullimonstrum) {
+            acceptanceComment = "If you say so!";
+            return;
+        }
+        return "Not a vertebrate.";
+    }
+}
+
 batChallenge = singleTaxonChallenge('bat');
 antChallenge = singleTaxonChallenge('ant');
 antChallenge.rejection = (guess_id, guess) => {
@@ -186,11 +205,15 @@ function challengeForToday() {
         c = singleTaxonChallenge('arthropod', 'Arthropod Thursday. (Exoskeletoned invertebrates. Bugs, more or less.)'); // Arthropod Thursday
         c.rejection = function(guess_id, guess) {
             if (ancestsOrIs(LOWER_TITLE_TO_ID.arthropod, guess_id)) return;
+            if (guessId==LOWER_TITLE_TO_ID.tullimonstrum) {
+                acceptanceComment = "I... I guess it might be."; return;
+            }
             if (arthropodConfusion++==4) {
                 queue_shy_trivium("<a href=https://en.wikipedia.org/wiki/Arthropod target=_blank>Read about arthropods</a> or <a href=https://rose.systems/bugs target=_blank>browse my arthropod photos</a>.");
             }
             return "Not an arthropod.";
         }
+        return c;
     }
     if (day==6) return { // todo scrap this one?
         shortname: '30s+3s',
@@ -216,12 +239,13 @@ function challengeForToday() {
         title: 'list animals faster!',
         duration_s: 10, increment_s: 2,
         rejection: ()=>{},
-        attributivizeScore: ()=>{ score + ' animal' + (score==1 ? '' : 's') + ' listed faster (10s+1s)' }
+        attributivizeScore: ()=>{ score + ' animal' + (score==1 ? '' : 's') + ' listed faster (10s+2s)' }
     }
     if (date==11) return {
         shortname: 'non-mammal',
         title: 'list non-mammal animals until failure',
         rejection: function(guess_id, guess) {
+            if (guessId==LOWER_TITLE_TO_ID.tullimonstrum) return "I'm pretty sure it wasn't a mammal.";
             if (ancestsOrIs(LOWER_TITLE_TO_ID.mammal, guess_id)) return "That's a mammal.";
         }
     };
@@ -306,11 +330,13 @@ function challengeForToday() {
         title: 'list invertebrates until failure',
         subtitle: 'spineless animals',
         rejection: function(guess_id, guess) {
+            if (guessId==LOWER_TITLE_TO_ID.tullimonstrum) {
+                acceptanceComment = "If you say so."; return;
+            }
             if (ancestsOrIs(LOWER_TITLE_TO_ID.human, guess_id)) return "I definitely have a spine.";
             if (ancestsOrIs(LOWER_TITLE_TO_ID.vertebrata, guess_id)) return "That's a vertebrate.";
         }
     };
-    //if (date==30) return;
     if (date==31) {
         let options = [
             singleTaxonChallenge('owl'),
