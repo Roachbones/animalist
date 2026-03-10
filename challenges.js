@@ -235,7 +235,7 @@ function challengeForToday() {
     if (date==8) return arachnidChallenge;
     if (date==9) return wordchainChallenge;
     if (date==10) return {
-        shortname: '10-1',
+        shortname: '10-2',
         title: 'list animals faster!',
         duration_s: 10, increment_s: 2,
         rejection: ()=>{},
