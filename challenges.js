@@ -239,7 +239,7 @@ function challengeForToday() {
         title: 'list animals faster!',
         duration_s: 10, increment_s: 2,
         rejection: ()=>{},
-        attributivizeScore: ()=>{ score + ' animal' + (score==1 ? '' : 's') + ' listed faster (10s+2s)' }
+        attributivizeScore: ()=> score + ' animal' + (score==1 ? '' : 's') + ' listed faster (10s+2s)'
     }
     if (date==11) return {
         shortname: 'non-mammal',
