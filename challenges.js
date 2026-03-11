@@ -247,7 +247,8 @@ function challengeForToday() {
         rejection: function(guessId, guess) {
             if (guessId==LOWER_TITLE_TO_ID.tullimonstrum) return "I'm pretty sure it wasn't a mammal.";
             if (ancestsOrIs(LOWER_TITLE_TO_ID.mammal, guessId)) return "That's a mammal.";
-        }
+        },
+        noun: 'non-mammal'
     };
     if (date==12) return singleTaxonChallenge('beetle', 'insects with hardened wing-cases');
     if (date==13) {
