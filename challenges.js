@@ -203,8 +203,8 @@ function challengeForToday() {
     if (day==4) {
         arthropodConfusion = 0;
         c = singleTaxonChallenge('arthropod', 'Arthropod Thursday. (Exoskeletoned invertebrates. Bugs, more or less.)'); // Arthropod Thursday
-        c.rejection = function(guess_id, guess) {
-            if (ancestsOrIs(LOWER_TITLE_TO_ID.arthropod, guess_id)) return;
+        c.rejection = function(guessId, guess) {
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.arthropod, guessId)) return;
             if (guessId==LOWER_TITLE_TO_ID.tullimonstrum) {
                 acceptanceComment = "I... I guess it might be."; return;
             }
