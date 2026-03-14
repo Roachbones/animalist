@@ -48,7 +48,7 @@ mi = inf
 i = 0
 
 ENWIKI_DUMP_PATH = 'enwiki-20251120-pages-articles-multistream.xml.bz2'
-ENWIKI_DUMP_PATH = 'sources/enwiki-20260201-pages-articles-multistream.xml.bz2'
+ENWIKI_DUMP_PATH = 'sources/enwiki-20260301-pages-articles-multistream.xml.bz2'
 CATEGORYLINKS_SQL_GZ = 'sources/enwiki-latest-categorylinks.sql.gz'
 
 
@@ -846,6 +846,7 @@ id_to_title['Q468500'] = 'Eastern gray squirrel'
 #id_to_title['Q30263'] = 'Seal'
 id_to_title[lower_title_to_id['horse']] = 'Horse'
 id_to_title['Q10856'] = 'Dove/Pigeon'
+id_to_title['Q25420'] = 'Firefly'
 id_to_title['Q31431'] = 'Parrot'
 del lower_title_to_id['🎁'] # Genetically Improved Farmed Tilapia (GIFT)
 del lower_title_to_id['🏏'] # 🦗 is too cute to miss
@@ -860,7 +861,8 @@ del lower_title_to_id['egg']
 del lower_title_to_id['alien']
 #del lower_title_to_id['invertebrate']
 for delendum in [
-    'test','finger','albino squirrel','silver fox','🐥','약'
+    # todo investigate sb?
+    'test','finger','albino squirrel','silver fox','🐥','약','sb','thank you'
 ]:
     del lower_title_to_id[delendum]
 for lt in list(lower_title_to_id):

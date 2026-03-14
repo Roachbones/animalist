@@ -48329,7 +48329,7 @@ ID_TO_TITLE={
  "Q25375": "Odonata",
  "Q25397": "Manis",
  "Q25418": "European goldfinch",
- "Q25420": "Glowworm",
+ "Q25420": "Firefly",
  "Q25429": "Barn swallow",
  "Q25592": "Schinia rivulosa",
  "Q25761": "Common shelduck",
