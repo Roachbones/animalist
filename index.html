@@ -863,7 +863,8 @@ function endGame() {
     cycleThank();
     shareString = generateShareString();
     copybutton.style.display = navigator.clipboard ? null : 'none';
-    discord.style.display = score > 50 ? '' : 'none';
+    let discordScorePar = currentChallenge ? 5 : 50;
+    discord.style.display = score > discordScorePar ? '' : 'none';
     gameoverscreen.style.display = 'block';
     comment.innerText = '';
     if (currentChallenge?.key) {
