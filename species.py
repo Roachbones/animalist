@@ -688,6 +688,9 @@ for dog in DOGS: lower_title_to_id[dog] = lower_title_to_id.get(dog, lower_title
 for cat in ('tabby','siamese'):
     lower_title_to_id[cat] = lower_title_to_id['cat']
     lower_title_to_id[cat+' cat'] = lower_title_to_id['cat']
+for rabbit in ['Altex rabbit','American rabbit','American Sable rabbit','Angora rabbit','Argenté rabbit','Baladi rabbit','Bauscat rabbit','Beige rabbit','Beveren rabbit','Big Silver Marten rabbit','Blue Imperial rabbit','Brazilian domestic rabbit','British Giant rabbit','Brun Marron de Lorraine rabbit','Caldes rabbit','Californian rabbit','Chaudry rabbit','Checkered Giant rabbit','Chinchilla rabbit','Cinnamon rabbit','Continental Giant rabbit','Criollo rabbit','Czech Checkered rabbit','Czech Red rabbit','Czech White rabbit','Dutch rabbit','Dwarf rabbit','Enderby Island rabbit','Flemish Giant rabbit','Florida White rabbit','Gabali rabbit','Giant Sable rabbit','Gotland rabbit','Gouda rabbit','Great Havana rabbit','Havana rabbit','Himalayan rabbit','Japanese Harlequin rabbit','Jumbo rabbit','Light Groot Silver rabbit','Lilac rabbit','Line M rabbit','Line V rabbit','Line-V rabbit','Lionhead rabbit','List of rabbit','Little Squirrel rabbit','Luchskanianchen rabbit','Lux rabbit','Mecklenburg Pinto rabbit','Netherland Dwarf rabbit','New Zealand rabbit','Norwegian Silver Fox rabbit','Palomino rabbit','Polish rabbit','Popielno White rabbit','Liptov Baldspotted rabbit','Rex du Poitou rabbit','Rex rabbit','Rhinelander rabbit','Rhön rabbit','Saxon Gold rabbit','Silver Fox rabbit','Silver Marten rabbit','Silver rabbit','St. Nicholas Blue rabbit','Stone rabbit','Vienna rabbit','Zemmouri rabbit','Zika rabbit']:
+    if rabbit not in lower_title_to_id:
+        lower_title_to_id[rabbit.lower()] = lower_title_to_id['domestic rabbit']
 
 
 for k,v in {
@@ -791,7 +794,8 @@ for k,v in {
     # would be solved by taking taxon from wikipedia instead of wikidata: elephant, neaderthal?
     'crab': 'brown crab',
     # fixes from dump updates
-    '🦆':'duck'
+    '🦆':'duck',
+    'queen crab':'chionoecetes'
 }.items():
     lower_title_to_id[k] = lower_title_to_id[v]
 
