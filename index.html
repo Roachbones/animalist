@@ -448,12 +448,13 @@ body:has(#disableunderlayopacitybox:checked) #underlay { opacity: none; }
 
 body.invisibletimer #timer { visibility: hidden; }
 
-/*
-body:not(.dailiesbeta) {
-    #dailypage {display:none;}
-    #dailybutton2 {display:none;}
+#fpsBox {
+    &[fps^0] { color: var(--urgent-color-1); }
+    &[fps^1] { color: var(--urgent-color-2); }
+    border: 1px solid;
+    transition: rotate 1s;
 }
-*/
+
     </style>
     <link rel=stylesheet href=evolution.css>
     <script src=lower_title_to_id.js></script>
@@ -880,6 +881,10 @@ function load() {
     if (location.hash=='#today') {
         startDaily();
     }
+    if (showFps) {
+        requestAnimationFrame(measureFps);
+        fpsBox.style.display = 'inline-block';
+    }
 }
 
 function startDaily() {
@@ -933,6 +938,46 @@ function saveSettings() {
     }
 }
 
+averageMspf = null;
+let lastTimestamp;
+showFps = location.hash=='#fps';
+let frameCount = 0;
+let slowness = 0;
+
+function measureFps(timestamp) {
+    lastTimestamp ||= timestamp;
+    let mspf = timestamp - lastTimestamp;
+    if (mspf > 100 && document.hasFocus()) {
+        slowness += Math.min(1000, mspf);
+        console.log('slowness: '+slowness+'/5000');
+        if (slowness > 3000) {
+            fpsBox.style.rotate = '25deg';
+            // Slowness detected. First resort: disable bg movement.
+            if (!disablebodybgmovementbox.checked || !disableunderlaybgmovementbox.checked) {
+                //e();
+                for (box of [disablebodybgmovementbox, disableunderlaybgmovementbox]) {
+                    box.checked = true;
+                    box.parentElement.style.fontWeight = 'bold';
+                    box.parentElement.title = 'automatically enabled due to low detected fps';
+                }
+                //saveSettings();
+            }
+        }
+    } else {
+        slowness = 0;
+    }
+    if (averageMspf == null) averageMspf = mspf;
+    lastTimestamp = timestamp;
+    averageMspf = (averageMspf * 9 + mspf) / 10;
+    requestAnimationFrame(measureFps);
+    frameCount++
+    if (showFps && !(frameCount % 10)) {
+        fps = ~~(1000 / averageMspf);
+        fpsSpan.textContent = fps;
+        fpsBox.setAttribute('fps', (fps+"").padStart(2,0));
+    }
+}
+
     </script>
 </head>
 
@@ -941,6 +986,9 @@ function saveSettings() {
     <noscript>This game requires JavaScript. Or, if you've superior taste, take out a pen and paper and start listing animals.</noscript>
     <h1 id=h1>list animals until failure</h1>
     <p id=subtitle></p>
+    
+    <span id=fpsBox style=display:none><span id=fpsSpan>…</span> fps</span>
+    
     <details id=rules>
         <summary>List as many animals as you can.</summary>
         <p><b>Animals must have Wikipedia articles.</b>
