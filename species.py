@@ -787,6 +787,11 @@ for k,v in {
     'sea monkey': 'brine shrimp',
     'seamonkey' : 'brine shrimp', # todo why doesn't this work automatically
     'death feigning beetle': 'blue death feigning beetle', # there are others, actually.. todo fix this
+    'dark paper wasp':'polistes fuscatus',
+    'northern paper wasp':'polistes fuscatus',
+    'antlered flutter fly':'toxonevra superba',
+    'flutter fly':'toxonevra', # I guess?
+    'tanuki':'japanese raccoon dog',
     #'american possum': 'didelphimorphia', 'american opossum': 'didelphimorphia',
     #'australian opossum': 'phalangeriformes',
     # overrides
@@ -798,6 +803,11 @@ for k,v in {
     'queen crab':'chionoecetes'
 }.items():
     lower_title_to_id[k] = lower_title_to_id[v]
+
+def steal(victim_id, thief_id):
+    for lt in lower_title_to_id:
+        if lower_title_to_id[lt] == victim_id:
+            lower_title_to_id[lt] = thief_id
 
 print('Sorting wasps.')
 # 'wasp' is paraphyletic.
@@ -836,7 +846,10 @@ assert 'trout' not in lower_title_to_id
 lower_title_to_id['trout'] = lower_title_to_id['brown trout']
 
 # Shrimp → "true shrimp". Otherwise it can be pretty wide, including lobsters
-lower_title_to_id['shrimp'] = lower_title_to_id['caridea']
+CARIDEA = 'Q80117'
+id_to_title[CARIDEA] = 'Caridea (true shrimp)'
+lower_title_to_id['shrimp'] = CARIDEA
+steal('Q147873',CARIDEA)
 
 lower_title_to_id['jellyfish'] = 'Q272388'
 id_to_title['Q272388'] = 'Scyphozoa (true jellyfish)'
@@ -845,11 +858,21 @@ MOLIDAE = 'Q726231'
 lower_title_to_id['sunfish'] = MOLIDAE
 id_to_title[MOLIDAE] = 'Molidae (ocean sunfish)'
 
+# Puma should mean cougar, not the genus whose only extant member is the cougar
+lower_title_to_id['puma'] = lower_title_to_id['cougar']
+
 id_to_title['Q8332'] = 'Red fox' # otherwise defaults to domesticated silver fox
 id_to_title['Q468500'] = 'Eastern gray squirrel'
 #id_to_title['Q30263'] = 'Seal'
 id_to_title[lower_title_to_id['horse']] = 'Horse'
 id_to_title['Q10856'] = 'Dove/Pigeon'
+id_to_title['Q122783'] = 'Black bear'
+id_to_title['Q25327'] = 'Ladybug/ladybird/ladybeetle'
+lower_title_to_id['ladybug/ladybird/ladybeetle'] = 'Q25327'
+TREX = lower_title_to_id['trex']
+lower_title_to_id['tyrannosaurus rex'] = TREX
+id_to_title['Q73901'] = 'Bullet ant'
+lower_title_to_id['dove/pigeon'] = 'Q10856'
 id_to_title['Q25420'] = 'Firefly'
 id_to_title['Q31431'] = 'Parrot'
 del lower_title_to_id['🎁'] # Genetically Improved Farmed Tilapia (GIFT)
@@ -857,6 +880,7 @@ del lower_title_to_id['🏏'] # 🦗 is too cute to miss
 del lower_title_to_id['凧']
 del lower_title_to_id['🝳'] # half-ounces aren't ounces
 del lower_title_to_id['fish']
+del lower_title_to_id['fishes']
 del lower_title_to_id['car']
 del lower_title_to_id['kudu']
 del lower_title_to_id['zorse']
@@ -866,7 +890,8 @@ del lower_title_to_id['alien']
 #del lower_title_to_id['invertebrate']
 for delendum in [
     # todo investigate sb?
-    'test','finger','albino squirrel','silver fox','🐥','약','sb','thank you'
+    'test','finger','albino squirrel','silver fox','🐥','약','sb','thank you',
+    'rug','ro'
 ]:
     del lower_title_to_id[delendum]
 for lt in list(lower_title_to_id):
@@ -920,6 +945,21 @@ lower_title_to_id['bos indicus'] = ZEBU
 lower_title_to_id['indicine cattle'] = ZEBU
 lower_title_to_id['humped cattle'] = ZEBU
 
+'''
+print(' Fixing coral.')
+BLACK_CORAL = 'Q1479472'
+id_to_title[BLACK_CORAL] = 'Black coral'
+for lt in ['antipatharia','antipatharian','black coral']:
+    lower_title_to_id[lt] = BLACK CORAL
+CORAL = 'Q171446'
+id_to_title[CORAL] = 'Coral'
+for lt in ['coral','corals']:
+    lower_title_to_id[lt] = CORAL
+ANTHOZOA = 'Q28524'
+id_to_parent[CORAL] = ANTHOZOA
+# todo learn more about coral????
+'''
+
 
 print(' Rearranging ducks.')
 # Geese and swans are not ducks. This is like wasps/bees/ants but messier.
@@ -971,10 +1011,7 @@ def regroup(ancestor_id, surnames):
         if id_to_parent[animal_id] == ancestor_id:
             print(' remaining non-'+str(surnames), 'child in', ancestor_id, id_to_title[ancestor_id]+':', animal_id, id_to_title[animal_id])
 
-def steal(victim_id, thief_id):
-    for lt in lower_title_to_id:
-        if lower_title_to_id[lt] == victim_id:
-            lower_title_to_id[lt] = thief_id
+
 
 print(' Rearranging eagles.')
 ACCIPITRIFORMES = 'Q21736'
@@ -1026,6 +1063,7 @@ for i in id_to_parent:
         id_to_parent[i] = MOTH
 RHOPALOCERA = 'Q21075224'
 steal(RHOPALOCERA,PAPILIONOIDEA) # Rhopalocera otherwise gets 'butterfly'
+id_to_title[PAPILIONOIDEA] = 'Butterfly'
 
 print(' Tidying mites.')
 ACARI = 'Q19137'
