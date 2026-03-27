@@ -429,6 +429,9 @@ YOU_FORGOT_STARS = [
     'What about *?', 'Never heard of a *?'
 ];
 VOWELS = new Set('aeiou');
+function try_queue_final_trivia() {
+    try { queue_final_trivia(); } catch (e) { reportError(e, trivia); }
+}
 function queue_final_trivia() {
     currentChallenge?.queueFinalTrivia?.();
     if (guessed_ids.includes('Q26972265') && guessed_ids.includes('Q38584')) {

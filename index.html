@@ -566,7 +566,8 @@ function appendp(element, text) {
     return p;
 }
 
-function reportError(error) {
+function reportError(error, target) {
+    target ||= comment;
     fetch(
         "https://guestbook.rose.systems/animalserror",
         {
@@ -582,7 +583,7 @@ function reportError(error) {
     if (!guessed_ids.length) {
         appendp(errorReport, 'Try refreshing?');
     }
-    comment.append(errorReport);
+    target.append(errorReport);
 }
 
 function tryAttempt() {
@@ -861,7 +862,7 @@ function endGame() {
     )
     guessbox.disabled = true;
     navigator.vibrate && toasthastebox.checked && navigator.vibrate(999);
-    queue_final_trivia();
+    try_queue_final_trivia();
     cycleThank();
     shareString = generateShareString();
     copybutton.style.display = navigator.clipboard ? null : 'none';
