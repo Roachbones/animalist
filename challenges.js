@@ -66,9 +66,15 @@ alphabeticalChallenge = {
 invisibleTimerChallenge = {
     shortname: 'invisibletimer',
     title: 'list animals invisibly timed',
-    subtitle: "the timer is invisible. maybe it's easier without the big red countdown",
-    rejection: ()=>{}
+    subtitle: "the timer is invisible. maybe it's easier without the big red countdown"
 };
+
+name100Challenge = {
+    shortname: 'name100',
+    title: 'list 100 animals',
+    subtitle: 'as fast as you can',
+    attributivizeScore: ()=> 'todo'
+}
 
 oneWordChallenge = {
     shortname: 'one-word',
@@ -85,7 +91,7 @@ twoWordChallenge = {
     shortname: 'two-word',
     title: 'list two-word animals until failure',
     subtitle: "all guesses must be exactly two words",
-    rejection: function (_guess_id, guess) {
+    rejection: function (_guessId, guess) {
         let wordCount = guess.split(' ').length;
         if (wordCount==2) return;
         if (wordCount==1) return "That's only one word.";
@@ -155,8 +161,7 @@ function challengeForToday() {
     if (1==0) return {
         shortname: '0.5s-1s',
         title: 'half-second test challenge',
-        duration_s: 0.5, increment_s: -1,
-        rejection: ()=>{}
+        duration_s: 0.5, increment_s: -1
     }
     let month = today.getMonth(); let date = today.getDate(); let day = today.getDay();
     // Specific dates (by which I mean month and day. No wait, day means weekday, uh,)
@@ -220,7 +225,6 @@ function challengeForToday() {
         title: 'list animals fast',
         subtitle: 'speedrun saturday',
         duration_s: 30, increment_s: 3,
-        rejection: ()=>{},
         attributivizeScore: ()=> score + ' animal' + (score==1 ? '' : 's') + ' listed fast (30s+3s)'
     }
 
@@ -238,7 +242,6 @@ function challengeForToday() {
         shortname: '10-2',
         title: 'list animals faster!',
         duration_s: 10, increment_s: 2,
-        rejection: ()=>{},
         attributivizeScore: ()=> score + ' animal' + (score==1 ? '' : 's') + ' listed faster (10s+2s)'
     }
     if (date==11) return {
@@ -329,7 +332,6 @@ function challengeForToday() {
         title: 'list animals in one minute',
         subtitle: 'no time bonus for listed animals',
         duration_s: 60, increment_s: 0,
-        rejection: ()=>{},
         verbed: 'listed in 1 min'
     }
     if (date==30) return {

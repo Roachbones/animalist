@@ -902,6 +902,7 @@ function startChallenge(challenge) {
     if (!challenge) { alert("error challenge not defined bwehh >.<'"); }
     challenge.duration_s ||= DEFAULT_DURATION_S;
     challenge.increment_s ||= DEFAULT_INCREMENT_S;
+    challenge.rejection ||= ()=>{};
     if (!challenge.attributivizeScore) {
         challenge.noun ||= 'animal';
         challenge.pluralNoun ||= challenge.noun+'s';
