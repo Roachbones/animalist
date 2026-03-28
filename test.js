@@ -7,14 +7,21 @@ function nameQid(qid) {
 }
 
 function runTests() {
-    for (commonId of COMMONS) {
+    for (let commonId of COMMONS) {
         if (!a(ID_TO_TITLE[commonId], 'untitled common '+commonId)) continue;
-        hopefullyCommonId = LOWER_TITLE_TO_ID[testLow(ID_TO_TITLE[commonId])];
+        let hopefullyCommonId = LOWER_TITLE_TO_ID[testLow(ID_TO_TITLE[commonId])];
         a(
             hopefullyCommonId==commonId,
             "Common "+nameQid(commonId)+" not evoked by name; overshadowed by " + nameQid(hopefullyCommonId)
         );
     }
+    /*for (let i in ID_TO_TITLE) {
+        let hopefullyId = LOWER_TITLE_TO_ID[testLow(ID_TO_TITLE[i])];
+        a(
+            hopefullyId==i,
+            "Uncommon "+nameQid(i)+" not evoked by name; overshadowed by " + nameQid(hopefullyId)
+        );
+    }*/
 }
 
 function a(condition, label) {
