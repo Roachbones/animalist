@@ -861,6 +861,9 @@ id_to_title[MOLIDAE] = 'Molidae (ocean sunfish)'
 # Puma should mean cougar, not the genus whose only extant member is the cougar
 lower_title_to_id['puma'] = lower_title_to_id['cougar']
 
+# Homo heidelbergensis aren't neanderthals, arguably
+id_to_parent['Q40171'] = 'Q171283'
+
 id_to_title['Q8332'] = 'Red fox' # otherwise defaults to domesticated silver fox
 id_to_title['Q468500'] = 'Eastern gray squirrel'
 #id_to_title['Q30263'] = 'Seal'
@@ -875,6 +878,13 @@ id_to_title['Q73901'] = 'Bullet ant'
 lower_title_to_id['dove/pigeon'] = 'Q10856'
 id_to_title['Q25420'] = 'Firefly'
 id_to_title['Q31431'] = 'Parrot'
+steal('Q1231177','Q110047432') # Ungulate → Pan-Euungulata
+
+# Australian feral camel → dromedary
+steal('Q71516','Q1568770')
+id_to_title['Q1568770'] = 'Dromedary'
+id_to_parent['Q1568770'] = 'Q7375'
+
 del lower_title_to_id['🎁'] # Genetically Improved Farmed Tilapia (GIFT)
 del lower_title_to_id['🏏'] # 🦗 is too cute to miss
 del lower_title_to_id['凧']
@@ -931,6 +941,8 @@ lower_title_to_id['mouses'] = MUS
 lower_title_to_id['mus'] = MUS
 lower_title_to_id['typical mice'] = MUS
 lower_title_to_id['typical mouse'] = MUS
+lower_title_to_id['🐁'] = MUS
+lower_title_to_id['🐭'] = MUS
 RATTUS = 'Q36396'
 id_to_title[RATTUS] = "Rattus (typical rats)"
 lower_title_to_id['typical rat'] = RATTUS
