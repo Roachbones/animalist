@@ -734,7 +734,7 @@ for k,v in {
     'bluet': 'coenagrion',
     'anemone':'sea anemone',
     'tetra': 'black neon tetra',
-    'marlin': 'atlantic blue marlin',
+    #'marlin': 'atlantic blue marlin',
     'man o war': 'portuguese man o war',
     'huntsman': 'huntsman spider',
     'komodo': 'komodo dragon',
