@@ -1077,6 +1077,13 @@ RHOPALOCERA = 'Q21075224'
 steal(RHOPALOCERA,PAPILIONOIDEA) # Rhopalocera otherwise gets 'butterfly'
 id_to_title[PAPILIONOIDEA] = 'Butterfly'
 
+# Yellowjacket should be a grouping of Vespula & Dolichovespula (genera in Vespinae)
+print(' Coordinating yellowjackets.')
+VESPINAE = 'Q1076176'
+YELLOWJACKET = dummy('Yellowjacket', VESPINAE)
+for i in ('yellowjacket','yellow jacket'): lower_title_to_id[i] = YELLOWJACKET
+for yellowjacket_genus in ['Q1065202','Q599282']: id_to_parent[yellowjacket_genus] = YELLOWJACKET
+
 print(' Tidying mites.')
 ACARI = 'Q19137'
 lower_title_to_id['mite'] = ACARI

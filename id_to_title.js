@@ -383089,6 +383089,7 @@ ID_TO_TITLE={
  "VCONDOR": "Condor",
  "VSEAL": "Seal",
  "VSEA_LION": "Sea lion",
+ "VYELLOWJACKET": "Yellowjacket",
  "VLEOPARD_FROG": "Leopard frog",
  "Q18227870": "Chipmunk",
  "VROCKHOPPER_PENGUIN": "Rockhopper penguin",
