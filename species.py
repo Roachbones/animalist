@@ -851,6 +851,9 @@ id_to_title[CARIDEA] = 'Caridea (true shrimp)'
 lower_title_to_id['shrimp'] = CARIDEA
 steal('Q147873',CARIDEA)
 
+# Earthworm → Lumbricidae
+steal('Q124378','Q2925555')
+
 lower_title_to_id['jellyfish'] = 'Q272388'
 id_to_title['Q272388'] = 'Scyphozoa (true jellyfish)'
 
