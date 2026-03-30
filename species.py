@@ -761,6 +761,7 @@ for k,v in {
     'mona': 'mona monkey', # stretch
     'pipi': 'paphies australis',
     'daddy long legs': 'opiliones', 'daddy longlegs': 'opiliones',
+    'red snapper':'northern red snapper','red snappers':'red snapper',
     #'rockhopper': 'rockhopper penguin', #dubious species but maybe should work?
     # these probably should have a wiki presence but they don't?
     'desert spider': 'stegodyphus lineatus',
