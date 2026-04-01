@@ -15,10 +15,10 @@ function descendant_streak(ancestor, length) {
 
 function progress_egg() {
     if (descendant_streak(major_groups.Bird, 16) && !document.body.classList.contains('sky')) {
-        document.body.classList = ['sky']
+        document.body.classList.add('sky');
     }
     if (descendant_streak('Q25371', 8)) {
-        document.body.classList = ['water'];
+        document.body.classList.add('water');
     }
     if (descendant_streak('Q1357', 8)) {
         spider.style.display = 'block';
