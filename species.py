@@ -1246,6 +1246,12 @@ lower_title_to_id['galapagos tortoise'] = GTORT
 lower_title_to_id['giant tortoise'] = GTORT
 lower_title_to_id['giant turtle'] = GTORT
 
+# Because I was asked
+CAPE_YORK_BROWN_BANDICOOT = 'Q41083855'
+id_to_title[CAPE_YORK_BROWN_BANDICOOT] = 'Cape York brown bandicoot'
+lower_title_to_id['cape york brown bandicoot'] = CAPE_YORK_BROWN_BANDICOOT
+id_to_parent[CAPE_YORK_BROWN_BANDICOOT] = 'Q1475031'
+
 
 print('Writing Animalia to parent.js.')
 with open('parent.js','w') as file:
