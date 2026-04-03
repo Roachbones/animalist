@@ -793,6 +793,7 @@ for k,v in {
     'antlered flutter fly':'toxonevra superba',
     'flutter fly':'toxonevra', # I guess?
     'tanuki':'japanese raccoon dog',
+    'ruru':'morepork', # todo find these programmatically?
     #'american possum': 'didelphimorphia', 'american opossum': 'didelphimorphia',
     #'australian opossum': 'phalangeriformes',
     # overrides
