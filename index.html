@@ -345,11 +345,12 @@ body.daily #dailybutton2 { display: none; }
 }
 
 #underlay {
+    scale: 0;
     opacity: 0;
     position: fixed; left: 0; top: 0; height: 100vh; width: 100vw;
-    transition-property:        background-color, opacity,  filter;
-    transition-duration:        4s,               3s,       2s;
-    transition-timing-function: ease-in-out,      ease-out, ease-out;
+    transition-property:        background-color, opacity,  filter,   rotate,   scale;
+    transition-duration:        4s,               3s,       2s,       1s,       1s;
+    transition-timing-function: ease-in-out,      ease-out, ease-out, ease-in,  ease-in;
     z-index: -1;
     & { background-image: url("media/tile_ether.svg"); }
     & { background-image: url("media/tile_ether.png"); } /* trying nosvg */
@@ -772,7 +773,12 @@ function summonConfetto(text, parent) {
 
 function updateUnderlay() {
     if (disablebgsaturationbox?.checked) return;
-    underlay.style.opacity = underlay.style.backgroundImage ? score/7 : -1 + (score/50);
+    let o = underlay.style.backgroundImage ? score/7 : -1 + (score/50);
+    if (o > 0) {
+        underlay.style.opacity = o;
+        underlay.style.scale = 1;
+        underlay.style.rotate = '1turn';
+    }
     if (score == 60) { visualshint.style.display = 'block'; }
     underlay.vibrance = Math.max(0, underlay.vibrance*0.99);
     underlay.style.filter = 'saturate(' + (1+Math.floor(underlay.vibrance/90)) + ')';
