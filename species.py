@@ -1141,6 +1141,16 @@ SNIPE = dummy('Snipe','Q26626')
 for snipe_genus in ('Q10787358','Q868199','Q786045'): id_to_parent[snipe_genus] = SNIPE
 lower_title_to_id['snipes'] = SNIPE
 
+print(' Rearranging guillemots.')
+AUK = 'Q28294'
+id_to_title[AUK] = 'Auk'
+GUILLEMOT = 'Q3120530'
+id_to_title[GUILLEMOT] = 'Guillemot'
+id_to_parent[GUILLEMOT] = AUK
+for guillemot_genus in ('Q838599','Q132913'): id_to_parent[guillemot_genus] = GUILLEMOT
+lower_title_to_id['guillemot'] = GUILLEMOT
+lower_title_to_id['guillemots'] = GUILLEMOT
+
 print(' Rearranging foxes.')
 CANIDAE = 'Q25324'
 regroup(CANIDAE, ['Fox'])
