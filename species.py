@@ -715,6 +715,7 @@ for k,v in {
     'mustang': 'horse', 'shetland horse': 'horse', 'clydesdale horse':'horse',"miniature horse":'horse',
     'mare': 'equine',
     'teacup pig':'pig',
+    'wild hog':'wild boar',
     'pygmy goat': 'goat', 'fainting goat':'goat', 'myotonic goat':'goat',
     'pheasant': 'common pheasant',
     'mackerel': 'atlantic mackerel',
