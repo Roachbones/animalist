@@ -1151,6 +1151,11 @@ for guillemot_genus in ('Q838599','Q132913'): id_to_parent[guillemot_genus] = GU
 lower_title_to_id['guillemot'] = GUILLEMOT
 lower_title_to_id['guillemots'] = GUILLEMOT
 
+print(' Rearranging green mambas.')
+GREEN_MAMBA = dummy('Green mamba', 'Q194425')
+for snake in ('Q622805','Q741280','Q1681355'): id_to_parent[snake] = GREEN_MAMBA
+lower_title_to_id['green mambas'] = GREEN_MAMBA
+
 print(' Rearranging foxes.')
 CANIDAE = 'Q25324'
 regroup(CANIDAE, ['Fox'])

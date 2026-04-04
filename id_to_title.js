@@ -383095,6 +383095,7 @@ ID_TO_TITLE={
  "VROCKHOPPER_PENGUIN": "Rockhopper penguin",
  "VSNIPE": "Snipe",
  "Q3120530": "Guillemot",
+ "VGREEN_MAMBA": "Green mamba",
  "VFOX": "Fox",
  "VCOBRA": "Cobra",
  "VRATTLESNAKE": "Rattlesnake",
