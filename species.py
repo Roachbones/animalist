@@ -169,6 +169,7 @@ if 0:
 
 if 0:
     pgroup_name_to_taxon_name = {}
+    pgroup_name_to_includee_names = {}
     print('Hunting paraphyletic groups.')
     import wikitextparser, re
     html_comment_pattern=HTML_COMMENT_PATTERN
@@ -194,6 +195,28 @@ if 0:
         if template_kv.get('name') and not any(c in template_kv['name'] for c in '<{["'):
             pgroup_name_to_taxon_name[template_kv['name']] = taxon_name
             print(' ', template_kv['name'], '⇝', taxon_name)
+        includes = template_kv.get('includes')
+        if includes:
+            print([includes])
+            included_taxa = []
+            for line in includes.split('\n'):
+                line = line.strip()
+                if line.startswith('*'): line = line[1:].strip()
+                if line.startswith('{{extinct}}'): line = line[11:]
+                if line.startswith("''"): line = line[2:]
+                if line.startswith(':'): line = line[1:]
+                if line.startswith(';') or line.lower().startswith('see '):
+                    print('Skipping paraphyly due to line',line)
+                    included_taxa = []
+                    break
+                if not line.startswith('[['):
+                    print(line,' no [[')
+                    continue
+                line = line[2:].split(']]')[0]
+                line = line.split('|')[-1] # ?
+                included_taxa.append(line)
+            print('included taxa',included_taxa)
+            pgroup_name_to_includee_names[title] = included_taxa
     with open('intermediate/paraphyletics.json','w') as file:
         json.dump(pgroup_name_to_taxon_name, file, indent=1)
     print('Paraphyletics json written.')
@@ -202,7 +225,6 @@ else:
     with open('intermediate/paraphyletics.json') as file:
         pgroup_name_to_taxon_name = json.load(file)
     print(' Loaded paraphyletic groups.')
-
 
 
 if 0:
@@ -1006,11 +1028,13 @@ for lt in list(lower_title_to_id):
 id_to_parent['VGOOSE'] = DUCK_PARENT
 id_to_parent['VSWAN'] = DUCK_PARENT
 
-def dummy(title, parent_id, take_names_from_id=None):
+def dummy(title, parent_id, take_names_from_id=None, extra_aliases=None):
     dummy_id = 'V'+title.upper().replace(" ","_")
     #assert dummy_id not in id_to_title
     id_to_title[dummy_id] = title
     lower_title_to_id[low(title)] = dummy_id
+    for alias in (extra_aliases or []):
+        lower_title_to_id[low(alias)] = dummy_id
     for lt in list(lower_title_to_id):
         if lower_title_to_id[lt] == take_names_from_id:
             lower_title_to_id[lt] = dummy_id
@@ -1029,13 +1053,18 @@ def regroup(ancestor_id, surnames):
         if id_to_parent[animal_id] == ancestor_id:
             print(' remaining non-'+str(surnames), 'child in', ancestor_id, id_to_title[ancestor_id]+':', animal_id, id_to_title[animal_id])
 
-
-
 print(' Rearranging eagles.')
+SEA_EAGLE = 'Q1253080'
+id_to_title[SEA_EAGLE] = 'Sea eagle'
+lower_title_to_id['sea eagle'] = SEA_EAGLE
+for sea_eagle_genus in ('Q539162','Q147403'): id_to_parent[sea_eagle_genus] = SEA_EAGLE
+id_to_parent[SEA_EAGLE] = None
 ACCIPITRIFORMES = 'Q21736'
 regroup(ACCIPITRIFORMES, ['Eagle','Hawk','Buzzard','Vulture','Kite'])
 lower_title_to_id['🦅'] = 'VEAGLE'
 steal('Q25510','VEAGLE')
+id_to_parent[SEA_EAGLE] = 'VEAGLE'
+
 
 print(' Rearranging corvids.')
 CORVUS = 'Q43365'
@@ -1153,9 +1182,13 @@ lower_title_to_id['guillemot'] = GUILLEMOT
 lower_title_to_id['guillemots'] = GUILLEMOT
 
 print(' Rearranging green mambas.')
-GREEN_MAMBA = dummy('Green mamba', 'Q194425')
+GREEN_MAMBA = dummy('Green mamba', 'Q194425', extra_aliases=['green mambas'])
 for snake in ('Q622805','Q741280','Q1681355'): id_to_parent[snake] = GREEN_MAMBA
-lower_title_to_id['green mambas'] = GREEN_MAMBA
+
+print(' Rearranging quetzals.')
+TROGON = 'Q191469'
+QUETZAL = dummy('Quetzal',TROGON,extra_aliases=['quetzals'])
+for quetzal_genus in ('Q1006430','Q2725371'): id_to_parent[quetzal_genus] = QUETZAL
 
 print(' Rearranging foxes.')
 CANIDAE = 'Q25324'

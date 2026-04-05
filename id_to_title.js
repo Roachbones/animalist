@@ -383096,6 +383096,7 @@ ID_TO_TITLE={
  "VSNIPE": "Snipe",
  "Q3120530": "Guillemot",
  "VGREEN_MAMBA": "Green mamba",
+ "VQUETZAL": "Quetzal",
  "VFOX": "Fox",
  "VCOBRA": "Cobra",
  "VRATTLESNAKE": "Rattlesnake",
