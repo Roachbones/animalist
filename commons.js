@@ -449,10 +449,10 @@ COMMONS = [
 // "Q25404", // Eurasian blue tit
  "Q940337", // Bed bug
  "Q168327", // Alpine ibex
- "Q591305", // Indian elephant
- "Q26864", // Aurelia aurita
+// "Q591305", // Indian elephant
+// "Q26864", // Aurelia aurita
  "Q256860", // Leopard gecko
- "Q3549947", // Unicorn (spider)
+// "Q3549947", // Unicorn (spider)
  "Q19137", // Mite
  "Q756901", // Gopher
  "Q726151", // Quokka
