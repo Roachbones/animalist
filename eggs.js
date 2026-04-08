@@ -481,14 +481,22 @@ function queue_final_trivia() {
         for (common_id of COMMONS||[]) {
             if (currentChallenge?.rejection?.(common_id, ID_TO_TITLE[common_id].toLowerCase())) continue;  // If these common animal isn't allowed per the challenge, skip it
             if (guessWords.has(ID_TO_TITLE[common_id]?.toLowerCase())) continue; // sloppy way to prevent bad critique from erroneous parentage
-            if (!guessed_ids.includes(common_id) && !guessed_descendant[common_id]) {
-                YOU_FORGOT_STAR = YOU_FORGOT_STARS[Math.floor(Math.random()**3 * YOU_FORGOT_STARS.length)];
-                let commonName = ID_TO_TITLE[common_id].toLowerCase();
-                if (VOWELS.has(commonName[0])) YOU_FORGOT_STAR = YOU_FORGOT_STAR.replace(" a "," an ");
-                queue_trivium_once(YOU_FORGOT_STAR.replace('*',commonName));
-                break;
-            }
+            // If the common wouldn't award a point, don't criticize it.
+            if (guessed_ids.includes(common_id)) continue; // already guessed
+            if (guessed_descendant[common_id]) continue; // already guessed more specific
+            if (anyGuessedAncestor(common_id)) continue; // would just replace ancestor anyway
+            YOU_FORGOT_STAR = YOU_FORGOT_STARS[Math.floor(Math.random()**3 * YOU_FORGOT_STARS.length)];
+            let commonName = ID_TO_TITLE[common_id].toLowerCase();
+            if (VOWELS.has(commonName[0])) YOU_FORGOT_STAR = YOU_FORGOT_STAR.replace(" a "," an ");
+            queue_trivium_once(YOU_FORGOT_STAR.replace('*',commonName));
+            break;
         }
+    }
+}
+// todo maybe optimize this with a Set
+function anyGuessedAncestor(guess_id) {
+    for (ancestor of lineage(guess_id)) {
+        if (guessed_ids.includes(ancestor)) return ancestor;
     }
 }
 
