@@ -363,7 +363,7 @@ function singleTaxonChallenge(ancestor_name, subtitle, ancestor_article, ancesto
     ancestor_name_plural ||= ancestor_name + 's';
     ancestor_article ||= ancestor_name.match(/^[aeiou]/) ? 'an' : 'a';
     return {
-        shortname: ancestor_name,
+        shortname: ancestor_name.replaceAll(" ","_"),
         title: "list " + ancestor_name_plural + " until failure",
         subtitle: subtitle,
         rejection: function(guess_id) {
