@@ -219,6 +219,8 @@ if 0:
             pgroup_name_to_includee_names[title] = included_taxa
     with open('intermediate/paraphyletics.json','w') as file:
         json.dump(pgroup_name_to_taxon_name, file, indent=1)
+    with open('intermediate/paraphyletics2.json','w') as file:
+        json.dump(pgroup_name_to_includee_names, file, indent=1)
     print('Paraphyletics json written.')
 else:
     print('Loading preprocessed paraphyletic groups from paraphyletics.json.')
