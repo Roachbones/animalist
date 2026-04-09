@@ -370,7 +370,7 @@ COMMONS = [
 // "Q166794", // Pallas's cat
  "Q185231", // Elephant seal
  "Q185237", // Starling
- "Q13098211", // Tyrannosaurus rex
+// "Q13098211", // Tyrannosaurus rex
  "Q2191516", // Pangolin
  "Q1044378", // Common box turtle
  "Q3745367", // Tapir

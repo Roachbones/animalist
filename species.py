@@ -902,8 +902,7 @@ id_to_title['Q10856'] = 'Dove/Pigeon'
 id_to_title['Q122783'] = 'Black bear'
 id_to_title['Q25327'] = 'Ladybug/ladybird/ladybeetle'
 lower_title_to_id['ladybug/ladybird/ladybeetle'] = 'Q25327'
-TREX = lower_title_to_id['trex']
-lower_title_to_id['tyrannosaurus rex'] = TREX
+steal(lower_title_to_id['trex'], lower_title_to_id['tyrannosaurus']) # todo not sure why this is necessary
 id_to_title['Q73901'] = 'Bullet ant'
 lower_title_to_id['dove/pigeon'] = 'Q10856'
 id_to_title['Q25420'] = 'Firefly'
