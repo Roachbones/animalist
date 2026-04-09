@@ -57,7 +57,10 @@ alphabeticalChallenge = {
     subtitle: 'abcdefghijklmnopqrstuvwxyz',
     rejection: function (_guess_id, guess) {
         let prevGuess = correct_guesses[correct_guesses.length-1];
-        if (prevGuess && guess.localeCompare(prevGuess)<0) return "That alphabetically precedes " + prevGuess + ".";
+        if (!prevGuess) return;
+        if (guess.localeCompare(prevGuess)<0 && guess.replaceAll(' ','').localeCompare(prevGuess.replaceAll(' ',''))<0) {
+             return "That alphabetically precedes " + prevGuess + ".";
+        }
     },
     orthographic: true,
     attributivizeScore: ()=> score + ' animal' + (score==1 ? '' : 's') + ' listed alphabetically'
