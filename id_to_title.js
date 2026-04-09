@@ -192015,7 +192015,7 @@ ID_TO_TITLE={
  "Q127837": "Dwarf sparrowhawk",
  "Q127898": "Black-faced sandgrouse",
  "Q127964": "Namaqua sandgrouse",
- "Q128098": "Jackal",
+ "Q128098": "Golden jackal",
  "Q128302": "Apistogramma regani",
  "Q129374": "Porcellio granuliferus",
  "Q129526": "Hydrophis viperinus",

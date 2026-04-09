@@ -1159,7 +1159,7 @@ print(' Rearranging jackals.')
 JACKAL = 'Q125525'
 for jackal_species in ['Q128098','Q125814326','Q125815593']:
     id_to_parent[jackal_species] = JACKAL # Skips a few taxons; they only have subtribe (Canina) 1in common
-
+id_to_title['Q128098'] = 'Golden jackal'
 
 
 # Rockhopper penguins are a mess. Tuck them under one label.
