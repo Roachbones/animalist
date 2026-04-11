@@ -305,10 +305,10 @@ with open('intermediate/latest-all-trimmed.json') as file:
             'Q5032447', # redundant dingo
         ]: continue
         parent_id = wikidatum_prop_entity(wikidatum, PARENT_TAXON)
+        aka_taxon_id = wikidatum_prop_entity(wikidatum, TAXON_KNOWN_BY_THIS_COMMON_NAME)
         # todo can remove next wikidata refresh
         if wikidatum['id']=='Q76824533': parent_id='Q11878382'
         if parent_id: id_to_parent[wikidatum['id']] = parent_id
-        aka_taxon_id = wikidatum_prop_entity(wikidatum, TAXON_KNOWN_BY_THIS_COMMON_NAME)
         # WOULD BE FIXED BY getting taxon from enwiki page instead of multiply-valued TKBYCN
         if wikidatum['id']=='Q7378':aka_taxon_id='Q2372824'
         if aka_taxon_id: id_to_persona_ids[aka_taxon_id] = id_to_persona_ids.get(aka_taxon_id, []) + [wikidatum['id']]
@@ -1254,7 +1254,14 @@ print(' Rearranging buns.')
 # except Lepus which is hares.
 # There are two non-Lepus Leporid genera called hares, but Wikipedia says they're rabbits.
 LEPORIDAE = 'Q25900'
-RABBIT = 'Q685653'
+RABBIT = 'Q9394' #dummy('Rabbit',LEPORIDAE,extra_aliases=['rabbits','bunnies','bunny'])
+# Pronolagus conflation corrected via brittle kludge due to limits of human cognition & lifespan
+id_to_parent[RABBIT] = LEPORIDAE
+id_to_title[RABBIT] = 'Rabbit'
+PRONOLAGUS = 'Q685653'
+steal(PRONOLAGUS,RABBIT)
+id_to_title[PRONOLAGUS] = 'Red rock hare'
+for i in ['red rock hare','red rock hares','pronolagus']: lower_title_to_id[i] = PRONOLAGUS
 HARE = 'Q46076' # Lepus
 assert id_to_parent[RABBIT] == LEPORIDAE
 id_to_parent[HARE] = LEPORIDAE

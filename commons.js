@@ -10,7 +10,7 @@ COMMONS = [
  "Q787", // Pig
  "Q19939", // Tiger
  "Q33609", // Polar bear
- "Q685653", // Rabbit
+ "Q9394", // Rabbit
 // "Q39275", // Mus (typical mice)
 // "Q36396", // Rattus (typical rats)
  "Q862089", // Giraffe
