@@ -712,7 +712,7 @@ for dog in DOGS: lower_title_to_id[dog] = lower_title_to_id.get(dog, lower_title
 for cat in ('tabby','siamese'):
     lower_title_to_id[cat] = lower_title_to_id['cat']
     lower_title_to_id[cat+' cat'] = lower_title_to_id['cat']
-for rabbit in ['Altex rabbit','American rabbit','American Sable rabbit','Angora rabbit','Argenté rabbit','Baladi rabbit','Bauscat rabbit','Beige rabbit','Beveren rabbit','Big Silver Marten rabbit','Blue Imperial rabbit','Brazilian domestic rabbit','British Giant rabbit','Brun Marron de Lorraine rabbit','Caldes rabbit','Californian rabbit','Chaudry rabbit','Checkered Giant rabbit','Chinchilla rabbit','Cinnamon rabbit','Continental Giant rabbit','Criollo rabbit','Czech Checkered rabbit','Czech Red rabbit','Czech White rabbit','Dutch rabbit','Dwarf rabbit','Enderby Island rabbit','Flemish Giant rabbit','Florida White rabbit','Gabali rabbit','Giant Sable rabbit','Gotland rabbit','Gouda rabbit','Great Havana rabbit','Havana rabbit','Himalayan rabbit','Japanese Harlequin rabbit','Jumbo rabbit','Light Groot Silver rabbit','Lilac rabbit','Line M rabbit','Line V rabbit','Line-V rabbit','Lionhead rabbit','List of rabbit','Little Squirrel rabbit','Luchskanianchen rabbit','Lux rabbit','Mecklenburg Pinto rabbit','Netherland Dwarf rabbit','New Zealand rabbit','Norwegian Silver Fox rabbit','Palomino rabbit','Polish rabbit','Popielno White rabbit','Liptov Baldspotted rabbit','Rex du Poitou rabbit','Rex rabbit','Rhinelander rabbit','Rhön rabbit','Saxon Gold rabbit','Silver Fox rabbit','Silver Marten rabbit','Silver rabbit','St. Nicholas Blue rabbit','Stone rabbit','Vienna rabbit','Zemmouri rabbit','Zika rabbit']:
+for rabbit in ['Altex rabbit','American rabbit','American Sable rabbit','Angora rabbit','Argenté rabbit','Baladi rabbit','Bauscat rabbit','Beige rabbit','Beveren rabbit','Big Silver Marten rabbit','Blue Imperial rabbit','Brazilian domestic rabbit','British Giant rabbit','Brun Marron de Lorraine rabbit','Caldes rabbit','Californian rabbit','Chaudry rabbit','Checkered Giant rabbit','Chinchilla rabbit','Cinnamon rabbit','Continental Giant rabbit','Criollo rabbit','Czech Checkered rabbit','Czech Red rabbit','Czech White rabbit','Dutch rabbit','Dwarf rabbit','Enderby Island rabbit','Flemish Giant rabbit','Florida White rabbit','Gabali rabbit','Giant Sable rabbit','Gotland rabbit','Gouda rabbit','Great Havana rabbit','Havana rabbit','Himalayan rabbit','Japanese Harlequin rabbit','Jumbo rabbit','Light Groot Silver rabbit','Lilac rabbit','Line M rabbit','Line V rabbit','Line-V rabbit','Lionhead rabbit','List of rabbit','Little Squirrel rabbit','Luchskanianchen rabbit','Lux rabbit','Mecklenburg Pinto rabbit','Netherland Dwarf rabbit','New Zealand rabbit','Norwegian Silver Fox rabbit','Palomino rabbit','Polish rabbit','Popielno White rabbit','Liptov Baldspotted rabbit','Rex du Poitou rabbit','Rex rabbit','Rhinelander rabbit','Rhön rabbit','Saxon Gold rabbit','Silver Fox rabbit','Silver Marten rabbit','Silver rabbit','St. Nicholas Blue rabbit','Stone rabbit','Vienna rabbit','Zemmouri rabbit','Zika rabbit','Belgian hare']:
     if rabbit not in lower_title_to_id:
         lower_title_to_id[rabbit.lower()] = lower_title_to_id['domestic rabbit']
 
@@ -1249,6 +1249,24 @@ for lizard in (
 ):
     id_to_parent[lizard] = LACERTILIA
 
+print(' Rearranging buns.')
+# Everything in Leporidae is a rabbit,
+# except Lepus which is hares.
+# There are two non-Lepus Leporid genera called hares, but Wikipedia says they're rabbits.
+LEPORIDAE = 'Q25900'
+RABBIT = 'Q685653'
+HARE = 'Q46076' # Lepus
+assert id_to_parent[RABBIT] == LEPORIDAE
+id_to_parent[HARE] = LEPORIDAE
+# All non-hare Leporids are rabbits
+for i in list(id_to_parent):
+    if id_to_parent[i] != LEPORIDAE: continue
+    if i==HARE or i==RABBIT: continue
+    id_to_parent[i] = RABBIT
+# They still look the same though, so use 🐇🐰 for all leporids.
+# I guess we can use one for rabbits and the other for hares?
+lower_title_to_id['🐇'] = RABBIT
+lower_title_to_id['🐰'] = HARE
 
 print(' Rearranging gray squirrels.')
 SCIURUS = 'Q281124'
@@ -1374,6 +1392,11 @@ with open('mononyms.js','w') as file:
 
 
 print('\nFinished in',(time.time()-t0)/60/60,'hours.')
+
+
+for i in id_to_parent:
+    if id_to_parent[i] == i:
+        assert 0, i + ' is its own parent'
 
 
 # todo: don't use quotes for some of the js keys, to save space
