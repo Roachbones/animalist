@@ -304,13 +304,9 @@ body.daily #dailybutton2 { display: none; }
     margin-top: 1em;
     & summary { font-size: small }
 }
-#mistakes {
-    #mistakeslog {
-        text-align: left;
-    }
-    display: none;
-    &:has(li) { display: block; }
-}
+#mistakeslog { text-align: left; }
+#mistakes { display: none; }
+body:has(#mistakesbox:checked) #mistakes:has(li) { display: block; }
 #about {
     & summary { user-select: none; }
     &:not([open]) summary { cursor: help; }
@@ -508,7 +504,7 @@ function newGame() {
     
     guessbox.focus()
 
-    if (location.hash=='#showmistakesfornova') mistakes.style='';
+    if (location.hash=='#showmistakesfornova') mistakesbox.checked=1;
     if (location.hash=='#today' || location.hash=='#enabledaily') document.body.classList.add('dailiesbeta');
 }
 
@@ -1056,7 +1052,7 @@ function measureFps(timestamp) {
             </button>
             <br>
             <button id=dailybutton2 onclick=newGame();startDaily()>try today's daily challenge</button>
-            <details id=mistakes style=display:none><summary>mistakes</summary>
+            <details id=mistakes><summary>mistakes</summary>
                 <ul id=mistakeslog></ul>
                 <p>(If they're my fault, check Wikipedia & <a href=https://rose.systems/contact target=_blank>tell me what to fix</a>.)</p>
             </details>
