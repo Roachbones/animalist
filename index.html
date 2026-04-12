@@ -1019,12 +1019,13 @@ function measureFps(timestamp) {
     
     <details id=settings-page>
         <summary title=Settings><h2>Settings</h2><span id=gear>⚙️</span></summary>
-        <label class=timecontrollabel>initial time (s): <input type=number size=2 id=initial_time_control min=1 value=60></label>
-        <label class=timecontrollabel>time increment (s): <input type=number size=2 id=increment_control min=0 value=6></label>
-        <label><input type=checkbox id=disablebgbox onchange=saveSettings()></input>disable animated backgrounds</label>
-        <label><input type=checkbox id=toasthastebox onchange=saveSettings()></input>friendlier timer</label>
+        <label title='How many seconds to start with' class=timecontrollabel>initial time (s): <input type=number size=2 id=initial_time_control min=1 value=60></label>
+        <label title='How many seconds to grant for each animal after the first' class=timecontrollabel>time increment (s): <input type=number size=2 id=increment_control min=0 value=6></label>
+        <label title='For weak devices'><input type=checkbox id=disablebgbox onchange=saveSettings()></input>disable animated backgrounds</label>
+        <label title='Whether to keep the timer small and purple'><input type=checkbox id=toasthastebox onchange=saveSettings()></input>friendlier timer</label>
+        <label title='Whether to list mistakes at the end of the game'><input type=checkbox id=mistakesbox onchange=saveSettings()></input>list mistakes</label>
 
-        <button onclick="initial_time_control.value=60;increment_control.value=6;disablebgbox.checked=0">reset to defaults</button>
+        <button onclick="initial_time_control.value=60;increment_control.value=6;disablebgbox.checked=0;toasthastebox.checked=0;mistakesbox.checked=0;saveSettings()">reset to defaults</button>
 
         <details style=padding-top:1em;margin-bottom:-1em><summary><small>experimental settings</small></summary>
             <label><input type=checkbox id=disablebodybgmovementbox onchange=saveSettings()></input>disable body bg movement (clouds/water)</label>
