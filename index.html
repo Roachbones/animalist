@@ -1019,7 +1019,7 @@ function measureFps(timestamp) {
         <label title='How many seconds to grant for each animal after the first' class=timecontrollabel>time increment (s): <input type=number size=2 id=increment_control min=0 value=6></label>
         <label title='For weak devices'><input type=checkbox id=disablebgbox onchange=saveSettings()></input>disable animated backgrounds</label>
         <label title='Whether to keep the timer small and purple'><input type=checkbox id=toasthastebox onchange=saveSettings()></input>friendlier timer</label>
-        <label title='Whether to list mistakes at the end of the game'><input type=checkbox id=mistakesbox onchange=saveSettings()></input>list mistakes</label>
+        <label title='Whether to show mistakes at the end of the game'><input type=checkbox id=mistakesbox onchange=saveSettings()></input>show mistakes</label>
 
         <button onclick="initial_time_control.value=60;increment_control.value=6;disablebgbox.checked=0;toasthastebox.checked=0;mistakesbox.checked=0;saveSettings()">reset to defaults</button>
 
