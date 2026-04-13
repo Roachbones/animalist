@@ -72,7 +72,7 @@ COMMONS = [
  "Q25349", // Starfish
  "Q21834", // Opossum
  "Q7372", // Shark
- "Q182968", // Monkey
+ "Q1367", // Monkey
  "Q2699803", // Gull
  "Q22864", // Wasp
  "Q1357", // Spider

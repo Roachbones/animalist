@@ -71,6 +71,7 @@ def wikidatum_prop_entity(wikidatum, prop_id):
     if not statements: return
     statements.sort(key=lambda statement:statement['rank'])
     if wikidatum['id']=='Q2102' and prop_id==TAXON_KNOWN_BY_THIS_COMMON_NAME: return 'Q25537662' # bad sorting
+    if wikidatum['id']=='Q1367' and prop_id==TAXON_KNOWN_BY_THIS_COMMON_NAME: return
     statement = statements[-1]
     if statement['mainsnak']['snaktype'] == 'novalue':
         print(wikidatum['id'], 'has novalue for', prop_id)
@@ -122,6 +123,7 @@ def wikidatum_prop_text(wikidatum, prop_id):
 Try getting names from a bunch of different places on the wikidatum.
 """
 def wikidatum_names(wikidatum):
+    if wikidatum['id']=='Q548700':return[]
     names = []
     if LANG in wikidatum['labels']:
         names.append(wikidatum['labels'][LANG]['value'])
@@ -1160,6 +1162,23 @@ for jackal_species in ['Q128098','Q125814326','Q125815593']:
     id_to_parent[jackal_species] = JACKAL # Skips a few taxons; they only have subtribe (Canina) 1in common
 id_to_title['Q128098'] = 'Golden jackal'
 
+# All simians are monkeys except apes 🐒🐵🙈🙉🙊
+print(' Defining monkey.')
+SIMIAN = 'Q5452918'
+MONKEY = 'Q1367'
+id_to_title[MONKEY] = 'Monkey'
+for i in ['monkey','monkeys','monky','🐒']: lower_title_to_id[i] = MONKEY
+id_to_parent[MONKEY] = SIMIAN
+APE = 'Q102470'
+def children(parent):
+    for i in list(id_to_parent):
+        if id_to_parent[i]==parent: yield i
+for i in children(SIMIAN):
+    if i != MONKEY:
+        id_to_parent[i] = MONKEY
+id_to_parent[APE] = SIMIAN
+for i in '🙈🙉🙊': lower_title_to_id[i] = 'Q191781' # Japanese macaque
+lower_title_to_id['𓃸'] = 'Q159429' # Baboon
 
 # Rockhopper penguins are a mess. Tuck them under one label.
 print(' Rearranging rockhopper penguins.')
