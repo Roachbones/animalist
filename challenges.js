@@ -262,7 +262,7 @@ function challengeForToday() {
         letter = letters[(date + day + today.getFullYear()) % letters.length];
         return singleInitialChallenge(letter);
     }
-    if (date==14) return singleTaxonChallenge('crustacean');
+    if (date==14) return singleTaxonChallenge('beetle');
     if (date==15) return singleTaxonChallenge('lepidopteran', '🦋 butterflies & moths 🦋');
     if (date==16) return singleTaxonChallenge('mollusk', 'gastropods, cephalopods, & bivalves');
     if (date==17) {
