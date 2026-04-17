@@ -821,8 +821,9 @@ for k,v in {
     'flutter fly':'toxonevra', # I guess?
     'tanuki':'japanese raccoon dog',
     'ruru':'morepork', # todo find these programmatically?
-    #'american possum': 'didelphimorphia', 'american opossum': 'didelphimorphia',
-    #'australian opossum': 'phalangeriformes',
+    'american possum': 'didelphimorphia', 'american opossum': 'didelphimorphia',
+    'australian possum': 'phalangeriformes', 'australian opossum': 'phalangeriformes',
+    'australasian possum': 'phalangeriformes', 'australasian opossum': 'phalangeriformes',
     # overrides
     'white owl': 'snowy owl',
     # would be solved by taking taxon from wikipedia instead of wikidata: elephant, neaderthal?
