@@ -293,8 +293,8 @@ function equivalence_egg_message(guess, guess_id) {
         return "(Sorry, “parakeet” is dialectal so I'm not sure which bird(s) you mean.)";
     }
     if ((guess=='possum' && guesses.includes('opossum')) || (guess=='opossum' && guesses.includes('possum'))) {
-        queue_shy_trivium("Some would have you believe “possum” and “opossum” are mutually exclusive terms, but in colloquial language they are interchangeable. For example, the Virginia (o)possum is called both. The Wikipedia page for Possum even starts “The possums (sometimes opossums)”.");
-        return "Sorry but they're used interchangeably.";
+        queue_shy_trivium("Some would have you believe “possum” and “opossum” are mutually exclusive terms, but the Virginia (o)possum is called both. <a href=https://en.wikipedia.org/wiki/Possum target=_blank>The <i>Possum</i> Wikipedia article</a> is a disambiguation page that includes opossums.");
+        return "(Sorry but “possum” can also refer to opossums. You'll have to name a specific one.)";
     }
     if (guess=='fainting goat' || guess=='myotonic goat') {
         return "Having myotonia congenita doesn't make you a different animal.";
