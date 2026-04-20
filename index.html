@@ -513,7 +513,7 @@ function newGame() {
 // ID_TO_TITLE: id to sentence-case title
 // PARENT: id to parent's id
 
-// Yield guess's ancestors (not including itself)
+// Yield guess's ancestors (including itself)
 function* lineage(guess_id) {
     yield guess_id;
     var ancestor_id = PARENT[guess_id];
