@@ -913,6 +913,7 @@ function startChallenge(challenge) {
         challenge.verbed ||= 'listed';
         challenge.attributivizeScore ||= ()=> score + ' ' + (score==1 ? challenge.noun : challenge.pluralNoun) + ' ' + challenge.verbed;
     }
+    challenge.title ||= 'list ' + challenge.pluralNoun + ' until failure';
     currentChallenge = challenge;
     h1.innerHTML = challenge.title;
     subtitle.innerHTML = challenge.subtitle || '';
