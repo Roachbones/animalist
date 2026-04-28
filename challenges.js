@@ -155,6 +155,9 @@ monotremeChallenge.queueFinalTrivia = ()=>{
     }
 }
 
+cockroachChallenge = singleTaxonChallenge('cockroach','including termites');
+cockroachChallenge.duration_s = 40;
+
 function debugWipeDailyHistory() {
     for (i in localStorage) {
         if (i.startsWith('c_daily_')) localStorage.removeItem(i);
@@ -166,7 +169,7 @@ function challengeForToday() {
         title: 'half-second test challenge',
         duration_s: 0.5, increment_s: -1
     }
-    let month = today.getMonth(); let date = today.getDate(); let day = today.getDay();
+    let month = today.getMonth(); let date = today.getDate(); let day = today.getDay(); let year = today.getFullYear();
     // Specific dates (by which I mean month and day. No wait, day means weekday, uh,)
     if (month==2-1 && date==29) return singleTaxonChallenge('frog', 'leap day challenge');
     if (day==8 && month==8-1) return {
@@ -231,6 +234,7 @@ function challengeForToday() {
         attributivizeScore: ()=> score + ' animal' + (score==1 ? '' : 's') + ' listed fast (30s+3s)'
     }
 
+    if (date==1 && month==5-1 && year==2026) return cockroachChallenge;
     if (date==1) return singleTaxonChallenge('snake');
     if (date==2) return singleTaxonChallenge('corvid', 'crows, ravens, rooks, magpies, jackdaws, jays, treepies, choughs, & nutcrackers');
     if (date==3) return singleTaxonChallenge('hymenopteran','wasps, bees, ants, and sawflies');
@@ -363,7 +367,13 @@ function challengeForToday() {
 // bad?
 // maybe ancestor_name, overrides=null?
 function singleTaxonChallenge(ancestor_name, subtitle, ancestor_article, ancestor_name_plural) {
-    ancestor_name_plural ||= ancestor_name + 's';
+    if (!ancestor_name_plural) {
+        if (ancestor_name.endsWith('ch') || ancestor_name.endsWith('sh') || ancestor_name.endsWith('s')) {
+            ancestor_name_plural = ancestor_name + 'es';
+        } else {
+            ancestor_name_plural = ancestor_name + 's';
+        }
+    }
     ancestor_article ||= ancestor_name.match(/^[aeiou]/) ? 'an' : 'a';
     return {
         shortname: ancestor_name.replaceAll(" ","_"),
