@@ -444,6 +444,7 @@ body:has(#disableunderlayfilterbox:checked) #underlay { filter: none; }
 body:has(#disableunderlayopacitybox:checked) #underlay { opacity: none; }
 
 body.invisibletimer #timer { visibility: hidden; }
+body.\36 0-0 #incrementClause { font-weight: normal; text-decoration-line: line-through; }
 
 #fpsBox {
     &[fps^0] { color: var(--urgent-color-1); }
@@ -999,7 +1000,7 @@ function measureFps(timestamp) {
     <details id=rules>
         <summary>List as many animals as you can.</summary>
         <p><b>Animals must have Wikipedia articles.</b>
-        <p><b>You have limited time, but get more time for each animal listed.</b> When the timer runs out, that's game over. (Time adjustable in settings.)
+        <p><b>You have limited time<span id=incrementClause>, but get more time for each animal listed</span>.</b> When the timer runs out, that's game over. (Time adjustable in settings.)
         <p><b>No overlapping terms.</b>
            For example, if you list “bear” and “polar bear”, you get no point (or time bonus) for the latter.
            But you can still get a point for a second kind of bear. Order doesn't matter.
