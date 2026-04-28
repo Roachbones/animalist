@@ -329,7 +329,7 @@ function challengeForToday() {
     }
     if (date==26) return alphabeticalChallenge;
     if (date==27) return singleTaxonChallenge('sauropsid', 'bird & reptiles');
-    if (date==28) return singleTaxonChallenge('marsupial');
+    if (date==28) return singleTaxonChallenge('snake');
     if (date==29) return {
         shortname: '60-0',
         title: 'list animals in one minute',
