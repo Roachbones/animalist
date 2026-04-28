@@ -741,6 +741,7 @@ for k,v in {
     'mustang': 'horse', 'shetland horse': 'horse', 'clydesdale horse':'horse',"miniature horse":'horse',
     'mare': 'equine',
     'teacup pig':'pig',
+    'chinese goose': 'swan goose',
     'wild hog':'wild boar',
     'pygmy goat': 'goat', 'fainting goat':'goat', 'myotonic goat':'goat',
     'pheasant': 'common pheasant',
@@ -778,6 +779,7 @@ for k,v in {
     # Picking one
     'spitting cobra': 'rinkhals',
     'warbler': 'garden warbler',
+    'grassquit': 'cuban grassquit',
     #'diamondback': 'diamondback rattlesnake', // TODO non-siaocab
     # Regular disambiguation pages
     'sand crab': 'hippoidea',
@@ -824,6 +826,8 @@ for k,v in {
     'american possum': 'didelphimorphia', 'american opossum': 'didelphimorphia',
     'australian possum': 'phalangeriformes', 'australian opossum': 'phalangeriformes',
     'australasian possum': 'phalangeriformes', 'australasian opossum': 'phalangeriformes',
+    'black rat snake': 'central ratsnake', 'black ratsnake': 'central ratsnake',
+    'common echidna': 'short beaked echidna',
     # overrides
     'white owl': 'snowy owl',
     # would be solved by taking taxon from wikipedia instead of wikidata: elephant, neaderthal?
