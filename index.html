@@ -747,7 +747,7 @@ function uncomment() {
 }
 
 function grantIncrement(ms) {
-    increment = currentChallenge?.increment_s || increment_control.value;
+    increment = currentChallenge?.increment_s ?? increment_control.value;
     ms ||= increment*1000;
     if (!ms) {return;}
     endTime += ms;
@@ -905,7 +905,7 @@ function startChallenge(challenge) {
     uncomment();
     if (!challenge) { alert("error challenge not defined bwehh >.<'"); }
     challenge.duration_s ||= DEFAULT_DURATION_S;
-    challenge.increment_s ||= DEFAULT_INCREMENT_S;
+    challenge.increment_s ??= DEFAULT_INCREMENT_S;
     challenge.rejection ||= ()=>{};
     if (!challenge.attributivizeScore) {
         challenge.noun ||= 'animal';
