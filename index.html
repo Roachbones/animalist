@@ -1052,7 +1052,7 @@ function measureFps(timestamp) {
             <h2>game over</h2>
             <section id=trivia></section>
             <button id=copybutton onclick=copyToClipboard(shareString,copybutton)>copy emoji summary</button>
-            <button id=epsybutton onclick=copyToClipboard(log.textContent,epsybutton)>copy list</button>
+            <button id=epsybutton onclick=copyToClipboard(log.innerText,epsybutton)>copy list</button>
             <button id=tryagainbutton onclick=newGame()>
                 <span id=tryagaintext>try again</span>
                 <span id=tryagainfromdailytext>play normal-style</span>
