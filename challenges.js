@@ -161,6 +161,22 @@ cockroachChallenge.duration_s = 40;
 tickChallenge = singleTaxonChallenge('tick')
 tickChallenge.duration_s = 20;
 
+leechOrTickChallenge = {
+    shortname: 'leechortick',
+    title: 'list leeches and ticks until failure',
+    subtitle: 'yummy yummy blood',
+    noun: 'leech/tick',
+    pluralNoun: 'leeches/ticks',
+    rejection: function (guessId, guess) {
+        for (const ancestor of lineage(guessId)) {
+            if (ancestor==LOWER_TITLE_TO_ID.leech) return;
+            if (ancestor==LOWER_TITLE_TO_ID.tick) return;
+        }
+        return 'Not a leech or a tick.';
+    },
+    duration_s: 30
+}
+
 function debugWipeDailyHistory() {
     for (i in localStorage) {
         if (i.startsWith('c_daily_')) localStorage.removeItem(i);
