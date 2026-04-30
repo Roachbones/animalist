@@ -191,11 +191,20 @@ body:has(log li) .timecontrollabel {
     &::after { content: "[Locked]"; }
 }
 
+
+body {
+    --adheight: 0px;
+    &.premium { --adheight: min(84px, calc(100vw * 84 / 722)); }
+}
+
+#dailypage, #settings-page {
+   @media (width < 30em) { bottom: var(--adheight); }
+   @media (width >= 30em) { top: 0; }
+}
+
 #dailypage {
     position: absolute;
     left: 0;
-    @media (width >= 30em) { top: 0; }
-    @media (width < 30em) { bottom: 0; }
     padding: 1em;
     & summary {
         text-align: left;
@@ -233,8 +242,6 @@ body:has(log li) .timecontrollabel {
     position: absolute;
     text-align: right;
     right: 0;
-    @media (width >= 30em) { top: 0; }
-    @media (width < 30em) { bottom: 0; }
     padding: 1em;
     & > summary { list-style: none; }
     & label {
@@ -428,7 +435,7 @@ snail-race {
 }
 #snail {
     display: none;
-    margin-left: calc(100vw + 1em);
+     margin-left: calc(100vw + 1em);
     font-size: xx-large;
     animation-name: crawl;
     animation-duration: 300s;
@@ -457,6 +464,17 @@ body.\36 0-0 #incrementClause { font-weight: normal; text-decoration-line: line-
 /* performance for super long lists */
 body:not(.gameover) #log > li.toCull { display: none; }
 
+/* Premium features */
+#johnvertisement {
+    display: none;
+    body.premium & { display: block; }
+    position: absolute;
+    bottom: 0; left: 0;
+    border: none;
+    max-width: 100vw;
+    height: var(--adheight);
+}
+
     </style>
     <link rel=stylesheet href=evolution.css>
     <script src=lower_title_to_id.js></script>
@@ -469,6 +487,8 @@ body:not(.gameover) #log > li.toCull { display: none; }
     <script src=thanks.js></script>
     <script src=commons.js></script>
     <script>
+
+PREMIUM = 0;
 
 function newGame() {
     guessed_ids = []          // ids of animals guessed so far
@@ -497,7 +517,7 @@ function newGame() {
     underlay.style = '';
     spider.style = '';
     bat.style = '';
-    document.body.classList = [];
+    document.body.classList = PREMIUM ? ['premium'] : [];
     document.body.style = null;
     dog_index = 0;
     queuedTrivia = new Set();
@@ -512,6 +532,8 @@ function newGame() {
 
     if (location.hash=='#showmistakesfornova') mistakesbox.checked=1;
     if (location.hash=='#today' || location.hash=='#enabledaily') document.body.classList.add('dailiesbeta');
+    
+    if (PREMIUM) johnvertisement.src = johnvertisement.dataset.src;
 }
 
 // big databases:
@@ -1090,6 +1112,7 @@ function measureFps(timestamp) {
     <div id=spider aria-hidden>🕷️</div>
     <div id=bat aria-hidden>🦇</div>
     <snail-race><div id=snail aria-hidden>🐌</div></snail-race>
+    <iframe id=johnvertisement height=84 width=722 data-src=https://john.citrons.xyz/embed?ref=rose.systems></iframe>
 </body>
 
 <!--that's right, buddy....
