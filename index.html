@@ -287,6 +287,7 @@ body:has(#log li) {
     @media (prefers-contrast: more) { border-style: outset; }
     & summary { user-select: none; }
 }
+body.gameover #gameoverscreen { display: block; }
 body.daily #tryagaintext { display: none; }
 body:not(.daily) #tryagainfromdailytext { display: none; }
 #dailybutton2 {
@@ -452,6 +453,9 @@ body.\36 0-0 #incrementClause { font-weight: normal; text-decoration-line: line-
     border: 1px solid;
     transition: rotate 1s;
 }
+
+/* performance for super long lists */
+body:not(.gameover) #log > li.toCull { display: none; }
 
     </style>
     <link rel=stylesheet href=evolution.css>
@@ -716,6 +720,7 @@ function attempt() {
         egg_manipulate_li(li, guess, guess_id);
         progress_egg();
         log.prepend(li);
+        log.children[9999]?.classList?.add('toCull');
         correct_guesses.push(guess);
         
         // Update UI.
@@ -876,7 +881,7 @@ function endGame() {
     copybutton.style.display = navigator.clipboard ? null : 'none';
     let discordScorePar = currentChallenge ? 5 : 50;
     discord.style.display = score > discordScorePar ? '' : 'none';
-    gameoverscreen.style.display = 'block';
+    document.body.classList.add('gameover');
     comment.textContent = '';
     if (currentChallenge?.key) {
         localStorage['c_'+currentChallenge.key] = currentChallenge.shortname + ' ' + score;
