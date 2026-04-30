@@ -468,6 +468,7 @@ body.\36 0-0 #incrementClause { font-weight: normal; text-decoration-line: line-
 
 function newGame() {
     guessed_ids = []          // ids of animals guessed so far
+    guessedIdsSet = new Set() // same as above but a Set
     abdicated_ids = new Set() // ids of animals guessed but later overridden by narrower guesses
     guessed_id_to_li = {}     // guessed animal id → the <li> listing it
     guessed_descendant = {}   // disallowed parent → its already-guessed descendant
@@ -475,14 +476,14 @@ function newGame() {
     wrong_guesses = []        // see above, but just wrong ones
     correct_guesses = []      //                     correct ones
     score = 0;
-    scorespan.innerText = 0;
+    scorespan.textContent = 0;
     underlay.vibrance = 0;
     trivia.textContent = '';
     
     startTime = undefined;
     endTime = undefined;
-    log.innerText = '';
-    mistakeslog.innerText = '';
+    log.textContent = '';
+    mistakeslog.textContent = '';
     guessbox.value = '';
     guessbox.disabled = null;
     h1.style = '';
@@ -548,6 +549,7 @@ function anyAncests(possible_ancestor_ids, guess_id) {
 }
 
 function triggerAnimation(e, animation) {
+    if (timerconfetti.childElementCount > 90) return;
     e.style.animation = null;
     e.offsetTop;
     e.style.animation = animation;
@@ -599,7 +601,7 @@ function attempt() {
     var guess = guessbox.value.trim().toLowerCase().replaceAll("-"," ").replaceAll('’',"'").replaceAll(/ +/g, ' ');
     if (!guess) { return; }
     guesses.push(guess);
-    console.log(guess);
+    //console.log(guess);
     
     if (LOWER_TITLE_TO_ID.hasOwnProperty(guess)) {
         var guess_id = LOWER_TITLE_TO_ID[guess];
@@ -608,28 +610,28 @@ function attempt() {
         // It could be already guessed itself, or a parent of a guess, or a child of a guess.
         
         // Is it already guessed?        
-        if (guessed_ids.includes(guess_id)) {
-            comment.innerText = 'Already said ' + ID_TO_TITLE[guess_id] + '.';
+        if (guessedIdsSet.has(guess_id)) {
+            comment.textContent = 'Already said ' + ID_TO_TITLE[guess_id] + '.';
             var egg_message = equivalence_egg_message(guess, guess_id);
-            if (egg_message) { comment.innerText+=' '+egg_message; }
-            if (egg_message=='NO!') comment.innerText=egg_message // or could check for all-caps?
-            console.log(' ♢ '+comment.innerText);
+            if (egg_message) { comment.textContent+=' '+egg_message; }
+            if (egg_message=='NO!') comment.textContent=egg_message // or could check for all-caps?
+            console.log(guess+' ♢ '+comment.textContent);
             wiggle(guessed_id_to_li[guess_id]);
             return;
         }
 
         // Is it an ancestor of a previous guess?
         if (guessed_descendant[guess_id]) {
-            comment.innerText = 'Already said more specific animal: ' + ID_TO_TITLE[guessed_descendant[guess_id]];
+            comment.textContent = 'Already said more specific animal: ' + ID_TO_TITLE[guessed_descendant[guess_id]];
             var egg_message = ancestry_egg_message(guess, guessed_descendant[guess_id], guess_id);
             if (egg_message) { appendp(comment, egg_message); }
-            console.log(' ♢ '+comment.innerText);
+            console.log(guess+' ♢ '+comment.textContent);
             // wiggle guessed descendants
             var i = 0;
             for (prev_guess_id of guessed_ids) {
                 i += 1;
                 if (i>99) { break; }
-                var ancestor_id = PARENT[prev_guess_id];
+                let ancestor_id = PARENT[prev_guess_id];
                 while (PARENT[ancestor_id]) {
                     if (ancestor_id == guess_id) {
                         wiggle(guessed_id_to_li[prev_guess_id]);
@@ -648,7 +650,7 @@ function attempt() {
                 if (ID_TO_TITLE[guess_id].toLowerCase().replaceAll("-"," ") != guess) {
                     rejection += ' (Understood as '+ ID_TO_TITLE[guess_id] + '.)';
                 }
-                comment.innerText = rejection;
+                comment.textContent = rejection;
                 wiggle(h1);
                 return;
             }
@@ -659,7 +661,7 @@ function attempt() {
         var ancestor_id = PARENT[guess_id];
         var reward = true;
         while (PARENT[ancestor_id]) {
-            if (guessed_ids.includes(ancestor_id) && !abdicated_ids.has(ancestor_id)) {
+            if (guessedIdsSet.has(ancestor_id) && !abdicated_ids.has(ancestor_id)) {
                 abdicated_ids.add(ancestor_id);
                 var li = guessed_id_to_li[ancestor_id]
                 var s = document.createElement('s');
@@ -670,7 +672,7 @@ function attempt() {
                 abdication_note.innerHTML = ' Replaced by more specific ' + ID_TO_TITLE[guess_id];
                 guessed_id_to_li[ancestor_id].append(abdication_note);
                 guessed_id_to_li[ancestor_id].classList.add('abdicated');
-                comment.innerText = 'Replaced vaguer animal: ' + ID_TO_TITLE[ancestor_id]
+                comment.textContent = 'Replaced vaguer animal: ' + ID_TO_TITLE[ancestor_id]
                 var egg_message = ancestry_egg_message(guess, guess_id, ancestor_id);
                 if (egg_message) { appendp(comment, egg_message); }
                 reward = false;
@@ -688,12 +690,13 @@ function attempt() {
         // Display any easter egg text for this guess.
         var egg_message = valid_guess_egg_message(guess, guess_id);
         if (egg_message) {
-            if (comment.innerText) { comment.innerText += "."; } 
-            comment.innerText += ' ' + egg_message;
+            if (comment.textContent) { comment.textContent += "."; } 
+            comment.textContent += ' ' + egg_message;
         }
         
         // Forbid this guess in the future.
         guessed_ids.push(guess_id);
+        guessedIdsSet.add(guess_id);
         
         // Forbid this guess's parents.
         var ancestor_id = PARENT[guess_id];
@@ -705,9 +708,9 @@ function attempt() {
         // Create a li for the guess
         li = document.createElement('li');
         if (ID_TO_TITLE[guess_id].toLowerCase().replaceAll("-"," ") == guess) {
-            li.innerText = ID_TO_TITLE[guess_id];
+            li.textContent = ID_TO_TITLE[guess_id];
         } else {
-            li.innerText = verbatim_guess + ' → ' + ID_TO_TITLE[guess_id];
+            li.textContent = verbatim_guess + ' → ' + ID_TO_TITLE[guess_id];
         }
         guessed_id_to_li[guess_id] = li;
         egg_manipulate_li(li, guess, guess_id);
@@ -717,7 +720,7 @@ function attempt() {
         
         // Update UI.
         guessbox.value='';
-        scorespan.innerText = score;
+        scorespan.textContent = score;
         
         for (word of (guess+' '+ID_TO_TITLE[guess_id]).replace('bird','-').split(/[ -]/)) {
             if (CSS.supports('color', word) && word!='field' && word!='canvas' && word!='mark' && word!='highlight') {
@@ -727,11 +730,11 @@ function attempt() {
             }
         }
     } else {
-        comment.innerText = invalid_guess_egg_message(guess) || "I don't know that animal.";
+        comment.textContent = invalid_guess_egg_message(guess) || "I don't know that animal.";
         if (wrong_guesses[wrong_guesses.length - 1] != guess) {
             wrong_guesses.push(guess);
             let li = document.createElement('li');
-            li.innerText = guess;
+            li.textContent = guess;
             mistakeslog.append(li);
         }
         return;
@@ -752,13 +755,14 @@ function grantIncrement(ms) {
     ms ||= increment*1000;
     if (!ms) {return;}
     endTime += ms;
+    if (timerconfetti.childElementCount > 99) return;
     summonConfetto('+' + Math.floor(ms/1000), timerconfetti);
 }
 
 function summonConfetto(text, parent) {
     var confetto = document.createElement('span');
     confetto.classList.add('confetto');
-    confetto.innerText = text;
+    confetto.textContent = text;
     parent.append(confetto);
     setTimeout(()=>{confetto.remove()}, 2000);
     setTimeout(()=>{
@@ -873,7 +877,7 @@ function endGame() {
     let discordScorePar = currentChallenge ? 5 : 50;
     discord.style.display = score > discordScorePar ? '' : 'none';
     gameoverscreen.style.display = 'block';
-    comment.innerText = '';
+    comment.textContent = '';
     if (currentChallenge?.key) {
         localStorage['c_'+currentChallenge.key] = currentChallenge.shortname + ' ' + score;
     }
@@ -987,6 +991,7 @@ function measureFps(timestamp) {
 }
 
     </script>
+    <!--<script src=test.js></script>-->
 </head>
 
 <body onload=load()>
@@ -1047,7 +1052,7 @@ function measureFps(timestamp) {
             <h2>game over</h2>
             <section id=trivia></section>
             <button id=copybutton onclick=copyToClipboard(shareString,copybutton)>copy emoji summary</button>
-            <button id=epsybutton onclick=copyToClipboard(log.innerText,epsybutton)>copy list</button>
+            <button id=epsybutton onclick=copyToClipboard(log.textContent,epsybutton)>copy list</button>
             <button id=tryagainbutton onclick=newGame()>
                 <span id=tryagaintext>try again</span>
                 <span id=tryagainfromdailytext>play normal-style</span>

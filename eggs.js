@@ -101,7 +101,7 @@ function invalid_guess_egg_message(guess) {
         return "Not quite how it's spelled.";
     }
     if (guess=='dear' && !guesses.includes('deer')) { return "Wrong spelling, dear."; }
-    if ((guess=='muscle' || guess=='mussle') && !guessed_ids.includes(LOWER_TITLE_TO_ID.mussel)) {
+    if ((guess=='muscle' || guess=='mussle') && !guessedIdsSet.has(LOWER_TITLE_TO_ID.mussel)) {
         queue_trivium("The modern spelling “mussel”, distinguished from “muscle”, has been recorded since the 1600s, but wasn't fully established until the 1870s.");
         return "Not quite how it's spelled.";
     }
@@ -434,10 +434,10 @@ function try_queue_final_trivia() {
 }
 function queue_final_trivia() {
     currentChallenge?.queueFinalTrivia?.();
-    if (guessed_ids.includes('Q26972265') && guessed_ids.includes('Q38584')) {
+    if (guessedIdsSet.has('Q26972265') && guessedIdsSet.has('Q38584')) {
         queue_trivium_once("You listed both dingos and dogs, so I gave you the benefit of the doubt, but <a href=https://en.wikipedia.org/wiki/Dingo#Taxonomy>there's disagreement on whether the dingo is its own species of canid, a subspecies of grey wolf, or simply a breed of dog.</a>");
     }
-    if (guessed_ids.includes('Q200442') && guessed_ids.includes('Q18498')) {
+    if (guessedIdsSet.has('Q200442') && guessedIdsSet.has('Q18498')) {
         queue_shy_trivium("The red wolf's classification as a species has long been contentious. Some consider it a subspecies of grey wolf or a coyote-wolf hybrid.");
     }
     if (!trivia.innerText) {
@@ -482,7 +482,7 @@ function queue_final_trivia() {
             if (currentChallenge?.rejection?.(common_id, ID_TO_TITLE[common_id].toLowerCase())) continue;  // If these common animal isn't allowed per the challenge, skip it
             if (guessWords.has(ID_TO_TITLE[common_id]?.toLowerCase())) continue; // sloppy way to prevent bad critique from erroneous parentage
             // If the common wouldn't award a point, don't criticize it.
-            if (guessed_ids.includes(common_id)) continue; // already guessed
+            if (guessedIdsSet.has(common_id)) continue; // already guessed
             if (guessed_descendant[common_id]) continue; // already guessed more specific
             if (anyGuessedAncestor(common_id)) continue; // would just replace ancestor anyway
             YOU_FORGOT_STAR = YOU_FORGOT_STARS[Math.floor(Math.random()**3 * YOU_FORGOT_STARS.length)];
@@ -496,7 +496,7 @@ function queue_final_trivia() {
 // todo maybe optimize this with a Set
 function anyGuessedAncestor(guess_id) {
     for (ancestor of lineage(guess_id)) {
-        if (guessed_ids.includes(ancestor)) return ancestor;
+        if (guessedIdsSet.has(ancestor)) return ancestor;
     }
 }
 
