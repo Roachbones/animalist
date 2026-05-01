@@ -485,6 +485,21 @@ body:not(.gameover) #log > li.toCull { display: none; }
     height: var(--adheight);
 }
 
+body:not(.premium) label:has(#forfeitButtonBox) {
+    display: none;
+}
+body.premium:not(:has(#log li)) label:has(#forfeitButtonBox:checked)::after {
+    content: " (will appear when you start listing animals)";
+    font-size: small;
+    display: block;
+}
+body:not(.premium), body:not(:has(#forfeitButtonBox:checked)) {
+    #forfeitButton {
+        display: none;
+    }
+}
+body:not(:has(#log li)) #forfeitButton { visibility: hidden; }
+
     </style>
     <link rel=stylesheet href=evolution.css>
     <script src=lower_title_to_id.js></script>
@@ -1064,6 +1079,7 @@ function measureFps(timestamp) {
         <label title='For weak devices'><input type=checkbox id=disablebgbox onchange=saveSettings()></input>disable animated backgrounds</label>
         <label title='Whether to keep the timer small and purple'><input type=checkbox id=toasthastebox onchange=saveSettings()></input>friendlier timer</label>
         <label title='Whether to show mistakes at the end of the game'><input type=checkbox id=mistakesbox onchange=saveSettings()></input>show mistakes</label>
+        <label title='Whether to show the button that makes you lose'><input type=checkbox id=forfeitButtonBox onchange=saveSettings()></input>enable forfeit button</label>
 
         <button onclick="initial_time_control.value=60;increment_control.value=6;disablebgbox.checked=0;toasthastebox.checked=0;mistakesbox.checked=0;saveSettings()">reset to defaults</button>
 
@@ -1076,7 +1092,9 @@ function measureFps(timestamp) {
         </details>
 
     </details>
-   
+    
+    <p><button id=forfeitButton onclick="endTime=1">forfeit</button></p>
+    
     <p>Score: <span id=scorespan>0</span></p>
     
     <div style=height:1.5em>
