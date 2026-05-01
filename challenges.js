@@ -175,7 +175,14 @@ leechOrTickChallenge = {
         return 'Not a leech or a tick.';
     },
     duration_s: 30
-}
+};
+
+halloweenChallenge = {
+    shortname: 'halloween',
+    title: 'list animals on Halloween',
+    subtitle: "the timer is hidden until it isn't",
+    duration_s: 60 + 10.31
+};
 
 function debugWipeDailyHistory() {
     for (i in localStorage) {
@@ -188,10 +195,12 @@ function challengeForToday() {
         title: 'half-second test challenge',
         duration_s: 0.5, increment_s: -1
     }
-    let month = today.getMonth(); let date = today.getDate(); let day = today.getDay(); let year = today.getFullYear();
+    let month = today.getMonth(); let date = today.getDate(); let weekday = today.getDay(); let year = today.getFullYear();
+    
     // Specific dates (by which I mean month and day. No wait, day means weekday, uh,)
     if (month==2-1 && date==29) return singleTaxonChallenge('frog', 'leap day challenge');
-    if (day==8 && month==8-1) return {
+    if (month==10-1 && date==31) return halloweenChallenge;
+    if (month==8-1 && date==8) return {
         shortname: 'arachnids/octopuses',
         title: 'list arachnids & octopuses until failure',
         rejection: function(guess_id) {
@@ -228,9 +237,9 @@ function challengeForToday() {
         return 'Not an arachnid.';
     }
     arachnidChallenge.duration_s = 38; arachnidChallenge.increment_s = 8;
-    if (day==0) return singleTaxonChallenge('bird', "Bird Sunday"); // Bird Sunday
-    if (day==1) return singleTaxonChallenge('mammal', 'Mammal Monday');
-    if (day==4) {
+    if (weekday==0) return singleTaxonChallenge('bird', "Bird Sunday"); // Bird Sunday
+    if (weekday==1) return singleTaxonChallenge('mammal', 'Mammal Monday');
+    if (weekday==4) {
         arthropodConfusion = 0;
         c = singleTaxonChallenge('arthropod', 'Arthropod Thursday. (Exoskeletoned invertebrates. Bugs, more or less.)'); // Arthropod Thursday
         c.rejection = function(guessId, guess) {
@@ -245,7 +254,7 @@ function challengeForToday() {
         }
         return c;
     }
-    if (day==6) return { // todo scrap this one?
+    if (weekday==6) return { // todo scrap this one?
         shortname: '30s+3s',
         title: 'list animals fast',
         subtitle: 'speedrun saturday',
@@ -282,7 +291,7 @@ function challengeForToday() {
     if (date==12) return singleTaxonChallenge('beetle', 'insects with hardened wing-cases');
     if (date==13) {
         let letters = 'etaoinshrdlcumwfg';
-        letter = letters[(date + day + today.getFullYear()) % letters.length];
+        letter = letters[(date + weekday + today.getFullYear()) % letters.length];
         return singleInitialChallenge(letter);
     }
     if (date==14) return singleTaxonChallenge('beetle');
@@ -364,12 +373,12 @@ function challengeForToday() {
         shortname: 'invertebrate',
         title: 'list invertebrates until failure',
         subtitle: 'spineless animals',
-        rejection: function(guess_id, guess) {
+        rejection: function(guessId, guess) {
             if (guessId==LOWER_TITLE_TO_ID.tullimonstrum) {
                 acceptanceComment = "If you say so."; return;
             }
-            if (ancestsOrIs(LOWER_TITLE_TO_ID.human, guess_id)) return "I definitely have a spine.";
-            if (ancestsOrIs(LOWER_TITLE_TO_ID.vertebrata, guess_id)) return "That's a vertebrate.";
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.human, guessId)) return "I definitely have a spine.";
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.vertebrata, guessId)) return "That's a vertebrate.";
         }
     };
     if (date==31) {

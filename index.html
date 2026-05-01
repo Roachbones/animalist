@@ -451,8 +451,18 @@ body:has(#disableunderlaybgmovementbox:checked) #underlay { animation: none; }
 body:has(#disableunderlayfilterbox:checked) #underlay { filter: none; }
 body:has(#disableunderlayopacitybox:checked) #underlay { opacity: none; }
 
+/* challenge-specific */
 body.invisibletimer #timer { visibility: hidden; }
 body.\36 0-0 #incrementClause { font-weight: normal; text-decoration-line: line-through; }
+body.halloween {
+    #timer {
+        background-color: var(--urgent-color-1);
+        font-style: oblique 30deg;
+        font-weight: bolder;
+        transition: none;
+    }
+    #timer:not([content^="0:0"]) { visibility: hidden; }
+}
 
 #fpsBox {
     &[fps^0] { color: var(--urgent-color-1); }
