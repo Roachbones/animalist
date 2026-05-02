@@ -68,5 +68,8 @@ function heavy(m) {
     console.log(Math.round(m/t) + ' guesses per ms');
 }
 
+function testDailyGen() { while (i<9999){updateDaily(i++);startDaily();} }
 
 runTests();
+
+
