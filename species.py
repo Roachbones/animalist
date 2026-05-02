@@ -780,6 +780,7 @@ for k,v in {
     'spitting cobra': 'rinkhals',
     'warbler': 'garden warbler',
     'grassquit': 'cuban grassquit',
+    'flower mantis': 'orchid mantis',
     #'diamondback': 'diamondback rattlesnake', // TODO non-siaocab
     # Regular disambiguation pages
     'sand crab': 'hippoidea',
@@ -828,13 +829,14 @@ for k,v in {
     'australasian possum': 'phalangeriformes', 'australasian opossum': 'phalangeriformes',
     'black rat snake': 'central ratsnake', 'black ratsnake': 'central ratsnake',
     'common echidna': 'short beaked echidna',
+    'rocky mountain wood tick': 'dermacentor andersoni', # duplicate redirect of different case
     # overrides
     'white owl': 'snowy owl',
     # would be solved by taking taxon from wikipedia instead of wikidata: elephant, neaderthal?
     'crab': 'brown crab',
     # fixes from dump updates
     '🦆':'duck',
-    'queen crab':'chionoecetes'
+    'queen crab':'chionoecetes',
 }.items():
     lower_title_to_id[k] = lower_title_to_id[v]
 
@@ -965,6 +967,8 @@ id_to_parent[lower_title_to_id['pig']] = 'Q10798' # Sus
 id_to_parent['Q19707'] = 'Q27022' # ass < Equus
 # turkeys are not wild turkeys
 id_to_parent['Q848706'] = 'Q43794'
+# freshwater leeches are leeches ( would probably be solved by taking taxons from enwiki)
+id_to_parent['Q2618487'] = 'Q10278201'
 
 # mouse → Mus (typical mice)
 MUS = 'Q39275'
