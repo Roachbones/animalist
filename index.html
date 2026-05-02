@@ -477,7 +477,7 @@ body:not(.gameover) #log > li.toCull { display: none; }
 /* Premium features */
 #johnvertisement {
     display: none;
-    body.premium & { display: block; }
+    body:has(#johnBox:checked).premium & { display: block; }
     position: absolute;
     bottom: 0; left: 0;
     border: none;
@@ -511,6 +511,7 @@ body:not(:has(#log li)) #forfeitButton { visibility: hidden; }
     <script src=pics.js></script>
     <script src=thanks.js></script>
     <script src=commons.js></script>
+    <script src=premium.js></script>
     <script>
 
 PREMIUM = 0;
@@ -649,6 +650,7 @@ function tryAttempt() {
 function attempt() {
     if (guessbox.value=='!debuglose') endTime=1;
     var verbatim_guess = guessbox.value;
+    if (tryPremiumCode(verbatim_guess)) return;
     var guess = guessbox.value.trim().toLowerCase().replaceAll("-"," ").replaceAll('’',"'").replaceAll(/ +/g, ' ');
     if (!guess) { return; }
     guesses.push(guess);
@@ -1080,6 +1082,7 @@ function measureFps(timestamp) {
         <label title='Whether to keep the timer small and purple'><input type=checkbox id=toasthastebox onchange=saveSettings()></input>friendlier timer</label>
         <label title='Whether to show mistakes at the end of the game'><input type=checkbox id=mistakesbox onchange=saveSettings()></input>show mistakes</label>
         <label title='Whether to show the button that makes you lose'><input type=checkbox id=forfeitButtonBox onchange=saveSettings()></input>enable forfeit button</label>
+        <label title='Whether to show banner ads'><input type=checkbox id=johnBox onchange=saveSettings()></input>enable ads</label>
 
         <button onclick="initial_time_control.value=60;increment_control.value=6;disablebgbox.checked=0;toasthastebox.checked=0;mistakesbox.checked=0;saveSettings()">reset to defaults</button>
 
