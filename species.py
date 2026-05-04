@@ -830,6 +830,7 @@ for k,v in {
     'black rat snake': 'central ratsnake', 'black ratsnake': 'central ratsnake',
     'common echidna': 'short beaked echidna',
     'rocky mountain wood tick': 'dermacentor andersoni', # duplicate redirect of different case
+    'dismalite': 'dismalites', # done
     # overrides
     'white owl': 'snowy owl',
     # would be solved by taking taxon from wikipedia instead of wikidata: elephant, neaderthal?
