@@ -1,40 +1,35 @@
 // Tiny little features nobody will notice, tucked away here so as not to clutter the mains.
 
-
-major_groups = {
-    Bird: 'Q5113'
-}
-
-function descendant_streak(ancestor, length) {
-    if (guessed_ids.length < length) { return false; }
-    for (guess_id of guessed_ids.slice(-length)) {
-        if (!ancests(ancestor, guess_id)) { return false; }
+function descendantStreak(ancestor, length) {
+    if (guessedIds.length < length) { return false; }
+    for (guessId of guessedIds.slice(-length)) {
+        if (!ancests(ancestor, guessId)) { return false; }
     }
     return true;
 }
 
-function progress_egg() {
-    if (descendant_streak(major_groups.Bird, 16) && !document.body.classList.contains('sky')) {
+function progressEgg() {
+    if (descendantStreak(LOWER_TITLE_TO_ID.bird, 16) && !document.body.classList.contains('sky')) {
         document.body.classList.add('sky');
     }
-    if (descendant_streak('Q25371', 8)) {
+    if (descendantStreak('Q25371', 8)) {
         document.body.classList.add('water');
     }
-    if (descendant_streak('Q1357', 8)) {
+    if (descendantStreak('Q1357', 8)) {
         spider.style.display = 'block';
-        visualshint.style.display = 'block';
+        visualsHint.style.display = 'block';
     }
-    if (descendant_streak('Q28425', 3)) {
+    if (descendantStreak('Q28425', 3)) {
         bat.style.display = 'block';
-        visualshint.style.display = 'block';
+        visualsHint.style.display = 'block';
     }
-    if (descendant_streak('Q4867740', 3)) {
+    if (descendantStreak('Q4867740', 3)) {
         snail.style.display = 'block';
-        visualshint.style.display = 'block';
+        visualsHint.style.display = 'block';
     }
-    if (descendant_streak(LOWER_TITLE_TO_ID.crow, 7)) {
+    if (descendantStreak(LOWER_TITLE_TO_ID.crow, 7)) {
         bteq();
-        visualshint.style.display = 'block';
+        visualsHint.style.display = 'block';
     }
 }
 
@@ -42,7 +37,7 @@ function swoop() {
     kettle.classList.add('swooping');
 }
 
-function invalid_guess_egg_message(guess) {
+function invalidGuessEggMessage(guess) {
     if (guess=='me') return "And what are you?";
     if (guess=='dragon' || guess == 'jackalope' || guess == 'tsuchinoko' || guess=='bigfoot' || guess=='yeti') {
         return 'Real animals only, please.';
@@ -57,7 +52,7 @@ function invalid_guess_egg_message(guess) {
         return 'musi ni li sona ala e toki pona.';
     }
     if (guess=='zedonk' || guess=='zorse') {
-        return "The "+guess+" doesn't have its own English Wikipedia page; it's merely a subheading on Zebroid.";
+        return "The "+guess+" lacks its own English Wikipedia page; it's merely a subheading on Zebroid.";
     }
     if (guess=='wolfdog' || guess=='wolf dog') { return "Well, which is it? Wolf or dog?"; }
     if (guess=='xyzzy') { return 'Nothing happens.'; }
@@ -65,7 +60,7 @@ function invalid_guess_egg_message(guess) {
     if (guess=='invertebrate' || guess=='invert') return "97% of animals are invertebrates. Surely you can be more specific?";
 
     if (guess=='plankton') {
-        queue_shy_trivium("<a href=https://en.wikipedia.org/wiki/Plankton>read about plankton</a>");
+        queueShyTrivium("<a href=https://en.wikipedia.org/wiki/Plankton>read about plankton</a>");
         var m = "The term “plankton” actually refers to all drifting organisms lacking means to propel.";
         if (guesses.slice(-5).includes('sponge')) { m += " I know, Spongebob lied to you."; }
         return m;
@@ -77,7 +72,7 @@ function invalid_guess_egg_message(guess) {
 
     // Culinary terms
     if (guess=='softshell crab' || guess=='soft shell crab' || guess=='soft shelled crab' || guess=='softshelled crab') {
-        queue_trivium("You mentioned <a href=https://en.wikipedia.org/wiki/Soft-shell_crab>softshell crab</a>, and that got me thinking: I think it's one of the worst meats, morally. Like I'm not even vegan but imagine you get caught by a giant and she puts you in a jail cell with a shower. Eventually you decide to take a shower, and then the giant is like, “hey great, your clothes are off, now I don't have to bother shucking them!” And then puts you on a shelf for someone to buy, and then someone buys you and cooks you WHILE YOU'RE NAKED. So undignified");
+        queueTrivium("You mentioned <a href=https://en.wikipedia.org/wiki/Soft-shell_crab>softshell crab</a>, and that got me thinking: I think it's one of the worst meats, morally. Like I'm not even vegan but imagine you get caught by a giant and she puts you in a jail cell with a shower. Eventually you decide to take a shower, and then the giant is like, “hey great, your clothes are off, now I don't have to bother shucking them!” And then puts you on a shelf for someone to buy, and then someone buys you and cooks you WHILE YOU'RE NAKED. So undignified");
         return "That's a culinary term for any crab killed while vulnerable from a recent molt.";
     }
     if (guess=='shellfish') { return "That's more of a culinary term. Try naming a specific shellfish."; }
@@ -93,23 +88,23 @@ function invalid_guess_egg_message(guess) {
 
     // Misspellings
     if (guess=='pidgeon' || guess.endsWith(' pidgeon')) {
-        queue_trivium("“pidgeon” <a href=https://en.wiktionary.org/wiki/pidgeon#English>is actually a documented archaic spelling</a>, but it's considered incorrect nowadays.");
+        queueTrivium("“pidgeon” <a href=https://en.wiktionary.org/wiki/pidgeon#English>is actually a documented archaic spelling</a>, but it's considered incorrect nowadays.");
         return "Not actually spelled with a “d”.";
     }
     if (/^(sea )?a[mn]e[mn]o[mn]e$/.test(guess)) {
-        queue_trivium("To remember how to spell “anemone”, consider the etymology: the Latin <i>anemone</i>; from Greek <i>anemonē</i> meaning “wind flower” or “daughter of the wind”, from <i>anemos</i> meaning “wind”. <i>anemos</i> comes from the Proto-Indo-European root <b>*ane-</b>, loosely meaning “to breathe”. This root is used for what seems to breathe: in other words, the <i>animate</i>, which comes from <i>anima</i> (meaning living being, soul, mind, passion, courage, anger, spirit, feeling) which comes from <b>*ane-</b>. Another word that comes from anima: <b>animal</b>!");
+        queueTrivium("To remember how to spell “anemone”, consider the etymology: the Latin <i>anemone</i>; from Greek <i>anemonē</i> meaning “wind flower” or “daughter of the wind”, from <i>anemos</i> meaning “wind”. <i>anemos</i> comes from the Proto-Indo-European root <b>*ane-</b>, loosely meaning “to breathe”. This root is used for what seems to breathe: in other words, the <i>animate</i>, which comes from <i>anima</i> (meaning living being, soul, mind, passion, courage, anger, spirit, feeling) which comes from <b>*ane-</b>. Another word that comes from anima: <b>animal</b>!");
         return "Not quite how it's spelled.";
     }
     if (guess=='dear' && !guesses.includes('deer')) { return "Wrong spelling, dear."; }
     if ((guess=='muscle' || guess=='mussle') && !guessedIdsSet.has(LOWER_TITLE_TO_ID.mussel)) {
-        queue_trivium("The modern spelling “mussel”, distinguished from “muscle”, has been recorded since the 1600s, but wasn't fully established until the 1870s.");
+        queueTrivium("The modern spelling “mussel”, distinguished from “muscle”, has been recorded since the 1600s, but wasn't fully established until the 1870s.");
         return "Not quite how it's spelled.";
     }
     if (guess=='pink toed tarantula') return "It's “pinktoe”, actually.";
     if (LOWER_TITLE_TO_ID[guess.replace('black tipped','blacktip')]) return "It's “blacktip”, actually.";
     if (guess=='caterpiller') {
         // TODO review this one
-        queue_trivium("“caterpillar” is spelled with “-pillar”, not “-piller”, but the etymology derives from the Middle English «<a href=https://en.wiktionary.org/wiki/piller#Etymology_1>piller</a>», meaning to plunder. Presumably because they eat so much.");
+        queueTrivium("“caterpillar” is spelled with “-pillar”, not “-piller”, but the etymology derives from the Middle English «<a href=https://en.wiktionary.org/wiki/piller#Etymology_1>piller</a>», meaning to plunder. Presumably because they eat so much.");
         return "It ends in -pillar, not -piller.";
     }
     if (guess=='lunar moth') { return "It's “luna”, actually."; }
@@ -123,7 +118,7 @@ function invalid_guess_egg_message(guess) {
     if (guess=='algae' || guess=='seaweed') { return "No."; }
     if (guess=='kelp') return "Not a plant, but not an animal either.";
     if (guess=='amoeba') {
-        queue_shy_trivium("<a href=https://en.wikipedia.org/wiki/Amoeba>Learn what an amoeba is</a>");
+        queueShyTrivium("<a href=https://en.wikipedia.org/wiki/Amoeba>Learn what an amoeba is</a>");
         return "Not really a kind of animal.";
     }
     if (guess=='bacteria') { return "Bacteria aren't animals."; }
@@ -134,7 +129,7 @@ function invalid_guess_egg_message(guess) {
     if (guess=='protozoa' || guess=='protozoan') { return "Not all protozoans are animals."; }
     if (guess=='ringworm') { return "That's a fungal infection, actually."; }
     if (guess=='scabie' || guess=='scabies') {
-        queue_trivium("The word “scabies” actually comes from the Latin «<a href=//en.wiktionary.org/wiki/scabo#Latin>scabō</a>», a verb meaning to scratch or scrape. It's easy to assume that “scabies” refers to the parasites, but it basically just means “the itches”.");
+        queueTrivium("The word “scabies” actually comes from the Latin «<a href=//en.wiktionary.org/wiki/scabo#Latin>scabō</a>», a verb meaning to scratch or scrape. It's easy to assume that “scabies” refers to the parasites, but it basically just means “the itches”.");
         return "Nice try, but the animal that causes scabies isn't called “a scabie”."
     }
     if (guess=='tree' || guess=='moss' || guess=='flower' || guess=='apple' || guess=='venus flytrap' || guess=='venus fly trap') { return "Animals, not plants, please."; }
@@ -176,7 +171,7 @@ function invalid_guess_egg_message(guess) {
         return "That's more of an occupation, isn't it?";
     }
     if (guess=='flying ant') {
-        queue_shy_trivium("<a href=https://en.wikipedia.org/wiki/Nuptial_flight target=_blank>Ant colonies reproduce by sending off <dfn>alates</dfn> (winged individuals) to mate and create new nests. The queen sheds its wings once it settles down.</a>");
+        queueShyTrivium("<a href=https://en.wikipedia.org/wiki/Nuptial_flight target=_blank>Ant colonies reproduce by sending off <dfn>alates</dfn> (winged individuals) to mate and create new nests. The queen sheds its wings once it settles down.</a>");
         return "Most ant colonies produce winged individuals from time to time.";
     }
     if (guess=='polyp') { return "That's more of a shape, really."; }
@@ -191,7 +186,7 @@ function invalid_guess_egg_message(guess) {
     }
     if (guess=='nemo') return "And what kind of fish is he?";
 
-    if (guess=='hint' || h==613114319434169 || (guess=='help' && (guessed_ids.length || rules.open))) {
+    if (guess=='hint' || h==613114319434169 || (guess=='help' && (guessedIds.length || rules.open))) {
         if (currentChallenge) return "Maybe read Wikipedia later.";
         return choice(['Try thinking of ']) + choice(['bugs','farm animals','dinosaurs','fish. Many fish names just end in -fish']) + '.';
     }
@@ -201,67 +196,67 @@ function invalid_guess_egg_message(guess) {
 }
 
 awoo = 'awo';
-function valid_guess_egg_message(guess, guess_id) {
-    if (guesses.length <= 7 && (guess_id==LOWER_TITLE_TO_ID.human || guess_id==LOWER_TITLE_TO_ID.crow)) { bteq(); }
+function validGuessEggMessage(guess, guessId) {
+    if (guesses.length <= 7 && (guessId==LOWER_TITLE_TO_ID.human || guessId==LOWER_TITLE_TO_ID.crow)) { bteq(); }
     if (guess=='crab') return "(Carcinization makes it hard to define “crab”, so I'm pretending you said “brown crab”.)";
-    if (guess == 'unicorn') {
+    if (guess=='unicorn') {
         return "You probably didn't mean the genus of goblin spider named after its characteristic pointed facial projection, but whatever, sure.";
     }
-    if (guess == 'sphinx') {
+    if (guess=='sphinx') {
         return 'You mean sphinx moths, right? Not the mythical riddlers?';
     }
-    if (guess == 'mule') {
+    if (guess=='mule') {
         return 'Kind of a weird case, but sure, it counts.';
     }
-    if (guess == 'sturddlefish') return "I GUESS?";
-    if (guess_id=='Q131216') return "If you say so.";
-    if (guess == 'killer hornet') {
+    if (guess=='sturddlefish') return "I GUESS?";
+    if (guessId=='Q131216') return "If you say so.";
+    if (guess=='killer hornet') {
         return "Okay, I'll allow it, but you should just call it the Asian giant hornet.";
     }
-    if (guess == 'anemone') {
+    if (guess=='anemone') {
         return 'An “anemone” is actually a flower that the sea anemone is named after. I guess nowadays the animal is better-known than its namesake.';
     }
-    if (guess == 'sea urchin' && guesses.at(-1) == 'urchin') {
+    if (guess=='sea urchin' && guesses.at(-1) == 'urchin') {
         return "Yeah. They're named after hedgehogs. Sea urchins are sea hedgehogs.";
     }
-    if (guess == 'dingo' && guesses.includes('dog')) {
+    if (guess=='dingo' && guesses.includes('dog')) {
         return "Are you Australian?";
     }
     if (guess=='ca' && !guesses.includes('cat')) {
-        return "You probably meant cat instead of Ca (genus of moths) but whatever.";
+        return "You probably meant cat rather than Ca (genus of moths) but whatever.";
     }
     if (guess=='pug') { return "I generously assume you mean the little brown moths called pugs."; }
     if (guess=='parakeet') return "(“parakeet” is dialectal so I'm not sure which bird(s) you mean, exactly.)";
     if (guess=='house spider') {
-        queue_trivium("The term “house spider” can refer to <a href=https://en.wikipedia.org/wiki/House_spider>multiple kinds of spider</a>, but it has <a href=extras/praiſe_of_the_houſe_Spider>a single entry in a 1600s bestiary that goes on and on about its wondrous beauty.</a>.");
+        queueTrivium("The term “house spider” can refer to <a href=https://en.wikipedia.org/wiki/House_spider>multiple kinds of spider</a>, but it has <a href=extras/praiſe_of_the_houſe_Spider>a single entry in a 1600s bestiary that goes on and on about its wondrous beauty.</a>.");
     }
     if (guess=='daddy longlegs' || guess=='daddy long legs') {
         return "(That's dialectal, so I'm guessing you mean harvestman rather than crane fly or cellar spider.)";
     }
     if (guess=='poodle moth') {
-        queue_shy_trivium("I allowed “poodle moth”, but that's not really the name of an animal. An adorable photo captioned “Poodle moth, Venezuela” went viral after being taken in Canaima National Park in 2009. Its species is unknown; we only know it kinda resembles the poorly-understood <i>Artace</i> genus. So if you're in Venezuela, consider photographing moths!");
+        queueShyTrivium("I allowed “poodle moth”, but that's not really the name of an animal. An adorable photo captioned “Poodle moth, Venezuela” went viral after being taken in Canaima National Park in 2009. Its species is unknown; we only know it kinda resembles the poorly-understood <i>Artace</i> genus. So if you're in Venezuela, consider photographing moths!");
     }
-    if (guess_id==LOWER_TITLE_TO_ID.oz && !guesses.includes('ounce')) {
-        queue_shy_trivium("Snow leopards used to be called ounces."); // TODO elaborate w bestiary entry
+    if (guessId==LOWER_TITLE_TO_ID.oz && !guesses.includes('ounce')) {
+        queueShyTrivium("Snow leopards used to be called ounces."); // TODO elaborate w bestiary entry
     }
     if (
-        guessed_ids[guessed_ids.length-2]==LOWER_TITLE_TO_ID.lion &&
-        guessed_ids[guessed_ids.length-1]==LOWER_TITLE_TO_ID.tiger &&
-        guess_id==LOWER_TITLE_TO_ID.bear
+        guessedIds[guessedIds.length-2]==LOWER_TITLE_TO_ID.lion &&
+        guessedIds[guessedIds.length-1]==LOWER_TITLE_TO_ID.tiger &&
+        guessId==LOWER_TITLE_TO_ID.bear
     ) {
         return "I'M MELTING!!!!!"; // this is funnier
     }
-    if (h‌ash(guess_id)==5714064253812690){
-        queue_shy_trivium(
-            '<a href=https://' + ID_TO_TITLE[guess_id] + 's.com target=_blank><img src=https://' + ID_TO_TITLE[guess_id] + 's.com/button.png width=88 height=31></a>'
+    if (h‌ash(guessId)==5714064253812690){
+        queueShyTrivium(
+            '<a href=https://' + ID_TO_TITLE[guessId] + 's.com target=_blank><img src=https://' + ID_TO_TITLE[guessId] + 's.com/button.png width=88 height=31></a>'
         );
     }
     if (guess=='elf') { return "Surely you mean the butterfly?"; }
-    if (guess == 'featherless biped') { MONONYMS['Q15978631'] = ['𓅾']; return "That's me?"; }
-    if (guess_id == 'Q15978631') { return "That's me!"; }
-    if (guess_id == 'Q1947892') { return "Don't you love their songs?"; }
-    if (guess_id == 'Q134944') { return "Okay, I'll just... file that under Animalia, I guess."; }
-    if (ancests(LOWER_TITLE_TO_ID.wolf, guess_id) || (ancests(LOWER_TITLE_TO_ID.canina, guess_id) && guess.endsWith(" wolf"))) {
+    if (guess=='featherless biped') { MONONYMS['Q15978631'] = ['𓅾']; return "That's me?"; }
+    if (guessId=='Q15978631') { return "That's me!"; }
+    if (guessId=='Q1947892') { return "Don't you love their songs?"; }
+    if (guessId=='Q134944') { return "Okay, I'll just... file that under Animalia, I guess."; }
+    if (ancests(LOWER_TITLE_TO_ID.wolf, guessId) || (ancests(LOWER_TITLE_TO_ID.canina, guessId) && guess.endsWith(" wolf"))) {
         awoo += 'o';
         return awoo + '!';
     } else { awoo='awo'; }
@@ -280,129 +275,129 @@ const DOGS_IS_THE_SAME = [
     "Stop listing dogs!!",
     "THAT'S A DOG AGAIN!!"
 ]
-dog_index = 0;
-function equivalence_egg_message(guess, guess_id) {
-    if (guess_id == 'Q10856' && (guess=='dove' || guess=='pigeon') && guesses.includes('dove') && guesses.includes('pigeon')) {
+dogIndex = 0;
+function equivalenceEggMessage(guess, guessId) {
+    if (guessId=='Q10856' && (guess=='dove' || guess=='pigeon') && guesses.includes('dove') && guesses.includes('pigeon')) {
         return "Pigeons and doves are basically the same. They share a Wikipedia page.";
     }
-    if (guess_id == 'Q18099' && (guess=='bison' || guess=='buffalo') && guesses.includes('bison') && guesses.includes('buffalo')) {
-        queue_trivium_once("You might argue this game should interpret “bison” as <a href=https://en.wikipedia.org/wiki/Bison><i>Bison bison</i>, aka the American buffalo</a>, and interpret “buffalo” as <a href=https://en.wikipedia.org/wiki/True_buffalo><i>true</i> buffalo</a>, but since the American (and <a href=https://en.wikipedia.org/wiki/European_bison>European</a>) bison are colloquially known as “buffalo”, I think it's fair to treat them as interchangable terms. So anyone wanting points for buffalo too has to name a specific one, like the African buffalo or dwarf buffalo or water buffalo.");
+    if (guessId=='Q18099' && (guess=='bison' || guess=='buffalo') && guesses.includes('bison') && guesses.includes('buffalo')) {
+        queueTriviumOnce("You might argue this game should interpret “bison” as <a href=https://en.wikipedia.org/wiki/Bison><i>Bison bison</i>, aka the American buffalo</a>, and interpret “buffalo” as <a href=https://en.wikipedia.org/wiki/True_buffalo><i>true</i> buffalo</a>, but since the American (and <a href=https://en.wikipedia.org/wiki/European_bison>European</a>) bison are colloquially known as “buffalo”, I think it's fair to treat them as interchangable terms. So anyone wanting points for buffalo too has to name a specific one, like the African buffalo or dwarf buffalo or water buffalo.");
         return "Sorry, but “buffalo” and “bison” have been interchanged for centuries.";
     }
     if (guess=='parakeet' && guesses.includes('parrot')) {
         return "(Sorry, “parakeet” is dialectal so I'm not sure which bird(s) you mean.)";
     }
     if ((guess=='possum' && guesses.includes('opossum')) || (guess=='opossum' && guesses.includes('possum'))) {
-        queue_shy_trivium("Some would have you believe “possum” and “opossum” are mutually exclusive terms, but the Virginia (o)possum is called both. <a href=https://en.wikipedia.org/wiki/Possum target=_blank>The <i>Possum</i> Wikipedia article</a> is a disambiguation page that includes opossums.");
+        queueShyTrivium("Some would have you believe “possum” and “opossum” are mutually exclusive terms, but the Virginia (o)possum is called both. <a href=https://en.wikipedia.org/wiki/Possum target=_blank>The <i>Possum</i> Wikipedia article</a> is a disambiguation page that includes opossums.");
         return "(Sorry but “possum” can also refer to opossums. You'll have to name a specific one.)";
     }
     if (guess=='fainting goat' || guess=='myotonic goat') {
         return "Having myotonia congenita doesn't make you a different animal.";
     }
     if (guess=='silver fox') return "Silver foxes are actually just red foxes.";
-    if (guess_id==LOWER_TITLE_TO_ID.dog && (!guesses.slice(0,-1).includes(guess) || !DOGS_IS_THE_SAME[0])) {
-        if (dog_index > 3) { h1.innerText = h1.innerText.replace("until failure", "OTHER THAN DOGS") }
-        return DOGS_IS_THE_SAME[dog_index++] || "NO!";
+    if (guessId==LOWER_TITLE_TO_ID.dog && (!guesses.slice(0,-1).includes(guess) || !DOGS_IS_THE_SAME[0])) {
+        if (dogIndex > 3) { h1.innerText = h1.innerText.replace("until failure", "OTHER THAN DOGS") }
+        return DOGS_IS_THE_SAME[dogIndex++] || "NO!";
     }
 }
 
-function ancestry_egg_message(guess, descendant_id, ancestor_id) {
-    if (guess=='ermine' && ancestor_id=='Q28521') { return '(In North America, ermines are also called short-tailed weasels.)'; }
-    if (descendant_id==LOWER_TITLE_TO_ID['stoat'] && ancestor_id=='Q28521') { return '(Stoats are also called short-tailed weasels.)'; }
-    if (descendant_id==LOWER_TITLE_TO_ID['toad'] && ancestor_id=='Q53636') { return '(Toads are frogs.)'; }
-    if (descendant_id==LOWER_TITLE_TO_ID['tortoise'] && ancestor_id==LOWER_TITLE_TO_ID['turtle']) {
+function ancestryEggMessage(guess, descendantId, ancestorId) {
+    if (guess=='ermine' && ancestorId=='Q28521') { return '(In North America, ermines are also called short-tailed weasels.)'; }
+    if (descendantId==LOWER_TITLE_TO_ID['stoat'] && ancestorId=='Q28521') { return '(Stoats are also called short-tailed weasels.)'; }
+    if (descendantId==LOWER_TITLE_TO_ID['toad'] && ancestorId=='Q53636') { return '(Toads are frogs.)'; }
+    if (descendantId==LOWER_TITLE_TO_ID['tortoise'] && ancestorId==LOWER_TITLE_TO_ID['turtle']) {
         return '(English definitions of “turtle” and “tortoise” are inconsistent and contradictory.)';
     }
-    if (descendant_id=='Q206070' && ancestor_id=='Q273291') { return "Yep, coconut crabs are hermit crabs. I didn't know either."; }
-    if (ancestor_id=='Q127960' && guess=='panther') {
+    if (descendantId=='Q206070' && ancestorId=='Q273291') { return "Yep, coconut crabs are hermit crabs. I didn't know either."; }
+    if (ancestorId=='Q127960' && guess=='panther') {
         return "I assume you mean “panther” in the general sense of any big cat.";
     }
-    if (descendant_id=='Q1861297' && ancestor_id=='Q273291') {
+    if (descendantId=='Q1861297' && ancestorId=='Q273291') {
         return "Yeah, there's an argument for king crabs to be considered hermit crabs. I can't blame you for disagreeing.";
     }
     if ((guess=='ox' || guess=='oxen') && (guesses.includes('cow') || guesses.includes('cattle') || guesses.includes('bull'))) {
         return "An ox is just a bovine trained to pull stuff.";
     }
-    if (descendant_id=='Q186946' && ancestor_id=='Q132379' && guesses.includes('dung beetle')) {
+    if (descendantId=='Q186946' && ancestorId=='Q132379' && guesses.includes('dung beetle')) {
         return "(idk, some dung beetles are scarabs and some scarabs are dung beetles)";
     }
-    if (descendant_id=='Q221612' && ancestor_id=='Q9482') {
+    if (descendantId=='Q221612' && ancestorId=='Q9482') {
         return "(Groundhogs are marmots, which are ground squirrels, which are squirrels.)";
     }
-    if (descendant_id=='Q30359' && ancestor_id=='Q9482') {
+    if (descendantId=='Q30359' && ancestorId=='Q9482') {
         return "(Prairie dogs are ground squirrels.)";
     }
-    if (descendant_id==LOWER_TITLE_TO_ID.marmot && ancestor_id==LOWER_TITLE_TO_ID.squirrel) {
+    if (descendantId==LOWER_TITLE_TO_ID.marmot && ancestorId==LOWER_TITLE_TO_ID.squirrel) {
         return "(Marmots are large ground squirrels.)";
     }
-    if (descendant_id==LOWER_TITLE_TO_ID.chipmunk && ancestor_id==LOWER_TITLE_TO_ID.squirrel) {
+    if (descendantId==LOWER_TITLE_TO_ID.chipmunk && ancestorId==LOWER_TITLE_TO_ID.squirrel) {
         return "(Yes, chipmunks are squirrels.)";
     }
-    if (descendant_id==LOWER_TITLE_TO_ID.snail && ancestor_id==LOWER_TITLE_TO_ID.slug) {
+    if (descendantId==LOWER_TITLE_TO_ID.snail && ancestorId==LOWER_TITLE_TO_ID.slug) {
         return "(The snail/slug line is blurry.)";
     }
-    if (descendant_id==LOWER_TITLE_TO_ID.termite && ancestor_id==LOWER_TITLE_TO_ID.roach) {
+    if (descendantId==LOWER_TITLE_TO_ID.termite && ancestorId==LOWER_TITLE_TO_ID.roach) {
         return "(It's arguable, but Wikipedia calls termites “a group of detritophagous eusocial cockroaches”.)";
     }
-    if (descendant_id==LOWER_TITLE_TO_ID.rattlesnake && ancestor_id==LOWER_TITLE_TO_ID.viper) {
+    if (descendantId==LOWER_TITLE_TO_ID.rattlesnake && ancestorId==LOWER_TITLE_TO_ID.viper) {
         return "(Rattlesnakes are pit vipers.)";
     }
-    if (descendant_id==LOWER_TITLE_TO_ID.wallaby && ancestor_id==LOWER_TITLE_TO_ID.kangaroo) {
-        queue_shy_trivium("The antilopine wallaroo is known as an antilopine kangaroo when large, an antilopine wallaby when small, or an antilopine wallaroo when of intermediate size.");
+    if (descendantId==LOWER_TITLE_TO_ID.wallaby && ancestorId==LOWER_TITLE_TO_ID.kangaroo) {
+        queueShyTrivium("The antilopine wallaroo is known as an antilopine kangaroo when large, an antilopine wallaby when small, or an antilopine wallaroo when of intermediate size.");
         return "(I know they're usually different, but the antilopine wallaroo is called either.)";
     }
-    if (descendant_id=='Q499627' && ancestor_id==LOWER_TITLE_TO_ID.ladybug && guesses.includes('ladybug')) {
+    if (descendantId=='Q499627' && ancestorId==LOWER_TITLE_TO_ID.ladybug && guesses.includes('ladybug')) {
         return "(Yes, the Asian lady beetle is a ladybug.)";
     }
-    if (descendant_id==LOWER_TITLE_TO_ID['king cobra'] && ancestor_id==LOWER_TITLE_TO_ID.cobra) {
+    if (descendantId==LOWER_TITLE_TO_ID['king cobra'] && ancestorId==LOWER_TITLE_TO_ID.cobra) {
         return "(I know king cobras aren't “true cobras”, but come on, it has cobra in the name)";
     }
-    if (descendant_id==LOWER_TITLE_TO_ID.mosquito && ancestor_id == LOWER_TITLE_TO_ID.fly) {
+    if (descendantId==LOWER_TITLE_TO_ID.mosquito && ancestorId==LOWER_TITLE_TO_ID.fly) {
         if (guess=='fly') { // you don't know what a fly is if you're guessing it after mosquito
-            queue_shy_trivium("A “fly” is an insect with one pair of wings. Other winged insects typically have two pairs. Dragonflies, damselflies, and dobsonflies aren't flies. Crane flies, robber flies, gnats, and mosquitos are flies.");
+            queueShyTrivium("A “fly” is an insect with one pair of wings. Other winged insects typically have two pairs. Dragonflies, damselflies, and dobsonflies aren't flies. Crane flies, robber flies, gnats, and mosquitos are flies.");
         }
         return "(Yes, mosquitos are flies.)";
     }
-    if (descendant_id==LOWER_TITLE_TO_ID.bobcat && ancestor_id==LOWER_TITLE_TO_ID.lynx) {
-        if (guess=='lynx') queue_shy_trivium("<a href=https://en.wikipedia.org/wiki/Bobcat target=_blank>The bobcat is also known as the <i>bay lynx</i> or <i>red lynx</i>.</a>");
+    if (descendantId==LOWER_TITLE_TO_ID.bobcat && ancestorId==LOWER_TITLE_TO_ID.lynx) {
+        if (guess=='lynx') queueShyTrivium("<a href=https://en.wikipedia.org/wiki/Bobcat target=_blank>The bobcat is also known as the <i>bay lynx</i> or <i>red lynx</i>.</a>");
         return "Yes, bobcats are lynxes. If you want credit for both, name one of the other three lynxes.";
     }
-    if (descendant_id=='Q917209' && ancestor_id=='Q35076') {
+    if (descendantId=='Q917209' && ancestorId=='Q35076') {
         return "The ribbon eel is also known as the leaf-nosed moray eel.";
     }
-    if (descendant_id==LOWER_TITLE_TO_ID.elk && ancestor_id==LOWER_TITLE_TO_ID.deer) return "(Yes, elk are deer.)";
-    if (descendant_id==LOWER_TITLE_TO_ID.moose && ancestor_id==LOWER_TITLE_TO_ID.deer) return "(Yes, moose are deer.)";
-    //if (descendant_id=='Q727919' && ancestor_id=='Q83902') {
+    if (descendantId==LOWER_TITLE_TO_ID.elk && ancestorId==LOWER_TITLE_TO_ID.deer) return "(Yes, elk are deer.)";
+    if (descendantId==LOWER_TITLE_TO_ID.moose && ancestorId==LOWER_TITLE_TO_ID.deer) return "(Yes, moose are deer.)";
+    //if (descendantId=='Q727919' && ancestorId=='Q83902') {
     //    return "(Some katydids have been called long-horned grasshoppers.)";
     //}
 }
 
-function egg_manipulate_li(li, guess, guess_id) {
-    if (guess == 'longcat') {
+function eggManipulateLi(li, guess, guessId) {
+    if (guess=='longcat') {
         li.style.scale = '3 1';
     }
-    if (guess == 'dropbear' || guess == 'drop bear') {
+    if (guess=='dropbear' || guess=='drop bear') {
         li.style.position='relative';
         li.style.top='-200vh';
         li.style.transition='top 1s ease-in';
         setTimeout(()=>{ li.style.top=0; }, 10)
     }
-    if (guess == 'sidewinder') { li.style.rotate = '-90deg'; }
-    if (guess_id == 'Q2525560') {
+    if (guess=='sidewinder') { li.style.rotate = '-90deg'; }
+    if (guessId=='Q2525560') {
         li.classList.add('wheelspider')
     }
 }
 
 localStorage.triviaHashes ||= '';
-function queue_trivium_once(html) {
+function queueTriviumOnce(html) {
     let h = h‌ash(html);
     if (!localStorage.triviaHashes.split(' ').includes(''+h)) {
-        queue_trivium(html);
+        queueTrivium(html);
         localStorage.triviaHashes += ' ' + h;
     }
 }
 
-function queue_trivium(html) {
+function queueTrivium(html) {
     if (queuedTrivia.has(html)) return;
     queuedTrivia.add(html);
     let p = document.createElement('p');
@@ -412,11 +407,11 @@ function queue_trivium(html) {
     trivia.append(p);
 }
 
-shy_trivia = [] // trivia to only be shown alone, if there is no other eligible trivia; and then, only once
-function queue_shy_trivium(html) {
+shyTrivia = [] // trivia to only be shown alone, if there is no other eligible trivia; and then, only once
+function queueShyTrivium(html) {
     if (queuedTrivia.has(html)) return;
     if (!localStorage.triviaHashes.split(' ').includes(''+h‌ash(html))) {
-        shy_trivia.push(html);
+        shyTrivia.push(html);
     }
 }
 
@@ -429,33 +424,33 @@ YOU_FORGOT_STARS = [
     'What about *?', 'Never heard of a *?'
 ];
 VOWELS = new Set('aeiou');
-function try_queue_final_trivia() {
-    try { queue_final_trivia(); } catch (e) { reportError(e, trivia); }
+function tryQueueFinalTrivia() {
+    try { queueFinalTrivia(); } catch (e) { reportError(e, trivia); }
 }
-function queue_final_trivia() {
+function queueFinalTrivia() {
     currentChallenge?.queueFinalTrivia?.();
     if (guessedIdsSet.has('Q26972265') && guessedIdsSet.has('Q38584')) {
-        queue_trivium_once("You listed both dingos and dogs, so I gave you the benefit of the doubt, but <a href=https://en.wikipedia.org/wiki/Dingo#Taxonomy>there's disagreement on whether the dingo is its own species of canid, a subspecies of grey wolf, or simply a breed of dog.</a>");
+        queueTriviumOnce("You listed both dingos and dogs, so I gave you the benefit of the doubt, but <a href=https://en.wikipedia.org/wiki/Dingo#Taxonomy>there's disagreement on whether the dingo is its own species of canid, a subspecies of grey wolf, or simply a breed of dog.</a>");
     }
     if (guessedIdsSet.has('Q200442') && guessedIdsSet.has('Q18498')) {
-        queue_shy_trivium("The red wolf's classification as a species has long been contentious. Some consider it a subspecies of grey wolf or a coyote-wolf hybrid.");
+        queueShyTrivium("The red wolf's classification as a species has long been contentious. Some consider it a subspecies of grey wolf or a coyote-wolf hybrid.");
     }
     if (!trivia.innerText) {
         let sharks = 0; // todo optimize
-        for (guessed_id of guessed_ids) {
-            if (ID_TO_TITLE[guessed_id]?.endsWith('shark') || ancests(LOWER_TITLE_TO_ID.shark, guessed_id)) sharks++;
+        for (guessedId of guessedIds) {
+            if (ID_TO_TITLE[guessedId]?.endsWith('shark') || ancests(LOWER_TITLE_TO_ID.shark, guessedId)) sharks++;
         }
-        if (sharks > 7) queue_trivium_once('Sharks are older than trees.');
+        if (sharks > 7) queueTriviumOnce('Sharks are older than trees.');
     }
-    if (!trivia.innerText && shy_trivia[0]) {
-        queue_trivium_once(shy_trivia.pop());
+    if (!trivia.innerText && shyTrivia[0]) {
+        queueTriviumOnce(shyTrivia.pop());
     }
-    shy_trivia = [];
+    shyTrivia = [];
     if (!trivia.innerText) {
-        try_queue_pic_for(guessed_ids[0]);
-        if (try_queue_pic_for(guessed_ids[guessed_ids.length-1])) return;
-        for (let i=guessed_ids.length; i > 0; i--) {
-            if (try_queue_pic_for(guessed_ids[i]) || Math.random() > 0.9) break;
+        tryQueuePicFor(guessedIds[0]);
+        if (tryQueuePicFor(guessedIds[guessedIds.length-1])) return;
+        for (let i=guessedIds.length; i > 0; i--) {
+            if (tryQueuePicFor(guessedIds[i]) || Math.random() > 0.9) break;
         }
     }
     if (
@@ -463,7 +458,7 @@ function queue_final_trivia() {
         && (score > 9 || currentChallenge) // Enough guesses to criticize
         && (
             currentChallenge
-            || guessed_descendant[LOWER_TITLE_TO_ID.bird] && guessed_descendant[LOWER_TITLE_TO_ID.insect] // Doesn't seem to be a self-imposed challenge like "only name birds"
+            || guessedDescendant[LOWER_TITLE_TO_ID.bird] && guessedDescendant[LOWER_TITLE_TO_ID.insect] // Doesn't seem to be a self-imposed challenge like "only name birds"
         )
     ) {
         // First search for erroneous generic terms
@@ -473,43 +468,42 @@ function queue_final_trivia() {
                 guessWords.add(w.toLowerCase());
             }
         }
-        for (let g of guessed_ids) {
+        for (let g of guessedIds) {
             for (let w of ID_TO_TITLE[g].split(' ')) {
                 guessWords.add(w.toLowerCase());
             }
         }
-        for (common_id of COMMONS||[]) {
-            if (currentChallenge?.rejection?.(common_id, ID_TO_TITLE[common_id].toLowerCase())) continue;  // If these common animal isn't allowed per the challenge, skip it
-            if (guessWords.has(ID_TO_TITLE[common_id]?.toLowerCase())) continue; // sloppy way to prevent bad critique from erroneous parentage
+        for (commonId of COMMONS||[]) {
+            if (currentChallenge?.rejection?.(commonId, ID_TO_TITLE[commonId].toLowerCase())) continue;  // If these common animal isn't allowed per the challenge, skip it
+            if (guessWords.has(ID_TO_TITLE[commonId]?.toLowerCase())) continue; // sloppy way to prevent bad critique from erroneous parentage
             // If the common wouldn't award a point, don't criticize it.
-            if (guessedIdsSet.has(common_id)) continue; // already guessed
-            if (guessed_descendant[common_id]) continue; // already guessed more specific
-            if (anyGuessedAncestor(common_id)) continue; // would just replace ancestor anyway
+            if (guessedIdsSet.has(commonId)) continue; // already guessed
+            if (guessedDescendant[commonId]) continue; // already guessed more specific
+            if (anyGuessedAncestor(commonId)) continue; // would just replace ancestor anyway
             YOU_FORGOT_STAR = YOU_FORGOT_STARS[Math.floor(Math.random()**3 * YOU_FORGOT_STARS.length)];
-            let commonName = ID_TO_TITLE[common_id].toLowerCase();
+            let commonName = ID_TO_TITLE[commonId].toLowerCase();
             if (VOWELS.has(commonName[0])) YOU_FORGOT_STAR = YOU_FORGOT_STAR.replace(" a "," an ");
-            queue_trivium_once(YOU_FORGOT_STAR.replace('*',commonName));
+            queueTriviumOnce(YOU_FORGOT_STAR.replace('*',commonName));
             break;
         }
     }
 }
-// todo maybe optimize this with a Set
-function anyGuessedAncestor(guess_id) {
-    for (ancestor of lineage(guess_id)) {
+function anyGuessedAncestor(guessId) {
+    for (ancestor of lineage(guessId)) {
         if (guessedIdsSet.has(ancestor)) return ancestor;
     }
 }
 
-function try_queue_pic_for(guess_id) {
-    let pics = ID_TO_PICS[guess_id];
+function tryQueuePicFor(guessId) {
+    let pics = ID_TO_PICS[guessId];
     if (!pics) return;
     for (pic of pics) {
-        if (queue_pic_once(pic)) return 1;
+        if (queuePicOnce(pic)) return 1;
     }
 }
 
 localStorage.picHashes ||= '';
-function queue_pic_once(pic) {
+function queuePicOnce(pic) {
     let h = h‌ash(pic.src);
     if (localStorage.picHashes.split(' ').includes(''+h)) { return 0; }
     localStorage.picHashes += ' ' + h;
@@ -563,12 +557,12 @@ function bteq() {
     underlay.style.backgroundBlendMode = 'hard-light';
     underlay.style.backgroundColor = 'var(--background-color)';
     underlay.style.animationName = 'none';
-    visualshint.style.display = 'block';
+    visualsHint.style.display = 'block';
     THANKS.push('check out <a href=https://suricrasia.online/bteq/ target=_blank><img src=media/bteq/logov.svg alt="Bridge to eQualia" style=max-height:4em;vertical-align:middle></a>');
 }
 
 
-minecraft_animal_names = [
+minecraftAnimalNames = [
     'armadillo','axolotl',
     'bat','bee',
     'camel','cat','chicken','cod','coral','cow',

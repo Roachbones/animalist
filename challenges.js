@@ -2,76 +2,27 @@ daily = null;
 currentChallenge = null;
 
 function updateDaily(debugOffset=0) {
-    today = new Date();
+    let today = new Date();
     today.setDate(today.getDate() + debugOffset);
-    daily = challengeForToday();
+    daily = challengeForToday(today);
     daily.key = 'daily_' + today.getFullYear() + '_' + today.getMonth() + '_' + today.getDate();
-    dailydesc.textContent = today.toLocaleDateString();
+    todayDesc.textContent = today.toLocaleDateString();
     if (localStorage['c_'+daily.key]) {
-        dailybutton.disabled = true;
-        dailybutton2.disabled = true;
-        dailypage.title = "Already attempted daily for " + today.toLocaleDateString() + ". Come back tomorrow";
-        dailydesc.textContent += ' ✔';
+        dailyButton.disabled = true;
+        dailyButton2.disabled = true;
+        todaySection.title = "Already attempted daily for " + today.toLocaleDateString() + ". Come back tomorrow";
+        todayDesc.textContent += ' ✔';
         return;
     } else {
-        dailybutton.disabled = false;
-        dailybutton2.disabled = false;
-        dailypage.title = '';
-        dailydesc.textContent += '❗';
+        dailyButton.disabled = false;
+        dailyButton2.disabled = false;
+        todaySection.title = '';
+        todayDesc.textContent += '❗';
     }
     return daily;
 }
 
-wordchainChallenge = {
-    shortname: 'wordchain',
-    title: 'list animals in a word chain',
-    subtitle: 'each guess must begin with the last letter of the previous guess',
-    rejection: wordchain_rejection,
-    attributivizeScore: ()=>{ score + ' animal' + (score==1 ? '' : 's') + ' wordchained' }
-}
-function wordchain_rejection (_guess_id, guess) {
-    if (!correct_guesses.length) return;
-    let prevGuess = correct_guesses[correct_guesses.length-1];
-    let requiredInitial = prevGuess.slice(prevGuess.length-1);
-    if (guess.slice(0,1) != requiredInitial) {
-        return "That doesn't begin with " + requiredInitial + ".";
-    }
-}
-
-function singleInitialChallenge(letter) {
-    const LETTER = letter.toUpperCase();
-    return {
-        shortname: LETTER + '-animals',
-        title: 'list animals starting with ' + LETTER,
-        subtitle: 'each guess must begin with ' + LETTER,
-        rejection: function (_guess_id, guess) {
-            if (!guess.startsWith(letter)) return "That doesn't start with "+LETTER+".";
-        },
-        attributivizeScore: ()=> score + ' ' + LETTER + '-animal' + (score==1 ? '' : 's') + ' listed'
-    }
-}
-
-alphabeticalChallenge = {
-    shortname: 'alphabetical',
-    title: 'list animals in alphabetical order',
-    subtitle: 'abcdefghijklmnopqrstuvwxyz',
-    rejection: function (_guess_id, guess) {
-        let prevGuess = correct_guesses[correct_guesses.length-1];
-        if (!prevGuess) return;
-        if (guess.localeCompare(prevGuess)<0 && guess.replaceAll(' ','').localeCompare(prevGuess.replaceAll(' ',''))<0) {
-             return "That alphabetically precedes " + prevGuess + ".";
-        }
-    },
-    orthographic: true,
-    attributivizeScore: ()=> score + ' animal' + (score==1 ? '' : 's') + ' listed alphabetically'
-};
-
-invisibleTimerChallenge = {
-    shortname: 'invisibletimer',
-    title: 'list animals invisibly timed',
-    subtitle: "the timer is invisible. maybe it's easier without the big red countdown"
-};
-
+// Unimplemented idea
 name100Challenge = {
     shortname: 'name100',
     title: 'list 100 animals',
@@ -79,47 +30,7 @@ name100Challenge = {
     attributivizeScore: ()=> 'todo'
 }
 
-oneWordChallenge = {
-    shortname: 'one-word',
-    title: 'list one-word animals until failure',
-    subtitle: "all guesses must be exactly one word",
-    rejection: function (_guess_id, guess) {
-        let wordCount = guess.split(' ').length;
-        if (wordCount!=1) return "That's " + wordCount + " words.";
-    },
-    orthographic: true,
-    noun: 'one-word animal'
-};
-twoWordChallenge = {
-    shortname: 'two-word',
-    title: 'list two-word animals until failure',
-    subtitle: "all guesses must be exactly two words",
-    rejection: function (_guessId, guess) {
-        let wordCount = guess.split(' ').length;
-        if (wordCount==2) return;
-        if (wordCount==1) return "That's only one word.";
-        if (wordCount==3) return "That's three words.";
-        return "That's " + wordCount + " words.";
-    },
-    orthographic: true,
-    noun: 'two-word animal'
-};
-
-dinoChallenge = {
-    shortname: 'dino',
-    title: 'list non-bird dinosaurs until failure',
-    rejection: function (guessId, guess) {
-        if (guess=='pterodactyl') return "Pterodactyls aren't technically dinosaurs. Don't blame me.";
-        for (const ancestor of lineage(guessId)) {
-            if (ancestor==LOWER_TITLE_TO_ID.bird) return "That's a bird.";
-            if (ancestor==LOWER_TITLE_TO_ID.dinosaur) return;
-            if (ancestor==LOWER_TITLE_TO_ID.pterosaur) return "Pterosaurs aren't technically dinosaurs.";
-        }
-        return "Not a dinosaur.";
-    },
-    noun: 'non-bird dinosaur'
-};
-
+// Unused; probably too confusing
 fishChallenge = {
     shortname: 'nontetrapodvertebrate',
     title: 'list non-tetrapod vertebrates until failure',
@@ -131,288 +42,420 @@ fishChallenge = {
             if (ancestor==LOWER_TITLE_TO_ID.cetacean) return "It sure looks like a fish, but it's taxonomically a tetrapod.";
             if (ancestor==LOWER_TITLE_TO_ID.vertebrate) return;
         }
-        if (guessId==LOWER_TITLE_TO_ID.tullimonstrum) {
-            acceptanceComment = "If you say so!";
-            return;
-        }
+        if (guessId==LOWER_TITLE_TO_ID.tullimonstrum) { challengeEggMessage = "If you say so!"; return; }
         return "Not a vertebrate.";
     }
 }
 
-batChallenge = singleTaxonChallenge('bat');
-antChallenge = singleTaxonChallenge('ant');
-antChallenge.rejection = (guess_id, guess) => {
-    if (guess=='velvet ant') return "Velvet ants aren't actually ants. Sorry.";
-    if (!ancestsOrIs(LOWER_TITLE_TO_ID.ant, guess_id)) return "Not an ant.";
-};
+// Not currently used
 monotremeChallenge = singleTaxonChallenge('monotreme', 'egg-laying mammals');
-monotremeChallenge.duration_s = 9;
+monotremeChallenge.durationS = 9;
 monotremeChallenge.queueFinalTrivia = ()=>{
     if (score<3) {
-        queue_trivium("<a href=https://en.wikipedia.org/wiki/Monotreme target=_blank>The only extant monotremes are the platypus and echnidnas.</a>");
+        queueTrivium("<a href=https://en.wikipedia.org/wiki/Monotreme target=_blank>The only extant monotremes are the platypus and echnidnas.</a>");
     } else {
-        queue_trivium("You sure know your monotremes.");
+        queueTrivium("You sure know your monotremes.");
     }
 }
 
-cockroachChallenge = singleTaxonChallenge('cockroach','including termites');
-cockroachChallenge.duration_s = 40;
+function singleTaxonChallenge(noun, subtitle, extraData) {
+    extraData ??= {}
+    article = extraData.article || (noun.match(/^[aeiou]/) ? 'an' : 'a');
+    c = {
+        noun: noun,
+        subtitle: subtitle,
+        rejection: function(guessId) {
+            if (!ancestsOrIs(LOWER_TITLE_TO_ID[noun], guessId)) {
+                return "Not " + article + " " + noun + ".";
+            }
+        },
+    }
+    for (i in extraData) { c[i] = extraData[i]; }
+    return c;
+}
 
-tickChallenge = singleTaxonChallenge('tick')
-tickChallenge.duration_s = 20;
-
-leechOrTickChallenge = {
-    shortname: 'leechortick',
-    title: 'list leeches and ticks until failure',
-    subtitle: 'yummy yummy blood',
-    noun: 'leech/tick',
-    pluralNoun: 'leeches/ticks',
-    rejection: function (guessId, guess) {
-        for (const ancestor of lineage(guessId)) {
-            if (ancestor==LOWER_TITLE_TO_ID.leech) return;
-            if (ancestor==LOWER_TITLE_TO_ID.tick) return;
-        }
-        return 'Not a leech or a tick.';
+CHALLENGES = {
+    /* Yearly challenges */
+    halloween: {
+        title: 'list animals on Halloween',
+        subtitle: "the timer is hidden until it isn't",
+        durationS: 60 + 10.31,
+        verbed: 'listed on Halloween'
     },
-    duration_s: 30
-};
+    leapDay: singleTaxonChallenge('frog', 'leap day challenge'),
+    eightEight: {
+        title: 'list arachnids & octopuses until failure',
+        rejection: function(guessId) {
+            if (!anyAncestsOrIs([LOWER_TITLE_TO_ID.arachnid, LOWER_TITLE_TO_ID.octopus], guessId)) {
+                return "Not arachnid nor octopus.";
+            }
+        },
+        durationS: 8, incrementS: 8,
+        noun: 'arachnids/octopuses'
+    },
+    /* Combined taxa challenges */
+    leechOrTick: { // * Unused. TODO add mosquitos
+        title: 'list leeches and ticks until failure',
+        subtitle: 'yummy yummy blood',
+        noun: 'leech/tick',
+        pluralNoun: 'leeches/ticks',
+        rejection: function (guessId, guess) {
+            for (const ancestor of lineage(guessId)) {
+                if (ancestor==LOWER_TITLE_TO_ID.leech) return;
+                if (ancestor==LOWER_TITLE_TO_ID.tick) return;
+            }
+            return 'Not a leech or a tick.';
+        },
+        durationS: 30
+    },
+    /* Single-taxon-with-exception challenges */
+    dino: {
+        title: 'list non-bird dinosaurs until failure',
+        rejection: function (guessId, guess) {
+            if (guess=='pterodactyl') return "Pterodactyls aren't technically dinosaurs. Don't blame me.";
+            if (guessId==LOWER_TITLE_TO_ID.tullimonstrum) { return "I'm not convinced."; }
+            for (const ancestor of lineage(guessId)) {
+                if (ancestor==LOWER_TITLE_TO_ID.bird) return "That's a bird.";
+                if (ancestor==LOWER_TITLE_TO_ID.dinosaur) return;
+                if (ancestor==LOWER_TITLE_TO_ID.pterosaur) return "Pterosaurs aren't technically dinosaurs.";
+            }
+            return "Not a dinosaur.";
+        },
+        noun: 'non-bird dinosaur'
+    },
+    invertebrate: {
+        noun: 'invertebrate',
+        subtitle: 'spineless animals',
+        rejection: function(guessId, guess) {
+            if (guessId==LOWER_TITLE_TO_ID.tullimonstrum) {
+                challengeEggMessage = "If you say so."; return;
+            }
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.human, guessId)) return "I definitely have a spine.";
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.vertebrata, guessId)) return "That's a vertebrate.";
+        }
+    },
+    nonmammal: {
+        shortname: 'non-mammal',
+        title: 'list non-mammal animals until failure',
+        rejection: function(guessId, guess) {
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.mammal, guessId)) return "That's a mammal.";
+        },
+        noun: 'non-mammal'
+    },
+    /* Single taxon challenges */
+    arachnid: {
+        noun: 'arachnid',
+        rejection: function(guessId, guess) {
+            for (const ancestor of lineage(guessId)) {
+                if (ancestor==LOWER_TITLE_TO_ID.arachnid) return;
+                if (ancestor==LOWER_TITLE_TO_ID.insect) return "That's an insect. Arachnids have 8 legs, not 6.";
+                if (ancestor==LOWER_TITLE_TO_ID.crustacea) return "That's a crustacean, but not an arachnid.";
+                if (ancestor==LOWER_TITLE_TO_ID.arthropoda) return "That's an arthropod, but not an arachnid.";
+                if (guess=='vriska' || guess=='vriska serket' || guess=='mindfang') return "Not spidertrolls.";
+            }
+            return 'Not an arachnid.';
+        },
+        durationS: 38, incrementS: 8
+    },
+    canid: {
+        noun: 'canid',
+        subtitle: 'doglike creatures',
+        rejection: function(guessId, guess) {
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.canid, guessId)) return;
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.felid, guessId)) return "That's a felid, not a canid.";
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.mustelid, guessId)) return "That's a mustelid, not a canid.";
+            return "Not a canid.";
+        },
+        durationS: 40
+    },
+    felid: {
+        noun: 'felid',
+        subtitle: 'cats, big or small',
+        rejection: function(guessId, guess) {
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.felid, guessId)) return;
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.canid, guessId)) return "That's a canid, not a felid.";
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.mustelid, guessId)) return "That's a mustelid, not a felid.";
+            return "Not a felid.";
+        },
+        durationS: 40
+    },
+    insect: {
+        noun: 'insect',
+        rejection: function(guessId) {
+            for (const ancestor of lineage(guessId)) {
+                if (ancestor==LOWER_TITLE_TO_ID.insect) return;
+                if (ancestor==LOWER_TITLE_TO_ID.spider) return "Spiders are arachnids, not insects.";
+                if (ancestor==LOWER_TITLE_TO_ID.scorpion) return "Scorpions are arachnids, not insects.";
+                if (ancestor==LOWER_TITLE_TO_ID.arachnid) return "That's an arachnid, not an insect.";
+                if (ancestor==LOWER_TITLE_TO_ID.hexapoda) return "That's a hexapod, but not all hexapods are insects.";
+                if (ancestor==LOWER_TITLE_TO_ID.crustacea) return "That's a crustacean, but not an insect.";
+                if (ancestor==LOWER_TITLE_TO_ID.arthropoda) return "That's an arthropod, but not all arthropods are insects.";
+            }
+            return 'Not an insect.';
+        }
+    },
+    /* single-taxon challenges */
+    amphibia: singleTaxonChallenge('amphibian', 'members of the class Amphibia'),
+    ant: {
+        noun: 'ant',
+        rejection: function(guessId, guess) {
+            if (guess=='velvet ant') return "Velvet ants aren't actually ants. Sorry.";
+            if (!ancestsOrIs(LOWER_TITLE_TO_ID.ant, guessId)) return "Not an ant.";
+        }
+    },
+    bat: singleTaxonChallenge('bat'),
+    bear: singleTaxonChallenge('bear', "there are only like 8 of them", {durationS:25}),
+    beetle: singleTaxonChallenge('beetle', 'insects with hardened wing-cases'),
+    cetacea: singleTaxonChallenge('cetacean','dolphins, porpoises, & whales'),
+    corvid: singleTaxonChallenge(
+        'corvid',
+        'crows, ravens, rooks, magpies, jackdaws, jays, treepies, choughs, & nutcrackers'
+    ),
+    hymenoptera: singleTaxonChallenge('hymenopteran', 'wasps, bees, ants, and sawflies'),
+    lepidoptera: singleTaxonChallenge('lepidopteran', '🦋 butterflies & moths 🦋'),
+    mollusk: singleTaxonChallenge('mollusk', 'gastropods, cephalopods, & bivalves'),
+    myriapod: singleTaxonChallenge('myriapod', 'centipedes & millipedes'),
+    owl: singleTaxonChallenge('owl'),
+    primate: singleTaxonChallenge('primate'),
+    roach: singleTaxonChallenge('cockroach', 'including termites', {durationS:30, pluralNoun:'roaches'}),
+    rodent: {
+        noun:'rodent', subtitle: 'from Latin <i>rōdēns</i>, “gnawing”',
+        rejection: function(guessId, guess) {
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.rodent, guessId)) return;
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.mustelid, guessId)) return "That's a mustelid, not a rodent.";
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.mustelid, guessId)) return "That's a marsupial, not a rodent.";
+            return "Not a rodent.";
+        },
+    },
+    snake: singleTaxonChallenge('snake'),
+    sauropsid: singleTaxonChallenge('sauropsid', 'bird & reptiles'),
+    tick: singleTaxonChallenge('tick', null, {durationS:20}), // * Unused
+    waterfowl: singleTaxonChallenge("waterfowl","ducks, geese, & swans", null, {pluralNoun:"waterfowl"}),
+    arthropod: {
+        specialStart: ()=>{ window.arthropodConfusion = 0; },
+        noun: 'arthropod',
+        subtitle: 'Arthropod Thursday. (Exoskeletoned invertebrates. Bugs, more or less.)',
+        rejection: function(guessId, guess) {
+            if (ancestsOrIs(LOWER_TITLE_TO_ID.arthropod, guessId)) return;
+            if (window.arthropodConfusion++==4) {
+                queueShyTrivium("<a href=https://en.wikipedia.org/wiki/Arthropod target=_blank>Read about arthropods</a> or <a href=https://rose.systems/bugs target=_blank>browse my arthropod photos</a>.");
+            }
+            if (guessId==LOWER_TITLE_TO_ID.tullimonstrum) return "Not an arthropod. Probably.";
+            return "Not an arthropod.";
+        }
+    },
+    bird: singleTaxonChallenge('bird', 'Bird Sunday'),
+    mammal: singleTaxonChallenge('mammal', 'Mammal Monday'),
+    /* Speed challenges */
+    halftime: {
+        title: 'list animals fast',
+        subtitle: 'speedrun saturday',
+        durationS: 30, incrementS: 3,
+        verbed: 'listed fast (30s+3s)'
+    },
+    superfast: {
+        title: 'list animals faster!',
+        durationS: 10, incrementS: 2,
+        verbed: 'listed faster (10s+2s)'
+    },
+    oneMinute: {
+        title: 'list animals in one minute',
+        subtitle: 'no time bonus for listed animals',
+        durationS: 60, incrementS: 0,
+        verbed: 'listed in 1 min'
+    },
+    /* Orthographic challenges */
+    alphabetical: {
+        title: 'list animals in alphabetical order',
+        subtitle: 'abcdefghijklmnopqrstuvwxyz',
+        rejection: function (_guessId, guess) {
+            let prevGuess = correctGuesses[correctGuesses.length-1];
+            if (!prevGuess) return;
+            if (guess.localeCompare(prevGuess)<0 && guess.replaceAll(' ','').localeCompare(prevGuess.replaceAll(' ',''))<0) {
+                 return "That alphabetically precedes " + prevGuess + ".";
+            }
+        },
+        verbed: 'listed alphabetically',
+        orthographic: true
+    },
+    endsWithFish: {
+        noun: 'fish', pluralNoun: 'fish',
+        title: 'list animals whose names end in -fish',
+        rejection: function(guessId, guess) {
+            if (guess.endsWith('fish') || ID_TO_TITLE[guessId].endsWith('fish')) return;
+            return "That doesn't end in “fish”.";
+        },
+        orthographic: true
+    },
+    oneWord: { // * Unused
+        noun: 'one-word animal',
+        subtitle: "all guesses must be exactly one word",
+        rejection: function (_guessId, guess) {
+            let wordCount = guess.split(' ').length;
+            if (wordCount!=1) return "That's " + wordCount + " words.";
+        },
+        orthographic: true
+    },
+    twoWord: { // * Unused
+        noun: 'one-word animal',
+        subtitle: "all guesses must be exactly two words",
+        rejection: function (_guessId, guess) {
+            let wordCount = guess.split(' ').length;
+            if (wordCount==2) return;
+            if (wordCount==1) return "That's only one word.";
+            if (wordCount==3) return "That's three words.";
+            return "That's " + wordCount + " words.";
+        },
+        orthographic: true
+    },
+    wordchain: {
+        title: 'list animals in a word chain',
+        subtitle: 'each guess must begin with the last letter of the previous guess',
+        rejection: function (_guessId, guess) {
+            if (!correctGuesses.length) return;
+            let prevGuess = correctGuesses[correctGuesses.length-1];
+            let requiredInitial = prevGuess.slice(prevGuess.length-1);
+            if (guess.slice(0,1) != requiredInitial) {
+                return "That doesn't begin with " + requiredInitial + ".";
+            }
+        },
+        verbed: 'wordchained'
+    },
+    // Misc challenges
+    invisibleTimer: { // * Unused
+        title: 'list animals invisibly timed',
+        subtitle: "The timer is invisible. Is this easier without the looming countdown?"
+    }
+}
 
-halloweenChallenge = {
-    shortname: 'halloween',
-    title: 'list animals on Halloween',
-    subtitle: "the timer is hidden until it isn't",
-    duration_s: 60 + 10.31
-};
+function singleInitialChallenge(letter) {
+    const LETTER = letter.toUpperCase();
+    letter = letter.toLowerCase(); // for safety
+    return {
+        shortname: letter + 'Animals',
+        noun: LETTER + '-animal',
+        title: 'list animals starting with ' + LETTER,
+        subtitle: 'each guess must begin with ' + LETTER,
+        rejection: function (_guessId, guess) {
+            if (!guess.startsWith(letter)) return "That doesn't start with "+LETTER+".";
+        }
+    }
+}
+COMMON_LETTERS = 'etaoinshrdlcumwfg'
+for (letter of COMMON_LETTERS) {
+    challenge = singleInitialChallenge(letter);
+    CHALLENGES[challenge.shortname] = challenge;
+}
+for (shortname in CHALLENGES) {
+    const challenge = CHALLENGES[shortname];
+    challenge.shortname = shortname;
+    challenge.durationS ??= 60;
+    challenge.incrementS ??= 6;
+    challenge.rejection ??= ()=>{};
+    challenge.noun ??= 'animal';
+    challenge.pluralNoun ??= challenge.noun+'s';
+    challenge.verbed ??= 'listed';
+    challenge.attributivizeScore ??= ()=> score + ' ' + (score==1 ? challenge.noun : challenge.pluralNoun) + ' ' + challenge.verbed;
+    challenge.title ??= 'list ' + challenge.pluralNoun + ' until failure';
+}
 
 function debugWipeDailyHistory() {
     for (i in localStorage) {
         if (i.startsWith('c_daily_')) localStorage.removeItem(i);
     }
 }
-function challengeForToday() {
-    if (1==0) return {
-        shortname: '0.5s-1s',
-        title: 'half-second test challenge',
-        duration_s: 0.5, increment_s: -1
-    }
-    let month = today.getMonth(); let date = today.getDate(); let weekday = today.getDay(); let year = today.getFullYear();
-    
-    // Specific dates (by which I mean month and day. No wait, day means weekday, uh,)
-    if (month==2-1 && date==29) return singleTaxonChallenge('frog', 'leap day challenge');
-    if (month==10-1 && date==31) return halloweenChallenge;
-    if (month==8-1 && date==8) return {
-        shortname: 'arachnids/octopuses',
-        title: 'list arachnids & octopuses until failure',
-        rejection: function(guess_id) {
-            if (!anyAncestsOrIs([LOWER_TITLE_TO_ID.arachnid, LOWER_TITLE_TO_ID.octopus], guess_id)) {
-                return "Not arachnid nor octopus.";
-            }
-        },
-        duration_s: 8, increment_s: 8,
-        noun: 'arachnids/octopuses'
-    }
 
-    insectChallenge = singleTaxonChallenge('insect');
-    insectChallenge.rejection = function(guess_id) { // defined a function but now overriding. Optimize?
-        for (const ancestor of lineage(guess_id)) {
-            if (ancestor==LOWER_TITLE_TO_ID.insect) return;
-            if (ancestor==LOWER_TITLE_TO_ID.spider) return "Spiders are arachnids, not insects.";
-            if (ancestor==LOWER_TITLE_TO_ID.scorpion) return "Scorpions are arachnids, not insects.";
-            if (ancestor==LOWER_TITLE_TO_ID.arachnid) return "That's an arachnid, not an insect.";
-            if (ancestor==LOWER_TITLE_TO_ID.hexapoda) return "That's a hexapod, but not all hexapods are insects.";
-            if (ancestor==LOWER_TITLE_TO_ID.crustacea) return "That's a crustacean, but not an insect.";
-            if (ancestor==LOWER_TITLE_TO_ID.arthropoda) return "That's an arthropod, but not all arthropods are insects.";
-        }
-        return 'Not an insect.';
+function getHighScores() {
+    const highScores = {}
+    for (i in localStorage) {
+        if (i.startsWith('hs_')) highScores[i.substring(3)] = localStorage[i];
     }
-    arachnidChallenge = singleTaxonChallenge('arachnid');
-    arachnidChallenge.rejection = function(guess_id, guess) {
-        for (const ancestor of lineage(guess_id)) {
-            if (ancestor==LOWER_TITLE_TO_ID.arachnid) return;
-            if (ancestor==LOWER_TITLE_TO_ID.insect) return "That's an insect. Arachnids have 8 legs, not 6.";
-            if (ancestor==LOWER_TITLE_TO_ID.crustacea) return "That's a crustacean, but not an arachnid.";
-            if (ancestor==LOWER_TITLE_TO_ID.arthropoda) return "That's an arthropod, but not an arachnid.";
-            if (guess=='vriska' || guess=='vriska serket' || guess=='mindfang') return "Not spidertrolls.";
-        }
-        return 'Not an arachnid.';
-    }
-    arachnidChallenge.duration_s = 38; arachnidChallenge.increment_s = 8;
-    if (weekday==0) return singleTaxonChallenge('bird', "Bird Sunday"); // Bird Sunday
-    if (weekday==1) return singleTaxonChallenge('mammal', 'Mammal Monday');
-    if (weekday==4) {
-        arthropodConfusion = 0;
-        c = singleTaxonChallenge('arthropod', 'Arthropod Thursday. (Exoskeletoned invertebrates. Bugs, more or less.)'); // Arthropod Thursday
-        c.rejection = function(guessId, guess) {
-            if (ancestsOrIs(LOWER_TITLE_TO_ID.arthropod, guessId)) return;
-            if (guessId==LOWER_TITLE_TO_ID.tullimonstrum) {
-                acceptanceComment = "I... I guess it might be."; return;
-            }
-            if (arthropodConfusion++==4) {
-                queue_shy_trivium("<a href=https://en.wikipedia.org/wiki/Arthropod target=_blank>Read about arthropods</a> or <a href=https://rose.systems/bugs target=_blank>browse my arthropod photos</a>.");
-            }
-            return "Not an arthropod.";
-        }
-        return c;
-    }
-    if (weekday==6) return { // todo scrap this one?
-        shortname: '30s+3s',
-        title: 'list animals fast',
-        subtitle: 'speedrun saturday',
-        duration_s: 30, increment_s: 3,
-        attributivizeScore: ()=> score + ' animal' + (score==1 ? '' : 's') + ' listed fast (30s+3s)'
-    }
-
-    if (date==1 && month==5-1) return tickChallenge;
-    if (date==1) return singleTaxonChallenge('snake');
-    if (date==2) return singleTaxonChallenge('corvid', 'crows, ravens, rooks, magpies, jackdaws, jays, treepies, choughs, & nutcrackers');
-    if (date==3) return singleTaxonChallenge('hymenopteran','wasps, bees, ants, and sawflies');
-    if (date==4) return singleTaxonChallenge('beetle');
-    if (date==5) return singleTaxonChallenge('primate');
-    if (date==6) return insectChallenge;
-    //if (date==7) return singleTaxonChallenge('ruminant', 'hooved grazers');
-    if (date==7) return dinoChallenge;
-    if (date==8) return arachnidChallenge;
-    if (date==9) return wordchainChallenge;
-    if (date==10) return {
-        shortname: '10-2',
-        title: 'list animals faster!',
-        duration_s: 10, increment_s: 2,
-        attributivizeScore: ()=> score + ' animal' + (score==1 ? '' : 's') + ' listed faster (10s+2s)'
-    }
-    if (date==11) return {
-        shortname: 'non-mammal',
-        title: 'list non-mammal animals until failure',
-        rejection: function(guessId, guess) {
-            if (guessId==LOWER_TITLE_TO_ID.tullimonstrum) return "I'm pretty sure it wasn't a mammal.";
-            if (ancestsOrIs(LOWER_TITLE_TO_ID.mammal, guessId)) return "That's a mammal.";
-        },
-        noun: 'non-mammal'
-    };
-    if (date==12) return singleTaxonChallenge('beetle', 'insects with hardened wing-cases');
-    if (date==13) {
-        let letters = 'etaoinshrdlcumwfg';
-        letter = letters[(date + weekday + today.getFullYear()) % letters.length];
-        return singleInitialChallenge(letter);
-    }
-    if (date==14) return singleTaxonChallenge('beetle');
-    if (date==15) return singleTaxonChallenge('lepidopteran', '🦋 butterflies & moths 🦋');
-    if (date==16) return singleTaxonChallenge('mollusk', 'gastropods, cephalopods, & bivalves');
-    if (date==17) {
-        c = singleTaxonChallenge('felid', 'cats, big or small');
-        c.rejection = function(guess_id, guess) {
-            if (ancestsOrIs(LOWER_TITLE_TO_ID.felid, guess_id)) return;
-            if (ancestsOrIs(LOWER_TITLE_TO_ID.canid, guess_id)) return "That's a canid, not a felid.";
-            if (ancestsOrIs(LOWER_TITLE_TO_ID.mustelid, guess_id)) return "That's a mustelid, not a felid.";
-            return "Not a felid.";
-        }
-        c.duration_s = 40;
-        c.increment_s = 6;
-        return c;
-    }
-    if (date==18) {
-        c = singleTaxonChallenge('canid', 'doglike creatures');
-        c.rejection = function(guess_id, guess) {
-            if (ancestsOrIs(LOWER_TITLE_TO_ID.canid, guess_id)) return;
-            if (ancestsOrIs(LOWER_TITLE_TO_ID.felid, guess_id)) return "That's a felid, not a canid.";
-            if (ancestsOrIs(LOWER_TITLE_TO_ID.mustelid, guess_id)) return "That's a mustelid, not a canid.";
-            return "Not a canid.";
-        }
-        c.duration_s = 40;
-        c.increment_s = 6;
-        return c;
-    }
-    if (date==19) return singleTaxonChallenge('amphibian', 'members of the class Amphibia');
-
-    // img ref for this one?
-    //if (date==20) return singleTaxonChallenge('carnivoran', 'an order of placental mammals specialized primarily in eating flesh; includes felids, canids, and others');
-    if (date==20) return batChallenge;
-    if (date==21) return antChallenge;
-    //if (date==21) return singleTaxonChallenge('wasp', 'not including bees & ants');
-    if (date==22) return {
-        shortname: '-fish',
-        title: 'list animals whose names end in -fish',
-        rejection: function(guess_id, guess) {
-            if (guess.endsWith('fish') || ID_TO_TITLE[guess_id].endsWith('fish')) return;
-            return "That doesn't end in “fish”.";
-        },
-        orthographic: true,
-        noun: 'fish'
-    };
-    if (date==23) {
-        cetaceanChallenge = singleTaxonChallenge("cetacean","dolphins, porpoises, & whales");
-        waterfowlChallenge = singleTaxonChallenge("waterfowl","ducks, geese, & swans",null,"waterfowl");
-        options = [cetaceanChallenge, waterfowlChallenge];
-        return options[month % options.length];
-    }
-    if (date==24) {
-        c = singleTaxonChallenge('bear', "there are only like 8 of them");
-        c.duration_s = 25; c.increment_s = 6;
-        return c;
-    }
-    if (date==25) {
-        c = singleTaxonChallenge('rodent', 'from Latin <i>rōdēns</i>, “gnawing”');
-        c.rejection = function(guess_id, guess) {
-            if (ancestsOrIs(LOWER_TITLE_TO_ID.rodent, guess_id)) return;
-            if (ancestsOrIs(LOWER_TITLE_TO_ID.mustelid, guess_id)) return "That's a mustelid, not a rodent.";
-            if (ancestsOrIs(LOWER_TITLE_TO_ID.mustelid, guess_id)) return "That's a marsupial, not a rodent.";
-            return "Not a rodent.";
-        }
-        return c;
-    }
-    if (date==26) return alphabeticalChallenge;
-    if (date==27) return singleTaxonChallenge('sauropsid', 'bird & reptiles');
-    if (date==28) return singleTaxonChallenge('snake');
-    if (date==29) return {
-        shortname: '60-0',
-        title: 'list animals in one minute',
-        subtitle: 'no time bonus for listed animals',
-        duration_s: 60, increment_s: 0,
-        verbed: 'listed in 1 min'
-    }
-    if (date==30) return {
-        shortname: 'invertebrate',
-        title: 'list invertebrates until failure',
-        subtitle: 'spineless animals',
-        rejection: function(guessId, guess) {
-            if (guessId==LOWER_TITLE_TO_ID.tullimonstrum) {
-                acceptanceComment = "If you say so."; return;
-            }
-            if (ancestsOrIs(LOWER_TITLE_TO_ID.human, guessId)) return "I definitely have a spine.";
-            if (ancestsOrIs(LOWER_TITLE_TO_ID.vertebrata, guessId)) return "That's a vertebrate.";
-        }
-    };
-    if (date==31) {
-        let options = [
-            singleTaxonChallenge('owl'),
-            singleTaxonChallenge('myriapod', 'centipedes & millipedes')
-        ];
-        return options[month % options.length];
-    }
-    if (date==NaN) return singleTaxonChallenge('tullimonstrum');
-    return insectChallenge;
+    return highScores;
 }
 
-// bad?
-// maybe ancestor_name, overrides=null?
-function singleTaxonChallenge(ancestor_name, subtitle, ancestor_article, ancestor_name_plural) {
-    if (!ancestor_name_plural) {
-        if (ancestor_name.endsWith('ch') || ancestor_name.endsWith('sh') || ancestor_name.endsWith('s')) {
-            ancestor_name_plural = ancestor_name + 'es';
-        } else {
-            ancestor_name_plural = ancestor_name + 's';
-        }
+function updateChallengesTbody() {
+    const highScores = getHighScores();
+    const shortnames = Object.keys(highScores);
+    shortnames.sort();
+    challengesTbody.textContent = '';
+    for (const shortname of shortnames) {
+        if (!CHALLENGES[shortname]) continue; // redundant
+        const tr = document.createElement('tr');
+        const td1 = document.createElement('td');
+        const button = document.createElement('button');
+        td1.append(button);
+        const td2 = document.createElement('td');
+        button.textContent = CHALLENGES[shortname].title;
+        button.onclick = ()=>{ startChallenge(CHALLENGES[shortname]); };
+        td2.textContent = highScores[shortname];
+        tr.append(td1, td2);
+        challengesTbody.append(tr);
     }
-    ancestor_article ||= ancestor_name.match(/^[aeiou]/) ? 'an' : 'a';
-    return {
-        shortname: ancestor_name.replaceAll(" ","_"),
-        title: "list " + ancestor_name_plural + " until failure",
-        subtitle: subtitle,
-        rejection: function(guess_id) {
-            if (!ancestsOrIs(LOWER_TITLE_TO_ID[ancestor_name], guess_id)) {
-                return "Not " + ancestor_article + " " + ancestor_name + ".";
-            }
-        },
-        noun: ancestor_name,
-        pluralNoun: ancestor_name_plural
+}
+
+// challenge ideas:
+// carnivoran? would require a visual aid to explain what they are.
+function challengeForToday(today) {
+    const month = today.getMonth();
+    const date = today.getDate();
+    const weekday = today.getDay();
+    const year = today.getFullYear();
+    /* Yearlies */
+    if (month==2-1 && date==29) return CHALLENGES.leapDay;
+    if (month==10-1 && date==31) return CHALLENGES.halloween;
+    if (month==8-1 && date==8) return CHALLENGES.eightEight;
+    /* Weeklies */
+    if (weekday==0) return CHALLENGES.bird;
+    if (weekday==1) return CHALLENGES.mammal;
+    if (weekday==4) return CHALLENGES.arthropod;
+    if (weekday==6) return CHALLENGES.halftime;
+    /* Monthlies */
+    if (date==1) return CHALLENGES.snake;
+    if (date==2) return CHALLENGES.corvid;
+    if (date==3) return CHALLENGES.hymenoptera
+    if (date==4) return CHALLENGES.beetle;
+    if (date==5) return CHALLENGES.primate;
+    if (date==6) return CHALLENGES.insect;
+    if (date==7) return CHALLENGES.dino;
+    if (date==8) return CHALLENGES.arachnid;
+    if (date==9) return CHALLENGES.wordchain;
+    if (date==10) return CHALLENGES.superfast;
+    if (date==11) return CHALLENGES.nonmammal;
+    if (date==12) return CHALLENGES.beetle;
+    if (date==13) return CHALLENGES[COMMON_LETTERS[(month + year*12) % COMMON_LETTERS.length]+'Animals'];
+    if (date==14) return [CHALLENGES.oneWord, CHALLENGES.twoWord, CHALLENGES.insect][month % 3];
+    if (date==15) return CHALLENGES.halftime;
+    if (date==16) return CHALLENGES.mollusk;
+    if (date==17) return CHALLENGES.felid;
+    if (date==18) return CHALLENGES.canid;
+    if (date==19) return CHALLENGES.amphibia;
+    if (date==20) return CHALLENGES.bat;
+    if (date==21) return CHALLENGES.ant;
+    if (date==22) return CHALLENGES.endsWithFish;
+    if (date==23) return [CHALLENGES.cetacea, CHALLENGES.waterfowl][month % 2];
+    if (date==24) return CHALLENGES.bear;
+    if (date==25) return CHALLENGES.rodent;
+    if (date==26) return CHALLENGES.alphabetical;
+    if (date==27) return CHALLENGES.sauropsid;
+    if (date==28) return CHALLENGES.lepidoptera;
+    if (date==29) return CHALLENGES.oneMinute;
+    if (date==30) return CHALLENGES.invertebrate;
+    if (date==31) return [CHALLENGES.owl, CHALLENGES.myriapod][month % 2];
+    /* Safeguards */
+    if (isNaN(date)) return singleTaxonChallenge('tullimonstrum');
+    return CHALLENGES.insect;
+}
+
+// Legacy support
+challengeSynonyms={'30s+3s':'halftime','10s+2s':'superfast','-fish':'endsWithFish','60-0': 'oneMinute','i-animals':'iAnimals'}
+if (!localStorage.highScoresTracked) {
+    for (i in localStorage) {
+        if (!i.startsWith('c_daily_')) continue;
+        const parts = localStorage[i].split(' ');
+        if (parts.length != 2) continue;
+        const shortname = parts[0] || challengeSynonyms[parts[0]];
+        if (!CHALLENGES[shortname]) continue;
+        localStorage['hs_'+shortname] = Math.max(localStorage['hs_'+shortname] || 0, parts[1]);
     }
+    //localStorage.highScoresTracked = 1;
 }

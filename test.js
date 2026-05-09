@@ -22,6 +22,7 @@ function runTests() {
             "Uncommon "+nameQid(i)+" not evoked by name; overshadowed by " + nameQid(hopefullyId)
         );
     }*/
+//    testDailyGen();
 }
 
 function a(condition, label) {
@@ -68,7 +69,10 @@ function heavy(m) {
     console.log(Math.round(m/t) + ' guesses per ms');
 }
 
-function testDailyGen() { while (i<9999){updateDaily(i++);startDaily();} }
+function testDailyGen() {
+    let i=0;
+    while (i<9999){updateDaily(i++);startDaily();}
+}
 
 runTests();
 
