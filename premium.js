@@ -3,7 +3,8 @@ CUSTOM_ADS = [
     '<a target=_blank href=https://unicornjelly.com title="Unsponsored ad for a comic I like"><img src=ads/alink01.gif alt="Unicorn Jelly HYPER CUTE FUN unicornjelly.com"></a>',
     '<a target=_blank href=https://unicornjelly.com title="Unsponsored ad for a comic I like"><img src=ads/unijelly.gif alt="Unicorn Jelly Online Comic MangaStrip Hyper Cute-Cute Super Sweet Fun!"></a>',
     '<a target=_blank href='+CM_URL+' title="Unsponsored ad for Counterfeit Monkey, a game I like"><img src=ads/Atlantida-Squid.png alt="A squid lounges in the embrace of an Atlantean icon."></a>',
-    '<a target=_blank href='+CM_URL+' title="Unsponsored ad for a game I like"><img src=ads/MediumCover.png alt="Counterfeit Monkey, a game of word manipulation"></a>'
+    '<a target=_blank href='+CM_URL+' title="Unsponsored ad for a game I like"><img src=ads/MediumCover.png alt="Counterfeit Monkey, a game of word manipulation"></a>',
+    "<a target=_blank href=https://en.wikipedia.org/wiki/Tomato style=color:tomato><strong>Tomatoes</strong> 🍅 they're food</a>"
 ]
 
 function tryPremiumCode(code) {
