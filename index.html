@@ -529,17 +529,9 @@ body:not(.gameover) #log > li.toCull { display: none; }
 /* Temporary: only show when testing premium */
 body:not(.premium) #premiumSettings { display: none; }
 
-body.premium:not(:has(#log li)) label:has(#forfeitButtonBox:checked)::after {
-    content: " (will appear when you start listing animals)";
-    font-size: small;
-    display: block;
-}
 body:not(.premium), body:not(:has(#forfeitButtonBox:checked)) {
-    #forfeitButton {
-        display: none;
-    }
+    #forfeitButton { display: none; }
 }
-body:not(:has(#log li)) #forfeitButton { visibility: hidden; }
 
     </style>
     <link rel=stylesheet href=evolution.css>
@@ -995,6 +987,12 @@ function endGame() {
     if (!currentChallenge) localStorage.normalHighScore = Math.max(localStorage.normalHighScore || 0, score);
 }
 
+function forfeit() { // When forfeit button clicked
+    if (!score && !currentChallenge) return alert("But you've'nt yet begun");
+    if (!score) load();
+    endTime=0;
+}
+
 function load() {
     newGame();
     setInterval(updateTimer);
@@ -1161,7 +1159,7 @@ function measureFps(timestamp) {
 
     </details>
     
-    <p><button id=forfeitButton onclick="endTime=1">forfeit</button></p>
+    <p><button id=forfeitButton onclick=forfeit()>forfeit</button></p>
     
     <p>Score: <span id=scorespan>0</span></p>
     
