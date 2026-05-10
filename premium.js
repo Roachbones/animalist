@@ -4,7 +4,7 @@ CUSTOM_ADS = [
     '<a target=_blank href=https://unicornjelly.com title="Unsponsored ad for a comic I like"><img src=ads/unijelly.gif alt="Unicorn Jelly Online Comic MangaStrip Hyper Cute-Cute Super Sweet Fun!"></a>',
     '<a target=_blank href='+CM_URL+' title="Unsponsored ad for Counterfeit Monkey, a game I like"><img src=ads/Atlantida-Squid.png alt="A squid lounges in the embrace of an Atlantean icon."></a>',
     '<a target=_blank href='+CM_URL+' title="Unsponsored ad for a game I like"><img src=ads/MediumCover.png alt="Counterfeit Monkey, a game of word manipulation"></a>',
-    "<a target=_blank href=https://en.wikipedia.org/wiki/Tomato style=color:tomato><strong>Tomatoes</strong> 🍅 they're food</a>"
+    "<a target=_blank href=https://en.wikipedia.org/wiki/Tomato title='Unsponsored ad for a vegetable I like' style=color:tomato;background-color:white;padding:2vh;display:block><strong>Tomatoes</strong> 🍅 they're food</a>"
 ]
 
 function cycleAd() {
