@@ -8,12 +8,9 @@ CUSTOM_ADS = [
 ]
 
 function cycleAd() {
-    if (Math.random() < 0.33) {
+    if (Math.random() < 0.73) {
         vert.classList = ['john'];
         johnvertisement.src = johnvertisement.dataset.src;
-    } else if (Math.random() < 0.5) {
-        vert.classList = ['ari'];
-        arivertisement.src = arivertisement.dataset.src;
     } else {
         vert.classList = ['rose'];
         rosevertisement.innerHTML = choice(CUSTOM_ADS);

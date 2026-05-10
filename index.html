@@ -515,16 +515,14 @@ body:not(.gameover) #log > li.toCull { display: none; }
 #rosevertisement img {
     max-height: 50vh;
 }
-#johnvertisement, #arivertisement {
+#johnvertisement {
     border: none;
     max-width: 100vw;
 }
-#arivertismeent { height: min(98px, calc(100vw * 98 / 722)); }
 #johnvertisement { height: min(84px, calc(100vw * 84 / 722)); }
 #vert > * { display: none; }
 #vert.rose #rosevertisement { display: block; }
 #vert.john #johnvertisement { display: block; }
-#vert.ari #arivertisement { display: block; }
 
 /* Temporary: only show when testing premium */
 body:not(.premium) #premiumSettings { display: none; }
@@ -1195,7 +1193,6 @@ function measureFps(timestamp) {
     <snail-race><div id=snail aria-hidden>🐌</div></snail-race>
     <div id=vert>
         <iframe id=johnvertisement height=84 width=722 loading=lazy data-src=https://john.citrons.xyz/embed?ref=rose.systems></iframe>
-        <iframe id=arivertisement height=98 width=722 loading=lazy data-src=https://ad.ari.lt/ads/embed?from=rose.systems></iframe>
         <div id=rosevertisement></div>
     </div>
 </body>
