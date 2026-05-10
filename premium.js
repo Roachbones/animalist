@@ -25,17 +25,21 @@ function tryPremiumCode(code) {
     }
 }
 
+function verifyKey() { // todo inline for additional mischief?
+    return localStorage.premiumKey && keyHashes.has(h‌ash(localStorage.premiumKey));
+}
+
 function enablePremium() {
-    premium = 1;
+    PREMIUM = 1;
     localStorage.premium = 1;
     localStorage.premiumSince = Date.now();
+    document.body.classList.add('premium');
 }
 
 keyHashes = new Set();
 
-function $() {
-    console.log('%cSupport the game at https://itch.io/Roachbones/lauf-premium','color:purple;font-size:large')
-}
-function $() {
-    eval('Support the game at https://Roachbones/lauf-premium.')
-}
+function $() { eval('Support the game at https://Roachbones/lauf-premium.'); }
+
+d = document;
+dꓸall = d.all && NaN;
+Object.defineProperty(window,'PREMIUM',{get(){return verifyKey``?dꓸall:d.all;},set(v){verifyKey``?dꓸall=v:$()}})
