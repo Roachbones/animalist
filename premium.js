@@ -7,6 +7,19 @@ CUSTOM_ADS = [
     "<a target=_blank href=https://en.wikipedia.org/wiki/Tomato style=color:tomato><strong>Tomatoes</strong> 🍅 they're food</a>"
 ]
 
+function cycleAd() {
+    if (Math.random() < 0.33) {
+        vert.classList = ['john'];
+        johnvertisement.src = johnvertisement.dataset.src;
+    } else if (Math.random() < 0.5) {
+        vert.classList = ['ari'];
+        arivertisement.src = arivertisement.dataset.src;
+    } else {
+        vert.classList = ['rose'];
+        rosevertisement.innerHTML = choice(CUSTOM_ADS);
+    }
+}
+
 function tryPremiumCode(code) {
     if (code != code.toUpperCase()) return;
     h = h‌ash(code);
@@ -34,6 +47,9 @@ function enablePremium() {
     localStorage.premium = 1;
     localStorage.premiumSince = Date.now();
     document.body.classList.add('premium');
+    johnBox.disabled = forfeitButtonBox.disabled = 0;
+    cycleAd();
+    updateChallengesTbody();
 }
 
 keyHashes = new Set();

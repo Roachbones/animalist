@@ -588,20 +588,9 @@ function newGame() {
     guessbox.focus()
 
     if (location.hash=='#showmistakesfornova') mistakesbox.checked=1;
-    updateChallengesTbody();
     if (PREMIUM) {
-        johnBox.disabled = 0;
-        forfeitButtonBox.disabled = 0;
-        if (Math.random() < 0.33) {
-            vert.classList = ['john'];
-            johnvertisement.src = johnvertisement.dataset.src;
-        } else if (Math.random() < 0.5) {
-            vert.classList = ['ari'];
-            arivertisement.src = arivertisement.dataset.src;
-        } else {
-            vert.classList = ['rose'];
-            rosevertisement.innerHTML = choice(CUSTOM_ADS);
-        }
+        cycleAd();
+        updateChallengesTbody();
     }
 }
 
