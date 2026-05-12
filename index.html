@@ -826,6 +826,7 @@ function attempt() {
     if (startTime == undefined) {
         startTime = Date.now();
         endTime = startTime + (currentChallenge?.durationS || initialTimeControl.value)*1000;
+        window.addEventListener("beforeunload", unloadInterrupter);
     }
     updateTimer();
 }
@@ -942,6 +943,7 @@ function cycleThank() {
 
 var shareString;
 function endGame() {
+    window.removeEventListener("beforeunload", unloadInterrupter);
     if (guessbox.disabled) { return; }
     fetch(
         "https://guestbook.rose.systems/animals",
@@ -974,6 +976,8 @@ function endGame() {
     }
     if (!currentChallenge) localStorage.normalHighScore = Math.max(localStorage.normalHighScore || 0, score);
 }
+
+function unloadInterrupter(event) { event.preventDefault(); }
 
 function forfeit() { // When forfeit button clicked
     if (!score && !currentChallenge) return alert("But you've'nt yet begun");
