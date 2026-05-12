@@ -59,6 +59,7 @@ function enablePremium() {
     localStorage.premiumSince = Date.now();
     document.body.classList.add('premium');
     johnBox.disabled = forfeitButtonBox.disabled = 0;
+    johnBox.checked = 1;
     cycleAd();
     updateChallengesTbody();
 }
