@@ -298,6 +298,7 @@ body.premium {
         content: "Thanks for supporting the game!";
         display: block;
         font-size: smaller;
+        font-weight: bold;
     }
 }
 
@@ -510,7 +511,7 @@ body:not(.gameover) #log > li.toCull { display: none; }
     body.premium:has(#johnBox:checked) & { display: block; }
     position: absolute;
     bottom: 0; left: 0;
-    z-index: -1; /* in case of overlap */
+    z-index: -1;
 }
 #rosevertisement img {
     max-height: 50vh;
@@ -1023,7 +1024,7 @@ function startChallenge(challenge) {
 }
 
 CONFIG = [
-    'disablebgbox','toasthastebox'
+    'disablebgbox','toasthastebox','johnBox','forfeitButtonBox'
 ]
 
 function loadSettings() {
@@ -1130,7 +1131,7 @@ function measureFps(timestamp) {
             <p id=taunt>
                 <a href="javascript:alert(`[work in progress]`)">Unlock these features by supporting the developer!</a>
             </p>
-            <label title='Whether to show banner ads'><input disabled type=checkbox id=johnBox onchange=saveSettings()></input>enable ads</label>
+            <label title='Whether to show banner ads'><input disabled type=checkbox checked id=johnBox onchange=saveSettings()></input>enable ads<small style=display:block;font-style:italic>(not sponsored/endorsed by the advertised)</small></label>
             <label title='Whether to show the button that makes you lose'><input disabled type=checkbox id=forfeitButtonBox onchange=saveSettings()></input>enable forfeit button</label>
         </details>
 
