@@ -192,7 +192,8 @@ function invalidGuessEggMessage(guess) {
     }
     if (guess=='help') { rules.open = true; return ' '; }
     if (guess=='a') return "No need to recite the alphabet.";
-    if (h==6386118624072996) { return "You can't fool me."; }
+    if (h==6386118624072996) return "You can't fool me.";
+    if (guess=='ttcg caat gttt agtg') return "Nice try, but that's just the example key.";
 }
 
 awoo = 'awo';
