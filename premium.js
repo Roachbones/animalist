@@ -65,7 +65,7 @@ function enablePremium() {
 
 keyHashes = new Set();
 
-function $() { eval('Support the game at https://Roachbones/lauf-premium.'); }
+function $() { eval('Support the game at https://roachbones.itch.io/lauf-premium.'); }
 
 d = document;
 dꓸall = d.all && NaN;
