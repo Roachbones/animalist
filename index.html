@@ -1127,24 +1127,24 @@ function measureFps(timestamp) {
         <summary title=Settings><h2>Settings</h2><span id=gear>⚙️</span></summary>
         <label title='How many seconds to start with' class=timecontrollabel>initial time (s): <input type=number size=2 id=initialTimeControl min=1 value=60></label>
         <label title='How many seconds to grant for each animal after the first' class=timecontrollabel>time increment (s): <input type=number size=2 id=incrementControl min=0 value=6></label>
-        <label title='For weak devices'><input type=checkbox id=disablebgbox onchange=saveSettings()></input>disable animated backgrounds</label>
-        <label title='Whether to keep the timer small and purple'><input type=checkbox id=toasthastebox onchange=saveSettings()></input>friendlier timer</label>
-        <label title='Whether to show mistakes at the end of the game'><input type=checkbox id=mistakesbox onchange=saveSettings()></input>show mistakes</label>
+        <label title='For weak devices'><input type=checkbox id=disablebgbox onchange=saveSettings()>disable animated backgrounds</label>
+        <label title='Whether to keep the timer small and purple'><input type=checkbox id=toasthastebox onchange=saveSettings()>friendlier timer</label>
+        <label title='Whether to show mistakes at the end of the game'><input type=checkbox id=mistakesbox onchange=saveSettings()>show mistakes</label>
         
         <details id=premiumSettings><summary>premium features</summary>
             <p id=taunt>
                 <a href="javascript:alert(`[work in progress]`)">Unlock these features by supporting the developer!</a>
             </p>
-            <label title='Whether to show banner ads'><input disabled type=checkbox checked id=johnBox onchange=saveSettings()></input>enable ads<small style=display:block;font-style:italic>(not sponsored/endorsed by the advertised)</small></label>
-            <label title='Whether to show the button that makes you lose'><input disabled type=checkbox id=forfeitButtonBox onchange=saveSettings()></input>enable forfeit button</label>
+            <label title='Whether to show banner ads'><input disabled type=checkbox checked id=johnBox onchange=saveSettings()>enable ads<small style=display:block;font-style:italic>(not sponsored/endorsed by the advertised)</small></label>
+            <label title='Whether to show the button that makes you lose'><input disabled type=checkbox id=forfeitButtonBox onchange=saveSettings()>enable forfeit button</label>
         </details>
 
         <details><summary><small>experimental settings</small></summary>
-            <label><input type=checkbox id=disablebodybgmovementbox onchange=saveSettings()></input>disable body bg movement (clouds/water)</label>
-            <label><input type=checkbox id=disableunderlaybgmovementbox onchange=saveSettings()></input>disable underlay bg movement (colorful turbulence)</label>
-            <label><input type=checkbox id=disablebgsaturationbox onchange=saveSettings()></input>disable bg saturation/opacity changes</label>
-            <!--<label><input type=checkbox id=disableunderlayfilterbox onchange=saveSettings()></input>disable underlay filter (saturate)</label>
-            <label><input type=checkbox id=disableunderlayopacitybox onchange=saveSettings()></input>disable underlay opacity</label>-->
+            <label><input type=checkbox id=disablebodybgmovementbox onchange=saveSettings()>>disable body bg movement (clouds/water)</label>
+            <label><input type=checkbox id=disableunderlaybgmovementbox onchange=saveSettings()>disable underlay bg movement (colorful turbulence)</label>
+            <label><input type=checkbox id=disablebgsaturationbox onchange=saveSettings()>disable bg saturation/opacity changes</label>
+            <!--<label><input type=checkbox id=disableunderlayfilterbox onchange=saveSettings()>disable underlay filter (saturate)</label>
+            <label><input type=checkbox id=disableunderlayopacitybox onchange=saveSettings()>disable underlay opacity</label>-->
         </details>
         
         <button style=margin-top:.5em onclick="initialTimeControl.value=60;incrementControl.value=6;disablebgbox.checked=0;toasthastebox.checked=0;mistakesbox.checked=0;saveSettings()">reset to defaults</button>
@@ -1197,7 +1197,7 @@ function measureFps(timestamp) {
     <div id=bat aria-hidden>🦇</div>
     <snail-race><div id=snail aria-hidden>🐌</div></snail-race>
     <div id=vert>
-        <iframe id=johnvertisement height=84 width=722 loading=lazy data-src=https://john.citrons.xyz/embed?ref=rose.systems></iframe>
+        <iframe id=johnvertisement height=84 width=722 loading=lazy data-src="https://john.citrons.xyz/embed?ref=rose.systems"></iframe>
         <div id=rosevertisement></div>
     </div>
 </body>
