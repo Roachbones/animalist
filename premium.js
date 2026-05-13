@@ -13,8 +13,10 @@ CUSTOM_ADS = [
     "<a target=_blank href=https://en.wikipedia.org/wiki/Tomato title='Unsponsored ad for a vegetable I like' style=color:tomato;background-color:white;padding:2vh;display:block><strong>Tomatoes</strong> 🍅 they're food</a>",
     "<a target=_blank href=https://query.44203.online/topic/visor/ style=color:#49c2a5;background-color:black;padding:2vh;display:block;font-variant:small-caps;font-weight:bold><em>how</em> Δ-44203 built a visor and <em>why</em></a>",
 
-    // probably fine
+    // hotlinked
     '<a target=_blank href=https://slimebeast.com/burger/ title="Unsponsored ad for... what? huh?"><img src=https://slimebeast.com/burger/images/spots/banner2.gif alt="YOU WON&quot;T BELIEVE IT&quot;S FOOD!"></a>',
+
+    // probably fine to redistribute
     "<a target=_blank href=https://bogleech.com/TENTA><img src=ads/tenta.png alt=octopus></a>",
     "<a target=_blank href=https://webtiles.kicya.net/ title='grid of silly webpages'><img src=ads/webtiles.png alt='WebTiles' style=max-height:5em></a>",
 
