@@ -508,14 +508,15 @@ body:not(.gameover) #log > li.toCull { display: none; }
 /* Premium features */
 #premiumAnnouncement {
     animation: sublimate;
-    animation-duration: 3s;
+    animation-duration: 9s;
     animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(.22,.61,.36,1);
     font-weight: bold;
     color: var(--friendly-color);
+    width: max-content; margin: auto;
 }
 @keyframes sublimate {
-    0% { filter: blur(5em);}
-    to { }
+    0% { filter: blur(9px) hue-rotate(2rad); transform: scaleY(9) scaleX(0);}
 }
 #vert {
     display: none;
@@ -690,7 +691,7 @@ function tryAttempt() {
 function attempt() {
     if (guessbox.value=='!debuglose') endTime=1;
     var verbatimGuess = guessbox.value;
-    if (tryPremiumCode(verbatimGuess)) return;
+    if (tryPremiumCode(verbatimGuess)) return guessbox.value='';
     var guess = guessbox.value.trim().toLowerCase().replaceAll("-"," ").replaceAll('’',"'").replaceAll(/ +/g, ' ');
     if (!guess) { return; }
     guesses.push(guess);
