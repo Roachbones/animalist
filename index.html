@@ -269,7 +269,7 @@ td > button {
         padding: .5em;
         &[open] {
             margin-bottom: 1em;
-            border: 1px solid;
+            border-width: 1px; border-style: solid;
         }
         summary { cursor: pointer; }
     }
@@ -285,7 +285,7 @@ label:has(input[disabled]) { cursor: not-allowed; }
     #settingsPage[open] & { rotate: -22.5deg; }
 }
 #premiumSettings[open] {
-    color: var(--friendly-color);
+    border-color: var(--friendly-color);
     background-color: color-mix(in srgb, var(--friendly-color) 15%, transparent);
 }
 #taunt { font-size: small; }
