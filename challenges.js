@@ -368,7 +368,10 @@ function debugWipeDailyHistory() {
 function getHighScores() {
     const highScores = {}
     for (i in localStorage) {
-        if (i.startsWith('hs_')) highScores[i.substring(3)] = localStorage[i];
+        if (!i.startsWith('hs_')) continue;
+        const c = i.substring(3);
+        if (!Object.hasOwn(CHALLENGES, c)) continue;
+        highScores[c] = localStorage[i];
     }
     return highScores;
 }
@@ -376,10 +379,9 @@ function getHighScores() {
 function updateChallengesTbody() {
     const highScores = getHighScores();
     const shortnames = Object.keys(highScores);
-    shortnames.sort();
+    shortnames.sort((a,b)=>CHALLENGES[a].title.localeCompare(CHALLENGES[b].title));
     challengesTbody.textContent = '';
     for (const shortname of shortnames) {
-        if (!CHALLENGES[shortname]) continue; // redundant
         const tr = document.createElement('tr');
         const td1 = document.createElement('td');
         const button = document.createElement('button');
