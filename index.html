@@ -506,6 +506,17 @@ body.halloween {
 body:not(.gameover) #log > li.toCull { display: none; }
 
 /* Premium features */
+#premiumAnnouncement {
+    animation: sublimate;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+    font-weight: bold;
+    color: var(--friendly-color);
+}
+@keyframes sublimate {
+    0% { filter: blur(5em);}
+    to { }
+}
 #vert {
     display: none;
     body.premium:has(#johnBox:checked) & { display: block; }
@@ -997,6 +1008,7 @@ function load() {
         requestAnimationFrame(measureFps);
         fpsBox.style.display = 'inline-block';
     }
+    if (verifyKey()) enablePremium();
 }
 
 function startDaily() {
