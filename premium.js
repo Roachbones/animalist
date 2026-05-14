@@ -10,7 +10,7 @@ CUSTOM_ADS = [
     '<a target=_blank href='+CM_URL+' title="Unsponsored ad for a game I like"><img src=ads/MediumCover.png alt="Counterfeit Monkey, a game of word manipulation"></a>',
 
     // Just text
-    "<a target=_blank href=https://en.wikipedia.org/wiki/Tomato title='Unsponsored ad for a vegetable I like' style=color:tomato;background-color:white;padding:2vh;display:block><strong>Tomatoes</strong> 🍅 they're food</a>",
+    "<a target=_blank href=https://en.wikipedia.org/wiki/Tomato title='Unsponsored ad for a vegetable I like' style=color:tomato;background-color:antiquewhite;padding:2vh;display:block><strong>Tomatoes</strong> 🍅 they're food</a>",
     "<a target=_blank href=https://query.44203.online/topic/visor/ style=color:#49c2a5;background-color:black;padding:2vh;display:block;font-variant:small-caps;font-weight:bold><em>how</em> Δ-44203 built a visor and <em>why</em></a>",
 
     // hotlinked
