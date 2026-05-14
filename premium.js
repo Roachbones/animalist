@@ -85,11 +85,14 @@ function enablePremiumAnimation() {
 
 function enablePremium() {
     PREMIUM = 1;
-    localStorage.premium = 1;
-    localStorage.premiumSince = Date.now();
+    if (!localStorage.premium) {
+        localStorage.premium = 1;
+        localStorage.premiumSince = Date.now();
+        johnBox.checked = 1;
+        saveSettings();
+    }
     document.body.classList.add('premium');
     johnBox.disabled = forfeitButtonBox.disabled = 0;
-    johnBox.checked = 1;
     cycleAd();
     updateChallengesTbody();
 }
