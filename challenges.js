@@ -61,7 +61,7 @@ monotremeChallenge.queueFinalTrivia = ()=>{
 function singleTaxonChallenge(noun, subtitle, extraData) {
     extraData ??= {}
     article = extraData.article || (noun.match(/^[aeiou]/) ? 'an' : 'a');
-    c = {
+    const c = {
         noun: noun,
         subtitle: subtitle,
         rejection: function(guessId) {
@@ -70,7 +70,7 @@ function singleTaxonChallenge(noun, subtitle, extraData) {
             }
         },
     }
-    for (i in extraData) { c[i] = extraData[i]; }
+    for (const i in extraData) { c[i] = extraData[i]; }
     return c;
 }
 
@@ -230,7 +230,7 @@ CHALLENGES = {
     snake: singleTaxonChallenge('snake'),
     sauropsid: singleTaxonChallenge('sauropsid', 'bird & reptiles'),
     tick: singleTaxonChallenge('tick', null, {durationS:20}), // * Unused
-    waterfowl: singleTaxonChallenge("waterfowl","ducks, geese, & swans", null, {pluralNoun:"waterfowl"}),
+    waterfowl: singleTaxonChallenge("waterfowl","ducks, geese, & swans", {pluralNoun:"waterfowl"}),
     arthropod: {
         specialStart: ()=>{ window.arthropodConfusion = 0; },
         noun: 'arthropod',
@@ -426,7 +426,7 @@ function challengeForToday(today) {
     if (date==12) return CHALLENGES.beetle;
     if (date==13) return CHALLENGES[COMMON_LETTERS[(month + year*12) % COMMON_LETTERS.length]+'Animals'];
     if (date==14) return [CHALLENGES.oneWord, CHALLENGES.twoWord, CHALLENGES.insect][month % 3];
-    if (date==15) return CHALLENGES.halftime;
+    if (date==15) return CHALLENGES.waterfowl;
     if (date==16) return CHALLENGES.mollusk;
     if (date==17) return CHALLENGES.felid;
     if (date==18) return CHALLENGES.canid;
@@ -434,7 +434,7 @@ function challengeForToday(today) {
     if (date==20) return CHALLENGES.bat;
     if (date==21) return CHALLENGES.ant;
     if (date==22) return CHALLENGES.endsWithFish;
-    if (date==23) return [CHALLENGES.cetacea, CHALLENGES.waterfowl][month % 2];
+    if (date==23) return CHALLENGES.cetacea;
     if (date==24) return CHALLENGES.bear;
     if (date==25) return CHALLENGES.rodent;
     if (date==26) return CHALLENGES.alphabetical;
