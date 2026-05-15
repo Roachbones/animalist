@@ -32,6 +32,24 @@ CUSTOM_ADS = [
     // CC0. "FREE CULTURE FOREVER BABY"
     '<a target=_blank href=https://suricrasia.online/bteq/ title="Unsponsored ad for a story I like"><img src=media/bteq/logov.svg alt="Bridge to eQualia" style=max-height:4em></a>',
 
+    // todo maybe use <template>s instead?
+    // Public domain https://commons.wikimedia.org/wiki/File:Turnspitdog-1862.jpg
+    `
+<a target=_blank href=https://en.wikipedia.org/wiki/Turnspit_dog#Work title='Fictional ad for an extinct dog breed' style=text-decoration:none>
+<div style=background-color:white;color:black;display:flex;align-items:center>
+    <img src=ads/Turnspitdog-1862.jpg alt='turnspit dog' style=float:left>
+    <div style=max-width:16em;padding:1em>
+        <p><i><small>Tired of cranking that meat?</small></i>
+        <p style=font-size:large>YOU NEED A <b>TURNSPIT DOG!</b>
+        <p>The <span style=font-family:serif>Future</span> of Turning Spits.
+        <p><q>If you aren't automating your work with turnspit dogs, <b>you're getting left behind.</b></q>
+        <p style=font-size:x-small;font-variant:small-caps>Turnespete Dogges Inc. ⓒ 1799–1826
+        <p><i>Turning smiles for miles</i>™
+    </div>
+</div>
+</a>
+`,
+
     // iframes
     '<iframe width=200 height=200 src=https://robinsaviary.com/translink-frame scrolling=no></iframe><p>oh no you got a distracting one that changes every 30 seconds<p><small>(these are random indie sites I have not vetted)</small>',
     '<iframe width=200 height=200 src=https://bang1338.nekoweb.org/neko.html></iframe><p>oh no you got a distracting one that changes every 30 seconds<p><small>(these are random indie sites I have not vetted)</small>',
