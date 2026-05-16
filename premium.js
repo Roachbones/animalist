@@ -48,7 +48,7 @@ CUSTOM_ADS = [
     </div>
 </div>
 </a>
-`,
+    `,
 
     // iframes
     '<iframe width=200 height=200 src=https://robinsaviary.com/translink-frame scrolling=no></iframe><p>oh no you got a distracting one that changes every 30 seconds<p><small>(these are random indie sites I have not vetted)</small>',
