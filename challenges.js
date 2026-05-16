@@ -224,7 +224,13 @@ CHALLENGES = {
     bat: singleTaxonChallenge('bat'),
     bear: singleTaxonChallenge('bear', "there are only like 8 of them", {durationS:25}),
     beetle: singleTaxonChallenge('beetle', 'insects with hardened wing-cases'),
-    cetacea: singleTaxonChallenge('cetacean','dolphins, porpoises, & whales'),
+    cetacea: singleTaxonChallenge('cetacean', 'dolphins, porpoises, & whales'),
+    coleoid: singleTaxonChallenge('coleoidea', 'squids, octopuses, & cuttlefish', {
+        noun:'coleoid',
+        queueFinalTrivia: function() {
+            if (!PREMIUM) queueTrivium('<a target=_blank href=https://bogleech.com/TENTA><img src=ads/tenta.png alt="octopus"></a>');
+        }
+    }),
     corvid: singleTaxonChallenge(
         'corvid',
         'crows, ravens, rooks, magpies, jackdaws, jays, treepies, choughs, & nutcrackers'
@@ -445,7 +451,7 @@ function challengeForToday(today) {
     if (date==13) return CHALLENGES[COMMON_LETTERS[(month + year*12) % COMMON_LETTERS.length]+'Animals'];
     if (date==14) return [CHALLENGES.oneWord, CHALLENGES.twoWord, CHALLENGES.insect][month % 3];
     if (date==15) return CHALLENGES.waterfowl;
-    if (date==16) return CHALLENGES.mollusk;
+    if (date==16) return [CHALLENGES.mollusk, CHALLENGES.coleoid][month % 2];
     if (date==17) return CHALLENGES.felid;
     if (date==18) return CHALLENGES.canid;
     if (date==19) return CHALLENGES.amphibia;
