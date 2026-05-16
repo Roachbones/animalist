@@ -514,6 +514,7 @@ body:not(.gameover) #log > li.toCull { display: none; }
     font-weight: bold;
     color: var(--friendly-color);
     width: max-content; margin: auto;
+    position: relative; z-index: -1;
 }
 @keyframes sublimate {
     0% { filter: blur(9px) hue-rotate(2rad); transform: scaleY(9) scaleX(0);}
@@ -523,7 +524,7 @@ body:not(.gameover) #log > li.toCull { display: none; }
     body.premium:has(#johnBox:checked) & { display: block; }
     position: absolute;
     bottom: 0; left: 0;
-    z-index: -1;
+    z-index: -2;
 }
 #rosevertisement img {
     max-height: 50vh;
