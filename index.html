@@ -137,6 +137,7 @@ body:has(input#toasthastebox:checked) #timer {
     display: block;
     min-height: 1.3em;
     padding: 1em;
+    @media (prefers-contrast: more) { text-shadow: 0 0 5px var(--background-color); }
 }
 .error {
     color: red;
