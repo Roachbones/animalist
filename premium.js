@@ -23,13 +23,13 @@ CUSTOM_ADS = [
     // "Use one of these super-cool banners." https://www.giantitp.com/comics/LinkBanners.html
     "<a target=_blank href=https://www.giantitp.com/comics/oots0001.html title='Unsponsored ad for a webcomic I like'><img src=ads/ootssquare.gif alt='Order of the Stick'></a>",
 
-    // Own work (well, mostly Lynn's, really...)
+    // Own work (well, mostly Lynn's, really)
     "<a target=_blank href=https://pipi.la title='fun platformer'><img src=https://rose.systems/88x31/i/mokumun.gif alt='o moku e mun' style=zoom:4;image-rendering:pixelated></a>",
 
     // CC0 https://commons.wikimedia.org/wiki/File:Estradiol_valerate_and_spironolactone.jpg
     "<a target=_blank href=https://en.wikipedia.org/wiki/Feminizing_hormone_therapy#Effects title='I just think everyone should know their options'><img src=ads/hrt.jpg alt='spironolactone and estradiol pills' style=display:block;margin-left:auto;margin-right:auto><p style=padding:1em;margin:0;background-color:#b3b5b7;color:#327277>eating these makes you change. <b>find out how</b></p></a>",
 
-    // CC0. "FREE CULTURE FOREVER BABY"
+    // CC0 "FREE CULTURE FOREVER BABY"
     '<a target=_blank href=https://suricrasia.online/bteq/ title="Unsponsored ad for a story I like"><img src=media/bteq/logov.svg alt="Bridge to eQualia" style=max-height:4em></a>',
 
     // todo maybe use <template>s instead?
