@@ -21,6 +21,7 @@ CUSTOM_ADS = [
             that there are winged Serpents and Dragons in the world.
         </a></b>
     </div>`,
+    //"<a target=_blank href=https://mapleatmorning.com/8800-blue-lick/my.matterport.com/show/index.html style=padding:1em;border-style:outset>find the bathtub</a>",
 
     // Hotlinked
     '<a target=_blank href=https://slimebeast.com/burger/ title="Unsponsored ad for... what? huh?"><img src=https://slimebeast.com/burger/images/spots/banner2.gif alt="YOU WON&quot;T BELIEVE IT&quot;S FOOD!"></a>',
