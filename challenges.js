@@ -195,6 +195,24 @@ CHALLENGES = {
         }
     },
     /* single-taxon challenges */
+    annelid: {
+        noun: 'annelid',
+        subtitle: 'segmented worms, including ragworms, earthworms, and leeches',
+        rejection: function(guessId, guess) {
+            if (guessId==LOWER_TITLE_TO_ID.nematode) return "Nematodes aren't annelids.";
+            for (const ancestor of lineage(guessId)) {
+                if (ancestor==LOWER_TITLE_TO_ID.annelid) return;
+                if (ancestor==LOWER_TITLE_TO_ID.nematode) return "That's a nematode, not an annelid.";
+                if (ancestor==LOWER_TITLE_TO_ID.flatworm) return "That's a flatworm, not an annelid.";
+                if (ancestor==LOWER_TITLE_TO_ID.nemertea) return "That's a ribbon worm, not an annelid.";
+                if (ancestor==LOWER_TITLE_TO_ID.chaetognath) return "That's an arrow worm, not an annelid.";
+                if (ancestor==LOWER_TITLE_TO_ID.priapulid) return "That's a priapulid, not an annelid.";
+                if (ancestor==LOWER_TITLE_TO_ID.insect) return "That's an insect, not an annelid.";
+                if (ancestor==LOWER_TITLE_TO_ID.arthropod) return "That's an arthropod, not an annelid.";
+            }
+            return "Not an annelid.";
+        }
+    },
     amphibia: singleTaxonChallenge('amphibian', 'members of the class Amphibia'),
     ant: {
         noun: 'ant',
