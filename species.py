@@ -1434,7 +1434,7 @@ for lower_title, hieroglyphs in {
 mononyms['Q53636'] = ['🐸']
 
 with open('mononyms.js','w') as file:
-    file.write('MONONYMS='+json.dumps(mononyms, indent=1, ensure_ascii=False))
+    file.write('MONONYMS='+json.dumps(mononyms, indent=1, ensure_ascii=False, sort_keys=1))
 
 
 
