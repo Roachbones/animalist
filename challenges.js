@@ -332,6 +332,17 @@ CHALLENGES = {
         },
         orthographic: true
     },
+    oulipo: {
+        noun: 'animal w/o that 5th glyph',
+        pluralNoun: 'animals without that 5th glyph',
+        title: "list animals without Latin script's fifth glyph",
+        subtitle: "You can't say that symbol following 'ABCD'",
+        rejection: function (_guessId, guess) {
+            if (guess.includes('e')) return "That has that fifth glyph.";
+        },
+        orthographic: true
+        // todo oulipoize the rest of the UI? Score → Points?
+    },
     wordchain: {
         title: 'list animals in a word chain',
         subtitle: 'each guess must begin with the last letter of the previous guess',
