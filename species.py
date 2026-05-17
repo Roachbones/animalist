@@ -49,6 +49,7 @@ i = 0
 
 ENWIKI_DUMP_PATH = 'enwiki-20251120-pages-articles-multistream.xml.bz2'
 ENWIKI_DUMP_PATH = 'sources/enwiki-20260301-pages-articles-multistream.xml.bz2'
+ENWIKI_DUMP_PATH = 'sources/enwiki-20260501-pages-articles-multistream.xml.bz2'
 CATEGORYLINKS_SQL_GZ = 'sources/enwiki-latest-categorylinks.sql.gz'
 
 
@@ -276,6 +277,7 @@ if 0:
             if line=="]":
                 print("EOF?")
                 continue
+            line = line[:-1]
             wikidatum = json.loads(line[:-2])
             i += 1
             if i%100000==0:print(i,'lines read....')
@@ -296,7 +298,9 @@ with open('intermediate/latest-all-trimmed.json') as file:
         if line=="]":
             print("EOF?")
             continue
-        wikidatum = json.loads(line[:-2])
+        line = line[:-1]
+        if line[-1] == ',': line = line[:-1]
+        wikidatum = json.loads(line)
         i += 1
         if i%100000==0:print(i,'lines read....')
         if wikidatum['type'] == 'property': continue
@@ -747,7 +751,7 @@ for k,v in {
     'pheasant': 'common pheasant',
     'mackerel': 'atlantic mackerel',
     'grosbeak': 'evening grosbeak',
-    'whydah': low('pin-tailed whydah'),
+    'whydah': 'pin tailed whydah',
     'gnat': 'fungus gnat',
     'catbird': 'gray catbird',
     'wood pewee': 'pewee',
@@ -773,6 +777,7 @@ for k,v in {
     'petrel': 'procellariiformes',
     'moray': 'moray eel', # otherwise goes to honeycomb moray fsr
     'ant mimicking spider':'myrmarachne',
+    'toad': 'true toad', 'toads':'toad','hoptoad':'toad',
     # recovered from dump updates
     '🦞': 'lobster',
     #'pelican spider':'archaeidae',
@@ -838,6 +843,8 @@ for k,v in {
     # fixes from dump updates
     '🦆':'duck',
     'queen crab':'chionoecetes',
+    'snowy albatross':'diomedea exulans',
+    'blackbird': 'common blackbird', '🐦‍⬛': 'blackbird', 'blackbirds': 'blackbird', 'black bird': 'blackbird',
 }.items():
     lower_title_to_id[k] = lower_title_to_id[v]
 
@@ -845,6 +852,9 @@ def steal(victim_id, thief_id):
     for lt in lower_title_to_id:
         if lower_title_to_id[lt] == victim_id:
             lower_title_to_id[lt] = thief_id
+
+# Fixing 高晶's mistakes
+id_to_parent['Q17505530'] = 'Q147873'
 
 print('Sorting wasps.')
 # 'wasp' is paraphyletic.
@@ -940,9 +950,10 @@ del lower_title_to_id['alien']
 for delendum in [
     # todo investigate sb?
     'test','finger','albino squirrel','silver fox','🐥','약','sb','thank you',
-    'rug','ro'
+    'rug','ro','al','scabies','pie','🥧','ba','바','motorcycle','🏍',
+    "՞","⸮","≟","⩻","⩼","⩼","⹔"
 ]:
-    del lower_title_to_id[delendum]
+    if delendum in lower_title_to_id: del lower_title_to_id[delendum]
 for lt in list(lower_title_to_id):
     if lower_title_to_id[lt] == lower_title_to_id['crash bandicoot'] and not lt.startswith('crash bandicoot'):
         del lower_title_to_id[lt]
