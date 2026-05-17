@@ -447,7 +447,7 @@ COMMONS = [
  "Q1452250", // Roadrunner
 // "Q147873", // Shrimp / Caridea?
 // "Q25404", // Eurasian blue tit
- "Q940337", // Bed bug
+// "Q940337", // Bed bug // todo fix bedbug
  "Q168327", // Alpine ibex
 // "Q591305", // Indian elephant
 // "Q26864", // Aurelia aurita
@@ -467,7 +467,7 @@ COMMONS = [
  "Q186778", // Aye-aye
 // "Q124410", // Asian black bear
  "Q192662", // Anchovy
-// "Q171298", // Isurus
+ "Q171298", // Mako shark
  "Q288720", // Horned lizard
  "Q11721", // Huntsman spider
  "Q1364033", // Kingsnake
