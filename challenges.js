@@ -195,6 +195,7 @@ CHALLENGES = {
         }
     },
     /* single-taxon challenges */
+    amphibia: singleTaxonChallenge('amphibian', 'members of the class Amphibia'),
     annelid: {
         noun: 'annelid',
         subtitle: 'segmented worms, including ragworms, earthworms, and leeches',
@@ -213,7 +214,6 @@ CHALLENGES = {
             return "Not an annelid.";
         }
     },
-    amphibia: singleTaxonChallenge('amphibian', 'members of the class Amphibia'),
     ant: {
         noun: 'ant',
         rejection: function(guessId, guess) {
