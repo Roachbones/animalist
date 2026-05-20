@@ -461,7 +461,7 @@ function challengeForToday(today) {
     if (date==12) return CHALLENGES.beetle;
     if (date==13) return CHALLENGES[COMMON_LETTERS[(month + year*12) % COMMON_LETTERS.length]+'Animals'];
     if (date==14) return [CHALLENGES.oneWord, CHALLENGES.twoWord, CHALLENGES.insect][month % 3];
-    if (date==15) return CHALLENGES.waterfowl;
+    if (date==15) return [CHALLENGES.waterfowl, CHALLENGES.annelid][month % 2];
     if (date==16) return [CHALLENGES.mollusk, CHALLENGES.coleoid][month % 2];
     if (date==17) return CHALLENGES.felid;
     if (date==18) return CHALLENGES.canid;
