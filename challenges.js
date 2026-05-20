@@ -197,7 +197,7 @@ CHALLENGES = {
     /* single-taxon challenges */
     accipitriformes: {
         noun: 'Accipitriforme',
-        subtitle: 'Members of the order Accipitriformes. Most diurnal birds of prey, including hawks, eagles, vultures, and kites',
+        subtitle: 'Members of the order Accipitriformes. Most diurnal birds of prey, including hawks, eagles, vultures, and kites.',
         rejection: function(guessId, guess) {
             for (const ancestor of lineage(guessId)) {
                 if (ancestor==LOWER_TITLE_TO_ID.accipitriformes) return;
@@ -469,10 +469,10 @@ function challengeForToday(today) {
     if (date==9) return CHALLENGES.wordchain;
     if (date==10) return CHALLENGES.superfast;
     if (date==11) return CHALLENGES.nonmammal;
-    if (date==12) return CHALLENGES.beetle;
+    if (date==12) return [CHALLENGES.beetle, CHALLENGES.annelid][month % 2];
     if (date==13) return CHALLENGES[COMMON_LETTERS[(month + year*12) % COMMON_LETTERS.length]+'Animals'];
     if (date==14) return [CHALLENGES.oneWord, CHALLENGES.twoWord, CHALLENGES.insect][month % 3];
-    if (date==15) return [CHALLENGES.waterfowl, CHALLENGES.annelid][month % 2];
+    if (date==15) return [CHALLENGES.waterfowl, CHALLENGES.accipitriformes][month % 2];
     if (date==16) return [CHALLENGES.mollusk, CHALLENGES.coleoid][month % 2];
     if (date==17) return CHALLENGES.felid;
     if (date==18) return CHALLENGES.canid;
