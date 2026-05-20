@@ -195,6 +195,17 @@ CHALLENGES = {
         }
     },
     /* single-taxon challenges */
+    accipitriformes: {
+        noun: 'Accipitriforme',
+        subtitle: 'Members of the order Accipitriformes. Most diurnal birds of prey, including hawks, eagles, vultures, and kites',
+        rejection: function(guessId, guess) {
+            for (const ancestor of lineage(guessId)) {
+                if (ancestor==LOWER_TITLE_TO_ID.accipitriformes) return;
+                if (ancestor==LOWER_TITLE_TO_ID.bird) return "Not an Accipitriforme.";
+            }
+            return "Not a bird. Accipitriformes are birds.";
+        }
+    },
     amphibia: singleTaxonChallenge('amphibian', 'members of the class Amphibia'),
     annelid: {
         noun: 'annelid',
