@@ -38,13 +38,16 @@ function endsWithOneOf(s, suffixes) {
 }
 
 function testChallenge(challenge, suffixes) {
+    suffixes ??= ' ' + challenge.noun;
     if (typeof suffixes == 'string') suffixes = [suffixes];
-    for (const i in ID_TO_TITLE) {
-        let title = ID_TO_TITLE[i];
-        if (!endsWithOneOf(title, suffixes)) {
+    for (const qid in ID_TO_TITLE) {
+        const title = ID_TO_TITLE[qid];
+        const guess = title.trim().toLowerCase().replaceAll("-"," ").replaceAll('’',"'").replaceAll(/ +/g, ' ');
+        if (!endsWithOneOf(guess, suffixes)) {
             continue;
         }
-        a(!challenge.rejection(title), nameQid(i));
+        const r = challenge.rejection(qid, guess);
+        a(!r, r + ' - ' + nameQid(qid));
     }
 }
 
