@@ -235,6 +235,11 @@ body:has(#log li) .timecontrollabel {
 }
 table {
     border-collapse: collapse;
+    margin: auto;
+}
+table:not(:has(td)) {
+    th { display: none; }
+    &::after { content: "none!"; }
 }
 td, th {
     border: solid 1px black;
