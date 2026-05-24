@@ -229,6 +229,10 @@ CHALLENGES = {
         noun: 'ant',
         rejection: function(guessId, guess) {
             if (guess=='velvet ant') return "Velvet ants aren't actually ants. Sorry.";
+            if (guessId==LOWER_TITLE_TO_ID['blue ant']) {
+                queueTrivium("<a target=_blank href=https://en.wikipedia.org/wiki/Blue_ant>Learn about blue ants.</a>");
+                return "The “blue ant” is actually a species of flower wasp.";
+            }
             if (!ancestsOrIs(LOWER_TITLE_TO_ID.ant, guessId)) return "Not an ant.";
         }
     },
