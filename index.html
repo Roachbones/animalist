@@ -227,6 +227,9 @@ body:has(#log li) .timecontrollabel {
     &:has(button[disabled]) summary {
         filter: grayscale();
     }
+    &:not(:has(button[disabled])) .taunt {
+        display: none;
+    }
     body:not(.premium) & {
         hr, #historySection {
             display: none;
@@ -294,12 +297,9 @@ label:has(input[disabled]) { cursor: not-allowed; }
     border-color: var(--friendly-color);
     background-color: color-mix(in srgb, var(--friendly-color) 15%, transparent);
 }
-#taunt { font-size: small; }
-body.premium #taunt {
-    display: none;
-}
+.taunt { font-size: small; }
 body.premium {
-    #taunt { display: none; }
+    .taunt { display: none; }
     #premiumSettings[open] > summary::after {
         content: "Thanks for supporting the game!";
         display: block;
@@ -1131,6 +1131,9 @@ function measureFps(timestamp) {
             <button id=dailyButton onclick=startChallenge(daily)>TRY DAILY CHALLENGE</button>
         </section>
         <hr style=margin:2em>
+        <p class=taunt>
+            (Unlock challenge replay by <a href=https://roachbones.itch.io/lauf-premium>supporting the game</a>)
+        </p>
         <section id=historySection>
             <h3>discovered challenges</h3>
             <table>
@@ -1149,7 +1152,7 @@ function measureFps(timestamp) {
         <label title='Whether to show mistakes at the end of the game'><input type=checkbox id=mistakesbox onchange=saveSettings()>show mistakes</label>
         
         <details id=premiumSettings><summary>premium features</summary>
-            <p id=taunt>
+            <p class=taunt>
                 <a href=https://roachbones.itch.io/lauf-premium>Unlock these features by supporting the developer!</a>
             </p>
             <label title='Whether to show banner ads'><input disabled type=checkbox id=johnBox onchange=saveSettings()>enable ads<small style=display:block;font-style:italic>(not sponsored/endorsed by the advertised)</small></label>
