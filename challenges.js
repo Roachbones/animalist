@@ -246,6 +246,29 @@ CHALLENGES = {
         'corvid',
         'crows, ravens, rooks, magpies, jackdaws, jays, treepies, choughs, & nutcrackers'
     ),
+    crab: {
+        noun: 'crab',
+        subtitle: '“crab” is hard to define, but I did my best',
+        rejection: function (guessId, guess) {
+            for (const ancestor of lineage(guessId)) {
+                if (ancestor==LOWER_TITLE_TO_ID.xiphosura) {
+                    queueTrivium("Despite their name, <a target=_blank href=https://en.wikipedia.org/wiki/Horseshoe_crab>horseshoe crabs</a> are not crabs or even crustaceans.");
+                    return "Horseshoe crabs aren't crabs.";
+                }
+                // True crabs
+                if (ancestor==LOWER_TITLE_TO_ID.brachyura) return;
+                // Anomura
+                if (ancestor==LOWER_TITLE_TO_ID.porcellanidae) return;
+                if (ancestor==LOWER_TITLE_TO_ID.parapaguridae) return;
+                if (ancestor==LOWER_TITLE_TO_ID.hippidae) return;
+                if (ancestor==LOWER_TITLE_TO_ID.porcellanidae) return;
+                if (ancestor==LOWER_TITLE_TO_ID.lomisidae) return;
+                if (ancestor==LOWER_TITLE_TO_ID.paguroidea) return;
+                if (ancestor==LOWER_TITLE_TO_ID.arthropod) return "Not a crab, I think.";
+            }
+            return "Not a crab.";
+        }
+    },
     hymenoptera: singleTaxonChallenge('hymenopteran', 'wasps, bees, ants, and sawflies'),
     lepidoptera: singleTaxonChallenge('lepidopteran', '🦋 butterflies & moths 🦋'),
     mollusk: singleTaxonChallenge('mollusk', 'gastropods, cephalopods, & bivalves'),
