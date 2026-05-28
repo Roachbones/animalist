@@ -1355,8 +1355,9 @@ id_to_title[lower_title_to_id['mergus']] = 'Merganser'
 
 id_to_title['Q995960'] = 'Agaonidae' # Not 'Fig wasp'; there are others
 
-# UGH wikidata dumps take so long!
-# todo import patches of them or something?
+steal('Q3420009','Q597550')
+id_to_title['Q597550'] = 'Bamboo rat'
+
 GTORT = dummy('Galápagos tortoise','Q2080003')
 lower_title_to_id['galapagos tortoise'] = GTORT
 lower_title_to_id['giant tortoise'] = GTORT
