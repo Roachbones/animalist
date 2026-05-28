@@ -786,6 +786,7 @@ for k,v in {
     'warbler': 'garden warbler',
     'grassquit': 'cuban grassquit',
     'flower mantis': 'orchid mantis',
+    'sloth moth': 'cryptoses choloepi',
     #'diamondback': 'diamondback rattlesnake', // TODO non-siaocab
     # Regular disambiguation pages
     'sand crab': 'hippoidea',
