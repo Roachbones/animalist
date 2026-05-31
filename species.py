@@ -1010,6 +1010,8 @@ lower_title_to_id['bos indicus'] = ZEBU
 lower_title_to_id['indicine cattle'] = ZEBU
 lower_title_to_id['humped cattle'] = ZEBU
 
+
+
 '''
 print(' Fixing coral.')
 BLACK_CORAL = 'Q1479472'
@@ -1369,6 +1371,18 @@ CAPE_YORK_BROWN_BANDICOOT = 'Q41083855'
 id_to_title[CAPE_YORK_BROWN_BANDICOOT] = 'Cape York brown bandicoot'
 lower_title_to_id['cape york brown bandicoot'] = CAPE_YORK_BROWN_BANDICOOT
 id_to_parent[CAPE_YORK_BROWN_BANDICOOT] = 'Q1475031'
+
+
+# "Wildcat" refers to two Felis species
+FELIS = 'Q228283'
+WILDCAT = dummy('Wildcat', FELIS)
+AFRICAN_WILDCAT = 'Q47482585'
+EUROPEAN_WILDCAT = 'Q43576'
+id_to_parent[AFRICAN_WILDCAT] = WILDCAT
+id_to_parent[EUROPEAN_WILDCAT] = WILDCAT
+lower_title_to_id['wildcats'] = WILDCAT
+lower_title_to_id['wild cat'] = WILDCAT
+lower_title_to_id['wild cats'] = WILDCAT
 
 
 print('Writing Animalia to parent.js.')
