@@ -505,7 +505,7 @@ function challengeForToday(today) {
     if (date==18) return CHALLENGES.canid;
     if (date==19) return CHALLENGES.amphibia;
     if (date==20) return CHALLENGES.bat;
-    if (date==21) return CHALLENGES.ant;
+    if (date==21) return [CHALLENGES.ant, CHALLENGES.crab][month % 2];
     if (date==22) return CHALLENGES.endsWithFish;
     if (date==23) return CHALLENGES.cetacea;
     if (date==24) return CHALLENGES.bear;
