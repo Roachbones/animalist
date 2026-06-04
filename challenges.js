@@ -112,8 +112,18 @@ CHALLENGES = {
                 '<a target=_blank href=https://bogleech.com/halloween/hall17-leeches>leech propaganda??</a>',
                 '<a target=_blank href=https://bogleech.com/leeches>what even is a leech</a>',
                 '<a target=_blank href=https://bogleech.com/ticks>ticks have eyes</a>',
-                '<a target=_blank href=https://en.wikipedia.org/wiki/Bedale_Leech_House>they lived here?</a>'
-            ][score % 4]);
+                '<a target=_blank href=https://en.wikipedia.org/wiki/Bedale_Leech_House>they lived here?</a>',
+                `<p style=font-family:serif;margin:2em>
+To these waters xe had come<br>
+To gather leeches, being old and poor:<br>
+Employment hazardous and wearisome!<br>
+And xe had many hardships to endure:<br>
+From pond to pond xe roamed, from moor to moor;<br>
+Housing by choice or chance,<br>
+<br>
+And in this way xe gained an honest maintenance.
+                `
+            ][score % 5]);
         },
         durationS: 33
     },
@@ -349,6 +359,16 @@ CHALLENGES = {
         verbed: 'listed alphabetically',
         orthographic: true
     },
+/*    colornamed: {
+        title: 'list animals with CSS colors in their names',
+        subtitle: '<a href=https://rose.systems/edible_colors>helpful reference here</a>',
+        rejection: function (_guessId, guess) {
+            // TODO
+        }
+        noun: 'animal with a color in its name',
+        pluralNoun: 'animals with colors in their names',
+        orthographic: true
+    }*/
     endsWithFish: {
         noun: 'fish', pluralNoun: 'fish',
         title: 'list animals whose names end in -fish',
