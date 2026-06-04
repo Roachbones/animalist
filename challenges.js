@@ -94,19 +94,28 @@ CHALLENGES = {
         noun: 'arachnids/octopuses'
     },
     /* Combined taxa challenges */
-    leechOrTick: { // * Unused. TODO add mosquitos
-        title: 'list leeches and ticks until failure',
-        subtitle: 'yummy yummy blood',
-        noun: 'leech/tick',
-        pluralNoun: 'leeches/ticks',
+    hematophage: {
+        title: 'list leeches and mosquitoes and ticks until failure',
+        subtitle: 'yummy yummy <b style=color:red>blood</b>',
+        noun: 'leech/mosquito/tick',
+        pluralNoun: 'leeches/mosquitoes/ticks',
         rejection: function (guessId, guess) {
             for (const ancestor of lineage(guessId)) {
                 if (ancestor==LOWER_TITLE_TO_ID.leech) return;
                 if (ancestor==LOWER_TITLE_TO_ID.tick) return;
+                if (ancestor==LOWER_TITLE_TO_ID.mosquito) return;
             }
-            return 'Not a leech or a tick.';
+            return 'Not a leech or mosquito or tick.';
         },
-        durationS: 30
+        queueFinalTrivia: function() {
+            queueTrivium([
+                '<a target=_blank href=https://bogleech.com/halloween/hall17-leeches>leech propaganda??</a>',
+                '<a target=_blank href=https://bogleech.com/leeches>what even is a leech</a>',
+                '<a target=_blank href=https://bogleech.com/ticks>ticks have eyes</a>',
+                '<a target=_blank href=https://en.wikipedia.org/wiki/Bedale_Leech_House>they lived here?</a>'
+            ][score % 4]);
+        },
+        durationS: 33
     },
     /* Single-taxon-with-exception challenges */
     dino: {
@@ -501,7 +510,7 @@ function challengeForToday(today) {
     if (date==14) return [CHALLENGES.oneWord, CHALLENGES.twoWord, CHALLENGES.insect][month % 3];
     if (date==15) return [CHALLENGES.waterfowl, CHALLENGES.accipitriformes][month % 2];
     if (date==16) return [CHALLENGES.mollusk, CHALLENGES.coleoid][month % 2];
-    if (date==17) return CHALLENGES.felid;
+    if (date==17) return [CHALLENGES.owl, CHALLENGES.felid][month % 2];
     if (date==18) return CHALLENGES.canid;
     if (date==19) return CHALLENGES.amphibia;
     if (date==20) return CHALLENGES.bat;
@@ -515,7 +524,7 @@ function challengeForToday(today) {
     if (date==28) return CHALLENGES.lepidoptera;
     if (date==29) return CHALLENGES.oneMinute;
     if (date==30) return CHALLENGES.invertebrate;
-    if (date==31) return [CHALLENGES.owl, CHALLENGES.myriapod][month % 2];
+    if (date==31) return [CHALLENGES.myriapod, CHALLENGES.hematophage][month % 2];
     /* Safeguards */
     if (isNaN(date)) return singleTaxonChallenge('tullimonstrum');
     return CHALLENGES.insect;
