@@ -1415,6 +1415,10 @@ mononyms['Q127282'] = ['🐟'] # ray-finned fish
 del mononyms['Q752188']
 mononyms['Q40802'] = ['🦀']
 
+for crab_name in ['brachyura','porcellanidae','parapaguridae','hippidae','porcellanidae','lomisidae','paguroidea']:
+    mononyms[lower_title_to_id[crab_name]] = ['🦀']
+
+
 for lower_title in lower_title_to_id:
     if len(lower_title)==1:
         mononyms[lower_title_to_id[lower_title]] = mononyms.get(lower_title_to_id[lower_title], []) + [lower_title]
