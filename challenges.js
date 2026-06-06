@@ -359,16 +359,23 @@ And in this way xe gained an honest maintenance.
         verbed: 'listed alphabetically',
         orthographic: true
     },
-/*    colornamed: {
+    colornamed: {
         title: 'list animals with CSS colors in their names',
-        subtitle: '<a href=https://rose.systems/edible_colors>helpful reference here</a>',
+        subtitle: '<a target=_blank href=https://rose.systems/edible_colors>helpful reference here</a>',
         rejection: function (_guessId, guess) {
-            // TODO
-        }
+            if (!colorsIn(guess)) return "That doesn't contain a CSS color name.";
+        },
+        manipulateLi: function (li) {
+            li.innerHTML = li.innerHTML.replaceAll(CSSCOLOR, '<b style=color:$&>$&</b>');
+        },
+        specialIncrementS: function (guessId, guess) {
+            return 10 * Math.max(colorsIn(guess), colorsIn(ID_TO_TITLE[guessId].toLowerCase()));
+        },
         noun: 'animal with a color in its name',
         pluralNoun: 'animals with colors in their names',
+        durationS: 90,
         orthographic: true
-    }*/
+    },
     endsWithFish: {
         noun: 'fish', pluralNoun: 'fish',
         title: 'list animals whose names end in -fish',
@@ -508,6 +515,7 @@ function challengeForToday(today) {
     if (month==2-1 && date==29) return CHALLENGES.leapDay;
     if (month==10-1 && date==31) return CHALLENGES.halloween;
     if (month==8-1 && date==8) return CHALLENGES.eightEight;
+    if (month==6-1 && date==7) return CHALLENGES.colornamed;
     /* Weeklies */
     if (weekday==0) return CHALLENGES.bird;
     if (weekday==1) return CHALLENGES.mammal;
@@ -549,6 +557,9 @@ function challengeForToday(today) {
     if (isNaN(date)) return singleTaxonChallenge('tullimonstrum');
     return CHALLENGES.insect;
 }
+
+CSSCOLOR = /aliceblue|antiquewhite|aquamarine|azure|beige|bisque|black|blanchedalmond|blueviolet|burlywood|cadetblue|chartreuse|chocolate|cornflowerblue|cornsilk|crimson|darkblue|darkcyan|darkgoldenrod|darkgray|darkgreen|darkgrey|darkkhaki|darkmagenta|darkolivegreen|darkorange|darkorchid|darkred|darksalmon|darkseagreen|darkslateblue|darkslategray|darkslategrey|darkturquoise|darkviolet|deeppink|deepskyblue|dimgray|dimgrey|dodgerblue|firebrick|floralwhite|forestgreen|fuchsia|gainsboro|ghostwhite|goldenrod|green|greenyellow|honeydew|hotpink|indianred|indigo|ivory|khaki|lavenderblush|lawngreen|lemonchiffon|lightblue|lightcoral|lightcyan|lightgoldenrodyellow|lightgray|lightgreen|lightgrey|lightpink|lightsalmon|lightseagreen|lightskyblue|lightslategray|lightslategrey|lightsteelblue|lightyellow|limegreen|linen|magenta|maroon|mediumaquamarine|mediumblue|mediumorchid|mediumpurple|mediumseagreen|mediumslateblue|mediumspringgreen|mediumturquoise|mediumvioletred|midnightblue|mintcream|mistyrose|moccasin|navajowhite|navy|oldlace|olivedrab|orangered|orchid|palegoldenrod|palegreen|paleturquoise|palevioletred|papayawhip|peachpuff|peru|pink|plum|powderblue|rebeccapurple|red|rosybrown|royalblue|saddlebrown|salmon|sandybrown|seagreen|seashell|sienna|silver|skyblue|slateblue|slategray|slategrey|snow|springgreen|steelblue|tan|teal|thistle|tomato|turquoise|violet|wheat|whitesmoke|yellowgreen|aqua|blue|brown|coral|cyan|gold|gray|grey|lavender|lime|olive|orange|purple|white|yellow|accentcolor|accentcolortext|activetext|buttonborder|buttonface|buttontext|canvas|canvastext|field|fieldtext|graytext|highlight|highlighttext|linktext|mark|marktext|selecteditem|selecteditemtext|visitedtext|transparent|currentcolor/ig
+function colorsIn(s) { return s.match(CSSCOLOR)?.length || 0; }
 
 // Legacy support
 challengeSynonyms={'30s+3s':'halftime','10s+2s':'superfast','-fish':'endsWithFish','60-0': 'oneMinute','i-animals':'iAnimals'}

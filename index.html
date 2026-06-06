@@ -491,6 +491,7 @@ body:has(#disableunderlayopacitybox:checked) #underlay { opacity: none; }
 /* challenge-specific */
 body.invisibleTimer #timer { visibility: hidden; }
 body.oneMinute #incrementClause { font-weight: normal; text-decoration-line: line-through; }
+body.colornamed #gameoverscreen { resize: vertical; overflow: auto; }
 body.halloween {
     #timer {
         background-color: var(--urgent-color-1);
@@ -746,7 +747,7 @@ function attempt() {
         if (currentChallenge) {
             let rejection = currentChallenge.rejection(guessId, guess);
             if (rejection) {
-                if (ID_TO_TITLE[guessId].toLowerCase().replaceAll("-"," ") != guess) {
+                if (!currentChallenge.orthographic && ID_TO_TITLE[guessId].toLowerCase().replaceAll("-"," ") != guess) {
                     rejection += ' (Understood as '+ ID_TO_TITLE[guessId] + '.)';
                 }
                 comment.textContent = rejection;
@@ -764,7 +765,7 @@ function attempt() {
                 abdicatedIds.add(ancestorId);
                 var li = guessedIdToLi[ancestorId]
                 var s = document.createElement('s');
-                s.append(li.childNodes[0]);
+                s.append(...li.childNodes);
                 li.append(s)
                 let abdicationNote = document.createElement('span');
                 abdicationNote.classList.add('abdication-note');
@@ -782,7 +783,9 @@ function attempt() {
         
         if (reward) {
             score += 1;
-            if (endTime != undefined) { grantIncrement(); }
+            if (endTime != undefined) {
+                grantIncrement(currentChallenge?.specialIncrementS?.(guessId, guess));
+            }
             underlay.vibrance += 100;
         }
         
@@ -813,6 +816,7 @@ function attempt() {
         }
         guessedIdToLi[guessId] = li;
         eggManipulateLi(li, guess, guessId);
+        currentChallenge?.manipulateLi?.(li);
         progressEgg();
         log.prepend(li);
         log.children[9999]?.classList?.add('toCull');
@@ -851,16 +855,16 @@ function uncomment() {
     comment.textContent='';
 }
 
-function grantIncrement(ms) {
-    increment = currentChallenge?.incrementS ?? incrementControl.value;
-    ms ||= increment*1000;
-    if (!ms) {return;}
+function grantIncrement(givenS) {
+    let s = givenS ?? currentChallenge?.incrementS ?? incrementControl.value;
+    let ms = s * 1000;
+    if (!ms) { return; }
     endTime += ms;
     if (timerConfetti.childElementCount > 99) return;
-    summonConfetto('+' + Math.floor(ms/1000), timerConfetti);
+    summonConfetto('+' + Math.floor(ms/1000), timerConfetti, givenS && s / 10);
 }
 
-function summonConfetto(text, parent) {
+function summonConfetto(text, parent, fontSize) {
     var confetto = document.createElement('span');
     confetto.classList.add('confetto');
     confetto.textContent = text;
@@ -871,6 +875,7 @@ function summonConfetto(text, parent) {
         confetto.style.left = (Math.random()*4-2) + 'em';
         confetto.style.opacity = 0;
         confetto.style.rotate = (Math.random()**2-0.5) + 'rad';
+        if (fontSize) { confetto.style.fontSize = fontSize + 'em'; }
     },10)
 }
 
