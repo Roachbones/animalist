@@ -492,6 +492,8 @@ body:has(#disableunderlayopacitybox:checked) #underlay { opacity: none; }
 body.invisibleTimer #timer { visibility: hidden; }
 body.oneMinute #incrementClause { font-weight: normal; text-decoration-line: line-through; }
 body.colornamed #gameoverscreen { resize: vertical; overflow: auto; }
+.blood { animation: 999s forwards blood-dry; }
+@keyframes blood-dry { 0% { color: red; } to { color: maroon; } }
 body.halloween {
     #timer {
         background-color: var(--urgent-color-1);

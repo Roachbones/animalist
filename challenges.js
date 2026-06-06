@@ -96,7 +96,7 @@ CHALLENGES = {
     /* Combined taxa challenges */
     hematophage: {
         title: 'list leeches and mosquitoes and ticks until failure',
-        subtitle: 'yummy yummy <b style=color:red>blood</b>',
+        subtitle: 'yummy yummy <b class=blood>blood</b>',
         noun: 'leech/mosquito/tick',
         pluralNoun: 'leeches/mosquitoes/ticks',
         rejection: function (guessId, guess) {
