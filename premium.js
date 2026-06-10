@@ -15,7 +15,7 @@ CUSTOM_ADS = [
     "<a target=_blank href=https://webtiles.kicya.net/ title='grid of silly webpages' style=background-color:#ff000033;padding:1em;display:block>WebTiles</a>",
     `<div style=background-color:antiquewhite;color:black;padding:1em lang=en-emodeng>
         <p style=text-align:center>“Real animals only, please.”
-        <p style=font-family:serif>the fooliſh world is apt to believe no more then they ſee…
+        <p style=font-family:serif;font-style:italic>the fooliſh world is apt to believe no more then they ſee…
         <p style=font-family:serif><b><a target=_blank href=https://archive.org/details/historyoffourfoo00tops/page/700/mode/2up>
             this which I have written, may be ſufficient to ſatisfie any reaſonable,
             that there are winged Serpents and Dragons in the world.
