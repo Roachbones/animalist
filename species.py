@@ -72,6 +72,7 @@ def wikidatum_prop_entity(wikidatum, prop_id):
     if not statements: return
     statements.sort(key=lambda statement:statement['rank'])
     if wikidatum['id']=='Q2102' and prop_id==TAXON_KNOWN_BY_THIS_COMMON_NAME: return 'Q25537662' # bad sorting
+    if wikidatum['id']=='Q933583' and prop_id==TAXON_KNOWN_BY_THIS_COMMON_NAME: return
     if wikidatum['id']=='Q1367' and prop_id==TAXON_KNOWN_BY_THIS_COMMON_NAME: return
     statement = statements[-1]
     if statement['mainsnak']['snaktype'] == 'novalue':
@@ -787,6 +788,7 @@ for k,v in {
     'grassquit': 'cuban grassquit',
     'flower mantis': 'orchid mantis',
     'sloth moth': 'cryptoses choloepi',
+    'ground sloth': 'megalocnidae',
     #'diamondback': 'diamondback rattlesnake', // TODO non-siaocab
     # Regular disambiguation pages
     'sand crab': 'hippoidea',
