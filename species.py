@@ -779,6 +779,7 @@ for k,v in {
     'moray': 'moray eel', # otherwise goes to honeycomb moray fsr
     'ant mimicking spider':'myrmarachne',
     'toad': 'true toad', 'toads':'toad','hoptoad':'toad',
+    'ōi':'oi',
     # recovered from dump updates
     '🦞': 'lobster',
     #'pelican spider':'archaeidae',
