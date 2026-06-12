@@ -379,12 +379,12 @@ ID_TO_PICS={
    "title": "a spider"
   }
  ],
- "Q10627": [
+ "Q10992": [
   {
    "artist": ARTIST_VIV,
-   "alt": "wolf spider",
+   "alt": "running crab spider",
    "src": "https://rose.systems/bugs/thumb/lycosid.jpg",
-   "title": "a wolf spider (with 0.7mm mechanical pencil for scale)"
+   "title": "a running crab spider (with 0.7mm mechanical pencil for scale)"
   }
  ],
  "Q169513": [
