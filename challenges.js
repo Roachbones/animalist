@@ -428,7 +428,22 @@ And in this way xe gained an honest maintenance.
                 return "That doesn't begin with " + requiredInitial + ".";
             }
         },
-        verbed: 'wordchained'
+        verbed: 'wordchained',
+        orthographic: true
+    },
+    reverseWordchain: {
+        title: 'list animals in a reverse word chain',
+        subtitle: 'each guess must end with the first letter of the previous guess',
+        rejection: function (_guessId, guess) {
+            if (!correctGuesses.length) return;
+            let prevGuess = correctGuesses[correctGuesses.length-1];
+            let requiredTerminal = prevGuess.slice(0, 1);
+            if (guess.slice(guess.length - 1) != requiredTerminal) {
+                return "That doesn't end with " + requiredTerminal + ".";
+            }
+        },
+        verbed: 'reverse-wordchained',
+        orthographic: true
     },
     // Misc challenges
     invisibleTimer: { // * Unused
@@ -530,7 +545,7 @@ function challengeForToday(today) {
     if (date==6) return CHALLENGES.insect;
     if (date==7) return CHALLENGES.dino;
     if (date==8) return CHALLENGES.arachnid;
-    if (date==9) return CHALLENGES.wordchain;
+    if (date==9) return month % 6 ? CHALLENGES.wordchain : CHALLENGES.reverseWordchain;
     if (date==10) return CHALLENGES.superfast;
     if (date==11) return CHALLENGES.nonmammal;
     if (date==12) return [CHALLENGES.beetle, CHALLENGES.annelid][month % 2];
