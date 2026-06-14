@@ -385,7 +385,7 @@ And in this way xe gained an honest maintenance.
         },
         orthographic: true
     },
-    oneWord: { // * Unused
+    oneWord: {
         noun: 'one-word animal',
         subtitle: "all guesses must be exactly one word",
         rejection: function (_guessId, guess) {
@@ -394,7 +394,7 @@ And in this way xe gained an honest maintenance.
         },
         orthographic: true
     },
-    twoWord: { // * Unused
+    twoWord: {
         noun: 'one-word animal',
         subtitle: "all guesses must be exactly two words",
         rejection: function (_guessId, guess) {
@@ -558,7 +558,7 @@ function challengeForToday(today) {
     if (date==19) return CHALLENGES.amphibia;
     if (date==20) return CHALLENGES.bat;
     if (date==21) return [CHALLENGES.ant, CHALLENGES.crab][month % 2];
-    if (date==22) return CHALLENGES.endsWithFish;
+    if (date==22) return [CHALLENGES.endsWithFish, CHALLENGES.oneWord, CHALLENGES.twoWord][month % 3];
     if (date==23) return CHALLENGES.cetacea;
     if (date==24) return CHALLENGES.bear;
     if (date==25) return CHALLENGES.rodent;
