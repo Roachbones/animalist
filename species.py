@@ -1351,6 +1351,12 @@ id_to_parent[lower_title_to_id['southern bluefin tuna']] = BLUEFIN_TUNA
 id_to_parent[lower_title_to_id['pacific bluefin tuna']] = BLUEFIN_TUNA
 id_to_parent[lower_title_to_id['atlantic bluefin tuna']] = BLUEFIN_TUNA
 
+'''
+print('Rearranging squid.')
+SQUID = 'Q81900'
+for squid in ('myopsida', 'oegopsida', 'bathyteuthida', 'Sepiolida'
+'''
+
 print(' Defining the New Guinea singing dog.')
 NGSD = dummy('New Guinea singing dog','Q149892')
 
@@ -1386,6 +1392,9 @@ id_to_parent[EUROPEAN_WILDCAT] = WILDCAT
 lower_title_to_id['wildcats'] = WILDCAT
 lower_title_to_id['wild cat'] = WILDCAT
 lower_title_to_id['wild cats'] = WILDCAT
+
+# Cats aren't wildcats
+id_to_parent[lower_title_to_id['cat']] = FELIS
 
 
 print('Writing Animalia to parent.js.')
