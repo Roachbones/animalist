@@ -1037,7 +1037,7 @@ DUCK_PARENT = id_to_parent[lower_title_to_id['anatidae']]
 GEESE = [
     'anser', 'branta', # all of Anser and Branta are geese
     # 'cape barren goose', 'cnemiornis' # tentatively Anseran
-    'orinoco goose', low('spur-winged goose'), low('blue-winged goose'), 'magpie goose', 'egyptian goose'
+    'neochen', 'plectropterus', 'cyanochen', 'anseranatidae', 'egyptian goose'
 ]
 SWANS = [
     'cygnus', # true swans
@@ -1351,11 +1351,12 @@ id_to_parent[lower_title_to_id['southern bluefin tuna']] = BLUEFIN_TUNA
 id_to_parent[lower_title_to_id['pacific bluefin tuna']] = BLUEFIN_TUNA
 id_to_parent[lower_title_to_id['atlantic bluefin tuna']] = BLUEFIN_TUNA
 
-'''
+
 print('Rearranging squid.')
 SQUID = 'Q81900'
-for squid in ('myopsida', 'oegopsida', 'bathyteuthida', 'Sepiolida'
-'''
+for squid in ('myopsida', 'oegopsida', 'bathyteuthida', 'sepiolida', 'idiosepiidae'):
+    id_to_parent[lower_title_to_id[squid]] = SQUID
+
 
 print(' Defining the New Guinea singing dog.')
 NGSD = dummy('New Guinea singing dog','Q149892')
