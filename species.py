@@ -1397,6 +1397,13 @@ lower_title_to_id['wild cats'] = WILDCAT
 # Cats aren't wildcats
 id_to_parent[lower_title_to_id['cat']] = FELIS
 
+DOLPHIN = dummy('Dolphin','Q144144')
+for dolphin in ('Q215760','Q6078080','Q54873','Q13410384'):
+    id_to_parent[dolphin] = DOLPHIN
+steal('Q13410384',DOLPHIN)
+lower_title_to_id['pontoporiidae'] = 'Q13410384'
+id_to_title['Q13410384'] = 'Pontoporiidae'
+
 
 print('Writing Animalia to parent.js.')
 with open('parent.js','w') as file:

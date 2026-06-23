@@ -126036,7 +126036,7 @@ ID_TO_TITLE={
  "Q13410298": "Potamanaxas flavofasciata",
  "Q13410311": "Eois lunifera",
  "Q13410314": "Eois lucivittata",
- "Q13410384": "Dolphin",
+ "Q13410384": "Pontoporiidae",
  "Q13411128": "Paucituberculata",
  "Q13416848": "Barystethus",
  "Q13416883": "Perilitus",
@@ -386465,5 +386465,6 @@ ID_TO_TITLE={
  "VBLUEFIN": "Bluefin tuna (of which there are several species, actually, named after where they live)",
  "VNEW_GUINEA_SINGING_DOG": "New Guinea singing dog",
  "VGALÁPAGOS_TORTOISE": "Galápagos tortoise",
- "VWILDCAT": "Wildcat"
+ "VWILDCAT": "Wildcat",
+ "VDOLPHIN": "Dolphin"
 }
