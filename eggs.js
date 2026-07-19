@@ -149,6 +149,7 @@ function invalidGuessEggMessage(guess) {
     if (guess=='sand piper') { return "It's one word, actually."; }
     if (guess=='dumbo squid') return "It's an octopus, actually.";
 
+    if (guess=='owlbear') return "That's a monstrosity, not a beast.";
     if (guess=='cryptobug') { return "That's a brand name."; }
     if (guess=='mockingjay') { return "Not actually a real bird."; }
     if (guess=='jabberjay') { return "Come on, you know that one's fictional."; }
