@@ -298,6 +298,7 @@ And in this way xe gained an honest maintenance.
     myriapod: singleTaxonChallenge('myriapod', 'centipedes & millipedes'),
     owl: singleTaxonChallenge('owl'),
     primate: singleTaxonChallenge('primate'),
+    pinniped: singleTaxonChallenge('pinniped', '<big style=font-size:3em>🦭</big>'),
     roach: singleTaxonChallenge('cockroach', 'including termites', {durationS:30, pluralNoun:'roaches'}),
     rodent: {
         noun:'rodent', subtitle: 'from Latin <i>rōdēns</i>, “gnawing”',
@@ -546,7 +547,7 @@ function challengeForToday(today) {
     if (date==7) return CHALLENGES.dino;
     if (date==8) return CHALLENGES.arachnid;
     if (date==9) return month % 6 ? CHALLENGES.wordchain : CHALLENGES.reverseWordchain;
-    if (date==10) return CHALLENGES.superfast;
+    if (date==10) return [CHALLENGES.superfast, CHALLENGES.pinniped][month % 2];
     if (date==11) return CHALLENGES.nonmammal;
     if (date==12) return [CHALLENGES.beetle, CHALLENGES.annelid][month % 2];
     if (date==13) return CHALLENGES[COMMON_LETTERS[(month + year*12) % COMMON_LETTERS.length]+'Animals'];
