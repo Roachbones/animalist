@@ -38,6 +38,13 @@ CUSTOM_ADS = [
     // CC0 https://commons.wikimedia.org/wiki/File:Estradiol_valerate_and_spironolactone.jpg
     "<a target=_blank href=https://en.wikipedia.org/wiki/Feminizing_hormone_therapy#Effects title='I just think everyone should know their options'><img src=ads/hrt.jpg alt='spironolactone and estradiol pills' style=display:block;margin-left:auto;margin-right:auto><p style=padding:1em;margin:0;background-color:#b3b5b7;color:#327277>eating these makes you change. <b>find out how</b></p></a>",
 
+    // CC BY-SA 3.0 requires attribution
+    `
+<a target=_blank href=https://en.wikipedia.org/wiki/Toynbee_tiles>
+    <img src=ads/toynbee.png title="Photo by Evrik, CC BY-SA 3.0 http://creativecommons.org/licenses/by-sa/3.0/ via Wikimedia Commons" alt="TOYNBEE MOVIE 2001 RESURRECT PLANET JUPTER">
+</a>
+    `,
+
     // CC0 "FREE CULTURE FOREVER BABY"
     '<a target=_blank href=https://suricrasia.online/bteq/ title="Unsponsored ad for a story I like"><img src=media/bteq/logov.svg alt="Bridge to eQualia" style=max-height:4em></a>',
 
