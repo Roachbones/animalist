@@ -367,6 +367,9 @@ function ancestryEggMessage(guess, descendantId, ancestorId) {
     if (descendantId=='Q917209' && ancestorId=='Q35076') {
         return "The ribbon eel is also known as the leaf-nosed moray eel.";
     }
+    if (descendantId==LOWER_TITLE_TO_ID.cockatiel && ancestorId==LOWER_TITLE_TO_ID.cockatoo) {
+        queueTrivium("The cockatiel is the smallest species of cockatoo.");
+    }
     if (descendantId==LOWER_TITLE_TO_ID.elk && ancestorId==LOWER_TITLE_TO_ID.deer) return "(Yes, elk are deer.)";
     if (descendantId==LOWER_TITLE_TO_ID.moose && ancestorId==LOWER_TITLE_TO_ID.deer) return "(Yes, moose are deer.)";
     //if (descendantId=='Q727919' && ancestorId=='Q83902') {
