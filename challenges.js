@@ -530,7 +530,7 @@ function challengeForToday(today) {
     /* Yearlies */
     if (month==2-1 && date==29) return CHALLENGES.leapDay;
     if (month==10-1 && date==31) return CHALLENGES.halloween;
-    if (month==8-1 && date==8) return CHALLENGES.eightEight;
+    if (month==8-1 && date==8) return CHALLENGES.arachnid;
     if (month==6-1 && date==7) return CHALLENGES.colornamed;
     /* Weeklies */
     if (weekday==0) return CHALLENGES.bird;
