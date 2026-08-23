@@ -396,7 +396,7 @@ And in this way xe gained an honest maintenance.
         orthographic: true
     },
     twoWord: {
-        noun: 'one-word animal',
+        noun: 'two-word animal',
         subtitle: "all guesses must be exactly two words",
         rejection: function (_guessId, guess) {
             let wordCount = guess.split(' ').length;
