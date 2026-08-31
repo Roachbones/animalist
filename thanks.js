@@ -10,6 +10,6 @@ THANKS=[
     "(thanks to <i>simple place</i> friends)",
     "(thanks to <a href=https://lynn.github.io target=_blank>Lynn</a> for SVG optimization)",
     "(thanks to Elle for taking care of me while I was sick)",
-    "(thanks to <a href=https://kateshrike.net target=_blank>Kate</a> for inspiring me by <a href=https://mastodon.social/@kate@shrike.club/115645496671627096 target=_blank>phrasing the title as a command</a>)",
+    "(thanks to <a href=https://kateshrike.net target=_blank>Kate</a> for inspiring me by <a href=https://shrike.club/@kate/115645496233209191 target=_blank>phrasing the title as a command</a>)",
     "<img src=media/Powered_by_WIKIDATA.svg alt='Powered by Wikidata' style=margin-top:1em>"
 ]
