@@ -22,6 +22,10 @@ CUSTOM_ADS = [
         </a></b>
     </div>`,
     //"<a target=_blank href=https://mapleatmorning.com/8800-blue-lick/my.matterport.com/show/index.html style=padding:1em;border-style:outset>find the bathtub</a>",
+    `
+<style>@import url('https://fonts.googleapis.com/css2?family=Libre+Barcode+128+Text&display=swap');</style>
+<a target=_blank href=https://corru.observer style="color:#ff0;background-color:black;border:1px solid;font-family:'Libre Barcode 128 Text';font-size:30px;text-decoration:none;padding:.75rem .5rem">!!__CYST__!!</a>
+    `,
 
     // Hotlinked
     '<a target=_blank href=https://slimebeast.com/burger/ title="Unsponsored ad for... what? huh?"><img src=https://slimebeast.com/burger/images/spots/banner2.gif alt="YOU WON&quot;T BELIEVE IT&quot;S FOOD!"></a>',
