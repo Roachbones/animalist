@@ -1016,6 +1016,7 @@ function load() {
     if (location.hash=='#today') {
         startDaily();
     }
+    if (location.hash=='#marsupialtest') startChallenge(singleTaxonChallenge('marsupial'));
     if (showFps) {
         requestAnimationFrame(measureFps);
         fpsBox.style.display = 'inline-block';
@@ -1032,6 +1033,7 @@ function startDaily() {
 }
 
 function startChallenge(challenge) {
+    if (cleanChallenge && !challenge.cleaned) cleanChallenge(challenge);
     newGame();
     uncomment();
     if (!challenge) { return alert("error challenge not defined bwehh >.<'"); }

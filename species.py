@@ -53,6 +53,8 @@ ENWIKI_DUMP_PATH = 'sources/enwiki-20260501-pages-articles-multistream.xml.bz2'
 CATEGORYLINKS_SQL_GZ = 'sources/enwiki-latest-categorylinks.sql.gz'
 
 
+
+
 def json_dumps_sans_keyquotes(d):
     return '{'+''.join('\n '+k+':"'+v+'"')+'\n}'
 
@@ -289,7 +291,36 @@ if 0:
             if wikidatum['id']=='Q188212':e()
 
 
+if 0:
+    i = 0
+    print('Mining enwiki redirects.')
+    redirects = {} # redirects[source] = target
+    for p in pages(ENWIKI_DUMP_PATH):
+        title = p.find('title').text
+        if title.startswith('Wikipedia:') or title.startswith('Template:') or title.startswith('Draft:') or title.startswith('Category:'): continue
+        redirect_node = p.find('redirect')
+        if redirect_node is not None:
+            target = redirect_node.attrib.get('title')
+            if target is None: print('no title in redirect node??',title)
+            #target = b[12:].split(']]')[0].split('#')[0]
+            redirects[title]=target
+            i += 1
+            if i%100000==0: print('', i, 'redirects found')
+            if i>mi:break
+            #print(target,'←',title)
+    print(' Found',len(redirects),'redirects.')
+    with open('intermediate/raw_redirects.json','w') as file:
+        json.dump(redirects,file,indent=1)
+else:
+    print('Reading pre-mined enwiki redirects.')
+    with open('intermediate/raw_redirects.json') as file:
+        redirects = json.load(file)
 
+del redirects['Man (anthropology and biology)']
+del redirects['Man (species)']
+del redirects['Mankind']
+
+mere_redirector_titles = set()
 
 print('Reading latest-all-trimmed.json.')
 #with bz2.open('latest-all.json.bz2', 'rt') as file:
@@ -323,12 +354,15 @@ with open('intermediate/latest-all-trimmed.json') as file:
         aliases = wikidatum_names(wikidatum)
         id_to_aliases[wikidatum['id']] = id_to_aliases.get(wikidatum['id'], []) + aliases
         if 'enwiki' in wikidatum['sitelinks']:
+            title = wikidatum['sitelinks']['enwiki']['title']
+            if title in redirects:
+                mere_redirector_titles.add(title)
             if parent_id: # if it's a taxon, make note of its title
-                id_to_title[wikidatum['id']] = id_to_title.get(wikidatum['id']) or wikidatum['sitelinks']['enwiki']['title']
+                id_to_title[wikidatum['id']] = id_to_title.get(wikidatum['id']) or title
             if aka_taxon_id:
                 # if it's some other thing (e.g. Cat) that a taxon (e.g. Felis catus) is Known As, then give the taxon its title
                 # When both are available, these names tend to be better (see Sheep vs Ovis)
-                id_to_title[aka_taxon_id] = wikidatum['sitelinks']['enwiki']['title']
+                id_to_title[aka_taxon_id] = title
         if i>mi:break
 
 
@@ -516,54 +550,26 @@ h={}
 
 
 
-if 0:
-    i = 0
-    print('Mining enwiki redirects.')
-    redirects = {} # redirects[source] = target
-    for p in pages(ENWIKI_DUMP_PATH):
-        title = p.find('title').text
-        #body = tree.find('revision').find('text')
-        if title.startswith('Wikipedia:') or title.startswith('Template:') or title.startswith('Draft:') or title.startswith('Category:'): continue
-        #
-        #b=p.find('revision').find('text').text or ''
-        #b = b.lstrip()
-        #if ('#REDIRECT [[' in b) and not b.startswith('#REDIRECT [['):
-        #    print('Unfirst REDIRECT directive in',title)
-        #if b.startswith('#REDIRECT [['):
-        #    t = b.split('[[',maxsplit=1)[1].split(']]',maxsplit=1)[0]
-        #    if '#' in t:
-        #        s[title.lower()]=t
-        #        print(title,'→',t)
-        #
-        redirect_node = p.find('redirect')
-        if redirect_node is not None:
-            target = redirect_node.attrib.get('title')
-            if target is None: print('no title in redirect node??',title)
-            #target = b[12:].split(']]')[0].split('#')[0]
-            redirects[title]=target
-            i += 1
-            if i%100000==0: print('', i, 'redirects found')
-            if i>mi:break
-            #print(target,'←',title)
-    print(' Found',len(redirects),'redirects.')
-    with open('intermediate/raw_redirects.json','w') as file:
-        json.dump(redirects,file,indent=1)
-else:
-    print('Reading pre-mined enwiki redirects.')
-    with open('intermediate/raw_redirects.json') as file:
-        redirects = json.load(file)
+low_true_titles = set(low(i) for i in id_to_title.values()) # bad naming..?
+low_mere_redirector_titles = [low(i) for i in mere_redirector_titles]
 
-del redirects['Man (anthropology and biology)']
-del redirects['Man (species)']
-del redirects['Mankind']
-
-
+for redirector, redirectand in redirects.items():
+    if low(redirector) == low(redirectand): continue
+    if low(redirector) not in lower_title_to_id: continue
+    if low(redirectand) not in lower_title_to_id: continue
+    if lower_title_to_id[low(redirector)] == lower_title_to_id[low(redirectand)]: continue
+    if low(redirector) in low_mere_redirector_titles: continue
+    if low(redirector) not in low_true_titles: continue
+    print("♢♢ Bad redirect?: ", redirector, '→', redirects[redirector])
 
 
 print('Adding redirector titles to lower title index.')
 i = 0
 for redirector in redirects:
     if low(redirects[redirector]) in lower_title_to_id:
+        #if low(redirector) in lower_title_to_id and lower_title_to_id[low(redirector)] != lower_title_to_id[low(redirects[redirector])]:
+        #    print("♢♢ Bad redirect?: ", redirector, '→', redirects[redirector])
+        #    continue
         lower_title_to_id[low(redirector)] = lower_title_to_id[low(redirects[redirector])]
         i += 1
 print('',i,'redirector titles indexed.')
@@ -780,6 +786,9 @@ for k,v in {
     'ant mimicking spider':'myrmarachne',
     'toad': 'true toad', 'toads':'toad','hoptoad':'toad',
     'ōi':'oi',
+    'bull finch': 'bullfinch',
+    'redknee tarantula': 'mexican redknee tarantula',
+    'red knee tarantula': 'redknee tarantula',
     # recovered from dump updates
     '🦞': 'lobster',
     #'pelican spider':'archaeidae',
@@ -849,6 +858,8 @@ for k,v in {
     'queen crab':'chionoecetes',
     'snowy albatross':'diomedea exulans',
     'blackbird': 'common blackbird', '🐦‍⬛': 'blackbird', 'blackbirds': 'blackbird', 'black bird': 'blackbird',
+    # should be fixed next update
+    'hooded tick spider': 'hooded tickspider'
 }.items():
     lower_title_to_id[k] = lower_title_to_id[v]
 
@@ -971,6 +982,9 @@ for letter in 'abcdefghijklmnopqrstuvwxyz':
 print('Applying manual hierarchy adjustments.')
 # quokkas are not kangaroos
 id_to_parent[lower_title_to_id['quokka']] = id_to_parent[lower_title_to_id['kangaroo']]
+# Marsupials
+for marsupial in ['diprotodontia', 'paucituberculata', 'notoryctemorphia']:
+    id_to_parent[lower_title_to_id[marsupial]] = lower_title_to_id['marsupial']
 # dogs are not wolves
 id_to_parent[lower_title_to_id['dog']] = 'Q149892' # Canis
 # give the Australians the benefit of the doubt re: dingo

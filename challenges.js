@@ -472,7 +472,10 @@ for (letter of COMMON_LETTERS) {
     CHALLENGES[challenge.shortname] = challenge;
 }
 for (shortname in CHALLENGES) {
-    const challenge = CHALLENGES[shortname];
+    cleanChallenge(CHALLENGES[shortname]);
+}
+
+function cleanChallenge(challenge) {
     challenge.shortname = shortname;
     challenge.durationS ??= 60;
     challenge.incrementS ??= 6;
@@ -482,6 +485,7 @@ for (shortname in CHALLENGES) {
     challenge.verbed ??= 'listed';
     challenge.attributivizeScore ??= ()=> score + ' ' + (score==1 ? challenge.noun : challenge.pluralNoun) + ' ' + challenge.verbed;
     challenge.title ??= 'list ' + challenge.pluralNoun + ' until failure';
+    challenge.cleaned = true;
 }
 
 function debugWipeDailyHistory() {
