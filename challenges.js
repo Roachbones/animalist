@@ -294,6 +294,7 @@ And in this way xe gained an honest maintenance.
     },
     hymenoptera: singleTaxonChallenge('hymenopteran', 'wasps, bees, ants, and sawflies'),
     lepidoptera: singleTaxonChallenge('lepidopteran', '🦋 butterflies & moths 🦋'),
+    marsupial: singleTaxonChallenge('marsupial'),
     mollusk: singleTaxonChallenge('mollusk', 'gastropods, cephalopods, & bivalves'),
     myriapod: singleTaxonChallenge('myriapod', 'centipedes & millipedes'),
     owl: singleTaxonChallenge('owl'),
@@ -559,7 +560,7 @@ function challengeForToday(today) {
     if (date==15) return [CHALLENGES.waterfowl, CHALLENGES.accipitriformes][month % 2];
     if (date==16) return [CHALLENGES.mollusk, CHALLENGES.coleoid][month % 2];
     if (date==17) return [CHALLENGES.owl, CHALLENGES.felid][month % 2];
-    if (date==18) return CHALLENGES.canid;
+    if (date==18) return [CHALLENGES.marsupial, CHALLENGES.canid][month % 2];
     if (date==19) return CHALLENGES.amphibia;
     if (date==20) return CHALLENGES.bat;
     if (date==21) return [CHALLENGES.ant, CHALLENGES.crab][month % 2];
