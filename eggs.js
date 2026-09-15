@@ -461,6 +461,7 @@ function queueFinalTrivia() {
     if (
         !trivia.innerText // No trivia so far
         && (score > 9 || currentChallenge) // Enough guesses to criticize
+        && currentChallenge != CHALLENGES.name100
         && (
             currentChallenge
             || guessedDescendant[LOWER_TITLE_TO_ID.bird] && guessedDescendant[LOWER_TITLE_TO_ID.insect] // Doesn't seem to be a self-imposed challenge like "only name birds"

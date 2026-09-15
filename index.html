@@ -911,13 +911,22 @@ function updateTimer() {
             navigator.vibrate(7*Math.floor(9-secondsLeft));
         }
     }
+    if (currentChallenge == CHALLENGES.name100) {
+        if (startTime == undefined) return timer.textContent = "Timer begins when you name your first animal.";
+        secondsElapsed = (Date.now() - startTime)/1000;
+        if (score >= 100) return endGame();
+        return timer.textContent = colonizeSeconds(secondsElapsed);
+    }
     if (secondsLeft <= 0) {
         endGame();
         secondsLeft = 0;
     }
-    let timerText = Math.floor(secondsLeft/60) + ":" + Math.floor(secondsLeft%60).toString().padStart(2,0);
-    timer.setAttribute('content', timerText);
-    timer.textContent = timerText;
+    timer.textContent = colonizeSeconds(secondsLeft);
+    timer.setAttribute('content', timer.textContent);
+}
+
+function colonizeSeconds(s) {
+    return Math.floor(s/60) + ":" + Math.floor(s%60).toString().padStart(2,0);
 }
 
 function emojiSummary() {
@@ -989,6 +998,13 @@ function endGame() {
     // Score logging. Somewhat redundant for historical reasons.
     if (currentChallenge?.key) {
         localStorage['c_'+currentChallenge.key] = currentChallenge.shortname + ' ' + score;
+    }
+    if (currentChallenge == CHALLENGES.name100) {
+        if (secondsElapsed < localStorage.pb_name100) {
+            highScoreMessage.textContent = "New personal best!";
+        }
+        localStorage.pb_name100 = Math.min(localStorage.pb_name100 || Infinity, secondsElapsed);
+        return;
     }
     if (currentChallenge?.shortname) {
         prevHighScore = localStorage['hs_'+currentChallenge.shortname];

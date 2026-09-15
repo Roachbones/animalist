@@ -22,14 +22,6 @@ function updateDaily(debugOffset=0) {
     return daily;
 }
 
-// Unimplemented idea
-name100Challenge = {
-    shortname: 'name100',
-    title: 'list 100 animals',
-    subtitle: 'as fast as you can',
-    attributivizeScore: ()=> 'todo'
-}
-
 // Unused; probably too confusing
 fishChallenge = {
     shortname: 'nontetrapodvertebrate',
@@ -451,6 +443,12 @@ And in this way xe gained an honest maintenance.
     invisibleTimer: { // * Unused
         title: 'list animals invisibly timed',
         subtitle: "The timer is invisible. Is this easier without the looming countdown?"
+    },
+    name100: {
+        title: 'list 100 animals challenge',
+        subtitle: 'as fast as you can',
+        attributivizeScore: ()=> "100 animals listed in " + timer.textContent,
+        queueFinalTrivia: ()=> queueTrivium("You listed 100 animals in " + timer.textContent + (timer.textContent.startsWith("0") ? "!" : "."))
     }
 }
 
@@ -508,6 +506,7 @@ function getHighScores() {
 
 function updateChallengesTbody() {
     const highScores = getHighScores();
+    if (localStorage.pb_name100) highScores.name100 = colonizeSeconds(localStorage.pb_name100)
     const shortnames = Object.keys(highScores);
     shortnames.sort((a,b)=>CHALLENGES[a].title.localeCompare(CHALLENGES[b].title));
     challengesTbody.textContent = '';
@@ -541,7 +540,7 @@ function challengeForToday(today) {
     if (weekday==0) return CHALLENGES.bird;
     if (weekday==1) return CHALLENGES.mammal;
     if (weekday==4) return CHALLENGES.arthropod;
-    if (weekday==6) return CHALLENGES.halftime;
+    if (weekday==6) return [CHALLENGES.halftime, CHALLENGES.name100][date % 2];
     /* Monthlies */
     if (date==1) return CHALLENGES.snake;
     if (date==2) return CHALLENGES.corvid;
