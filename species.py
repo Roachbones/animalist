@@ -849,6 +849,7 @@ for k,v in {
     'common echidna': 'short beaked echidna',
     'rocky mountain wood tick': 'dermacentor andersoni', # duplicate redirect of different case
     'dismalite': 'dismalites', # done
+    'hooded tick spider': 'hooded tickspider', # done
     # overrides
     'white owl': 'snowy owl',
     # would be solved by taking taxon from wikipedia instead of wikidata: elephant, neaderthal?
@@ -858,8 +859,6 @@ for k,v in {
     'queen crab':'chionoecetes',
     'snowy albatross':'diomedea exulans',
     'blackbird': 'common blackbird', '🐦‍⬛': 'blackbird', 'blackbirds': 'blackbird', 'black bird': 'blackbird',
-    # should be fixed next update
-    'hooded tick spider': 'hooded tickspider'
 }.items():
     lower_title_to_id[k] = lower_title_to_id[v]
 
@@ -1418,6 +1417,7 @@ steal('Q13410384',DOLPHIN)
 lower_title_to_id['pontoporiidae'] = 'Q13410384'
 id_to_title['Q13410384'] = 'Pontoporiidae'
 
+steal(lower_title_to_id['oyster'], lower_title_to_id['true oyster'])
 
 print('Writing Animalia to parent.js.')
 with open('parent.js','w') as file:
@@ -1441,7 +1441,13 @@ for mononym, lower_title in [
     ('🐳','whale'), ('🐠','angelfish'), ('🦀','crab'), ('🕸️','orbweaver'),
     # These are the only ZWJ animals we care about.
     ('🐦‍⬛','corvus'), ('🐦‍⬛','common blackbird'), ('🐦‍⬛','chinese blackbird'), ('🐦‍⬛','indian blackbird'), ('🐦‍⬛','tibetan blackbird'),
-    ('🐻‍❄️','polar bear')
+    ('🐻‍❄️','polar bear'),
+    ('🦪','pteriidae'),
+    ('🦪','true oyster'),
+    ('🦪','thorny oyster'),
+    ('🦪','saddle oyster'),
+    ('🦪','dimydarian oyster'),
+    ('🦪','windowpane oyster'),
 ]:
     mononyms[lower_title_to_id[lower_title]] = mononyms.get(lower_title_to_id[lower_title], []) + [mononym]
 
@@ -1486,6 +1492,9 @@ for lower_title, hieroglyphs in {
         mononyms[lower_title_to_id[lower_title]] = hieroglyphs
 
 mononyms['Q53636'] = ['🐸']
+
+for k in mononyms:
+    mononyms[k] = sorted(set(mononyms[k]))
 
 with open('mononyms.js','w') as file:
     file.write('MONONYMS='+json.dumps(mononyms, indent=1, ensure_ascii=False, sort_keys=1))
