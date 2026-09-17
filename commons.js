@@ -189,7 +189,7 @@ COMMONS = [
  "Q83902", // Grasshopper
  "Q1536199", // Manta ray
  "Q122181742", // Alpaca
- "Q107411", // Oyster
+// "Q107411", // Oyster
 // "Q19116", // Opiliones
  "Q124378", // Earthworm
  "Q19413", // Pelican
