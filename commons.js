@@ -196,7 +196,7 @@ COMMONS = [
  "Q170177", // Snowy owl
  "Q132905", // Humpback whale
  "Q159426", // Narwhal
- "Q47867", // Armadillo
+ "Q1242326", //"Q47867", // Armadillo
 // "Q185038", // African elephant
 // "Q199788", // Atlantic cod
  "Q25439", // Woodpecker

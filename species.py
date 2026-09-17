@@ -1419,6 +1419,9 @@ id_to_title['Q13410384'] = 'Pontoporiidae'
 
 steal(lower_title_to_id['oyster'], lower_title_to_id['true oyster'])
 
+steal(lower_title_to_id['armadillo'], lower_title_to_id['cingulata'])
+id_to_title[lower_title_to_id['cingulata']] = 'Armadillo'
+
 print('Writing Animalia to parent.js.')
 with open('parent.js','w') as file:
     print('',file.write('PARENT='+json.dumps(id_to_parent,indent=1)),'bytes written.')

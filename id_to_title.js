@@ -3973,7 +3973,7 @@ ID_TO_TITLE={
  "Q1241156": "Psilotris",
  "Q1241323": "Ptychobarbus",
  "Q1241840": "Pygochelidon",
- "Q1242326": "Cingulata",
+ "Q1242326": "Armadillo",
  "Q1242914": "Tawny-crested tanager",
  "Q1244098": "Huahine gull",
  "Q1244339": "Rudapithecus",
