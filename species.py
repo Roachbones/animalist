@@ -892,6 +892,8 @@ lower_title_to_id['sweat bee'] = HALICTIDAE
 id_to_title[HALICTIDAE] = 'Sweat bee'
 id_to_parent[HALICTIDAE] = BEE
 
+id_to_parent['Q530200'] = 'Q7391' # Mason bees are bees
+
 
 # Not sure what the wikidata should be
 lower_title_to_id['carpet beetle'] = lower_title_to_id['dermestidae']
