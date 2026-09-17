@@ -51,6 +51,20 @@ function testChallenge(challenge, suffixes) {
     }
 }
 
+// e.g. testParentBySuffix('armadillo') lists every animal ending with "armadillo" that isn't ancested by Armadillo
+function testParentBySuffix(name) {
+    console.log(nameQid(LOWER_TITLE_TO_ID[name]));
+    for (const qid in ID_TO_TITLE) {
+        if (qid == LOWER_TITLE_TO_ID[name]) continue;
+        const title = ID_TO_TITLE[qid];
+        const guess = title.trim().toLowerCase().replaceAll("-"," ").replaceAll('’',"'").replaceAll(/ +/g, ' ');
+        if (!guess.endsWith(name)) continue;
+        if (!ancests(LOWER_TITLE_TO_ID[name], qid)) {
+            console.log(name + ' ≯ ' + nameQid(qid));
+        }
+    }
+}
+
 function testGuess(guess) {
     guessbox.value = guess;
     tryAttempt();
