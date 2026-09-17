@@ -1448,6 +1448,13 @@ for mononym, lower_title in [
     ('🦪','saddle oyster'),
     ('🦪','dimydarian oyster'),
     ('🦪','windowpane oyster'),
+    ('🦡','hog badger'),
+    ('🦡','eurasian badger'),
+    ('🦡','ferret badger'),
+    ('🦡','honey badger'),
+    ('🦡','chamitataxus'),
+    ('🦡','taxidea'),
+    ('🦡','stink badger'),
 ]:
     mononyms[lower_title_to_id[lower_title]] = mononyms.get(lower_title_to_id[lower_title], []) + [mononym]
 
