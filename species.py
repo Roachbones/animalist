@@ -984,7 +984,7 @@ print('Applying manual hierarchy adjustments.')
 # quokkas are not kangaroos
 id_to_parent[lower_title_to_id['quokka']] = id_to_parent[lower_title_to_id['kangaroo']]
 # Marsupials
-for marsupial in ['diprotodontia', 'paucituberculata', 'notoryctemorphia']:
+for marsupial in ['diprotodontia', 'paucituberculata', 'notoryctemorphia', 'microbiotheria']:
     id_to_parent[lower_title_to_id[marsupial]] = lower_title_to_id['marsupial']
 # dogs are not wolves
 id_to_parent[lower_title_to_id['dog']] = 'Q149892' # Canis
