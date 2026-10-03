@@ -913,7 +913,10 @@ function updateTimer() {
         }
     }
     if (currentChallenge == CHALLENGES.name100) {
-        if (startTime == undefined) return timer.textContent = "Timer begins when you name your first animal.";
+        if (startTime == undefined) {
+            timer.setAttribute('content','');
+            return timer.textContent = "Timer begins when you name your first animal.";
+        }
         secondsElapsed = (Date.now() - startTime)/1000;
         if (score >= 100) return endGame();
         return timer.textContent = colonizeSeconds(secondsElapsed);
