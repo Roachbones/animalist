@@ -14,7 +14,7 @@ Currently disorganized.
 # todo: FluffyTwig — Yesterday at 10:57 PM Found 4 more that aren't accepted for some reason. Haolong, Mierasaurus, Yantaloong, and Yeneen
 # todo: gentler update mechanism for direct redirects
 
-import xml.etree.ElementTree as ET
+import defusedxml.ElementTree as ET
 import json
 import bz2
 from pprint import pprint
