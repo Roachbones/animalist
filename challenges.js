@@ -509,6 +509,10 @@ function updateChallengesTbody() {
     if (localStorage.pb_name100) highScores.name100 = colonizeSeconds(localStorage.pb_name100)
     const shortnames = Object.keys(highScores);
     shortnames.sort((a,b)=>CHALLENGES[a].title.localeCompare(CHALLENGES[b].title));
+    if (localStorage.normalHighScore) {
+        highScores.normalStyle = localStorage.normalHighScore;
+        shortnames.unshift('normalStyle');
+    }
     challengesTbody.textContent = '';
     for (const shortname of shortnames) {
         const tr = document.createElement('tr');
@@ -516,8 +520,13 @@ function updateChallengesTbody() {
         const button = document.createElement('button');
         td1.append(button);
         const td2 = document.createElement('td');
-        button.textContent = CHALLENGES[shortname].title;
-        button.onclick = ()=>{ startChallenge(CHALLENGES[shortname]); };
+        if (shortname == 'normalStyle') {
+            button.textContent = 'normal style';
+            button.onclick = newGame;
+        } else {
+            button.textContent = CHALLENGES[shortname].title;
+            button.onclick = ()=>{ startChallenge(CHALLENGES[shortname]); };
+        }
         td2.textContent = highScores[shortname];
         tr.append(td1, td2);
         challengesTbody.append(tr);
