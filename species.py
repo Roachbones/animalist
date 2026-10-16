@@ -1460,6 +1460,7 @@ for mononym, lower_title in [
     ('🦡','chamitataxus'),
     ('🦡','taxidea'),
     ('🦡','stink badger'),
+    ('🐚','cone snail')
 ]:
     mononyms[lower_title_to_id[lower_title]] = mononyms.get(lower_title_to_id[lower_title], []) + [mononym]
 
