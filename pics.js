@@ -1,15 +1,18 @@
 ARTIST_VIV={
- "attribution": "by me (<a href=https://rose.systems/bugs target=_blank>more pics here</a>)"
+ "attribution": "by me (<a target=_blank href=https://rose.systems/bugs>more pics here</a>)"
 }
 ARTIST_OLIVE={
- "attribution": "taken by <a href=https://mou.sh target=_blank>my friend olive</a>"
+ "attribution": "taken by <a target=_blank href=https://mou.sh>my friend olive</a>"
+}
+ARTIST_STAX={
+ "attribution": "by fanartist <a target=_blank href=https://dungeon-stax.neocities.org/>dungeon-stax</a>"
 }
 ID_TO_PICS={
  "Q27075861": [
   {
    "artist": ARTIST_OLIVE,
    "alt": "American goldfinch",
-   "title": "the American goldfinch",
+   "title": "photo of the American goldfinch",
    "src": "https://mou.sh/birds/American Goldfinch.jpg"
   }
  ],
@@ -17,7 +20,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "Baltimore oriole",
-   "title": "the Baltimore oriole",
+   "title": "photo of the Baltimore oriole",
    "src": "https://mou.sh/birds/Baltimore Oriole (female).jpg"
   }
  ],
@@ -25,7 +28,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "belted kingfisher",
-   "title": "the belted kingfisher",
+   "title": "photo of the belted kingfisher",
    "src": "https://mou.sh/birds/Belted Kingfisher (female).jpg"
   }
  ],
@@ -33,7 +36,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "blue jay",
-   "title": "the blue jay",
+   "title": "photo of the blue jay",
    "src": "https://mou.sh/birds/Blue Jay.jpg"
   }
  ],
@@ -41,7 +44,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "brant",
-   "title": "the brant",
+   "title": "photo of the brant",
    "src": "https://mou.sh/birds/Brant.jpg"
   }
  ],
@@ -49,7 +52,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "bufflehead",
-   "title": "the bufflehead",
+   "title": "photo of the bufflehead",
    "src": "https://mou.sh/birds/Bufflehead.jpg"
   }
  ],
@@ -57,7 +60,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "Canada goose",
-   "title": "the Canada goose",
+   "title": "photo of the Canada goose",
    "src": "https://mou.sh/birds/Canada Goose.jpg"
   }
  ],
@@ -65,7 +68,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "common goldeneye",
-   "title": "the common goldeneye",
+   "title": "photo of the common goldeneye",
    "src": "https://mou.sh/birds/Common Goldeneye (female).jpg"
   }
  ],
@@ -73,7 +76,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "common grackle",
-   "title": "the common grackle",
+   "title": "photo of the common grackle",
    "src": "https://mou.sh/birds/Common Grackle (male).jpg"
   }
  ],
@@ -81,7 +84,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "common tern",
-   "title": "the common tern",
+   "title": "photo of the common tern",
    "src": "https://mou.sh/birds/Common Tern.jpg"
   }
  ],
@@ -89,7 +92,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "double-crested cormorant",
-   "title": "the double-crested cormorant",
+   "title": "photo of the double-crested cormorant",
    "src": "https://mou.sh/birds/Double-Crested Cormorant.jpg"
   }
  ],
@@ -97,7 +100,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "European starling",
-   "title": "the European starling",
+   "title": "photo of the European starling",
    "src": "https://mou.sh/birds/European Starling.jpg"
   }
  ],
@@ -105,7 +108,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "great black-backed gull",
-   "title": "the great black-backed gull",
+   "title": "photo of the great black-backed gull",
    "src": "https://mou.sh/birds/Great Black-Backed Gull.jpg"
   }
  ],
@@ -113,7 +116,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "great blue heron",
-   "title": "the great blue heron",
+   "title": "photo of the great blue heron",
    "src": "https://mou.sh/birds/Great Blue Heron.jpg"
   }
  ],
@@ -121,7 +124,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "great egret",
-   "title": "the great egret",
+   "title": "photo of the great egret",
    "src": "https://mou.sh/birds/Great Egret.jpg"
   }
  ],
@@ -129,7 +132,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "green heron",
-   "title": "the green heron",
+   "title": "photo of the green heron",
    "src": "https://mou.sh/birds/Green Heron.jpg"
   }
  ],
@@ -137,7 +140,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "grey catbird",
-   "title": "the grey catbird",
+   "title": "photo of the grey catbird",
    "src": "https://mou.sh/birds/Grey Catbird.jpg"
   }
  ],
@@ -145,7 +148,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "herring gull",
-   "title": "the herring gull",
+   "title": "photo of the herring gull",
    "src": "https://mou.sh/birds/Herring Gull.jpg"
   }
  ],
@@ -153,7 +156,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "hooded merganser",
-   "title": "the hooded merganser",
+   "title": "photo of the hooded merganser",
    "src": "https://mou.sh/birds/Hooded Merganser (female).jpg"
   }
  ],
@@ -161,7 +164,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "house sparrow",
-   "title": "the house sparrow",
+   "title": "photo of the house sparrow",
    "src": "https://mou.sh/birds/House Sparrow (female).jpg"
   }
  ],
@@ -169,13 +172,13 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "mallard",
-   "title": "the mallard",
+   "title": "photo of the mallard",
    "src": "https://mou.sh/birds/Mallard (female).jpg"
   },
   {
    "artist": ARTIST_OLIVE,
    "alt": "mallard",
-   "title": "the mallard",
+   "title": "photo of the mallard",
    "src": "https://mou.sh/birds/Mallard (male).jpg"
   }
  ],
@@ -183,7 +186,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "mourning dove",
-   "title": "the mourning dove",
+   "title": "photo of the mourning dove",
    "src": "https://mou.sh/birds/Mourning Dove.jpg"
   }
  ],
@@ -191,7 +194,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "mute swan",
-   "title": "the mute swan",
+   "title": "photo of the mute swan",
    "src": "https://mou.sh/birds/Mute Swan.jpg"
   }
  ],
@@ -199,7 +202,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "northern cardinal",
-   "title": "the northern cardinal",
+   "title": "photo of the northern cardinal",
    "src": "https://mou.sh/birds/Northern Cardinal (male).jpg"
   }
  ],
@@ -207,13 +210,13 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "northern flicker",
-   "title": "the northern flicker",
+   "title": "photo of the northern flicker",
    "src": "https://mou.sh/birds/Northern Flicker (female).jpg"
   },
   {
    "artist": ARTIST_OLIVE,
    "alt": "northern flicker",
-   "title": "the northern flicker",
+   "title": "photo of the northern flicker",
    "src": "https://mou.sh/birds/Northern Flicker (male).jpg"
   }
  ],
@@ -221,7 +224,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "northern mockingbird",
-   "title": "the northern mockingbird",
+   "title": "photo of the northern mockingbird",
    "src": "https://mou.sh/birds/Northern Mockingbird.jpg"
   }
  ],
@@ -229,7 +232,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "osprey",
-   "title": "the osprey",
+   "title": "photo of the osprey",
    "src": "https://mou.sh/birds/Osprey.jpg"
   }
  ],
@@ -237,7 +240,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "red-breasted merganser",
-   "title": "the red-breasted merganser",
+   "title": "photo of the red-breasted merganser",
    "src": "https://mou.sh/birds/Red-Breasted Merganser (male).jpg"
   }
  ],
@@ -245,7 +248,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "red-tailed hawk",
-   "title": "the red-tailed hawk",
+   "title": "photo of the red-tailed hawk",
    "src": "https://mou.sh/birds/Red-Tailed Hawk.jpg"
   }
  ],
@@ -253,7 +256,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "red-throated loon",
-   "title": "the red-throated loon",
+   "title": "photo of the red-throated loon",
    "src": "https://mou.sh/birds/Red-Throated Loon.jpg"
   }
  ],
@@ -261,7 +264,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "red-winged blackbird",
-   "title": "the red-winged blackbird",
+   "title": "photo of the red-winged blackbird",
    "src": "https://mou.sh/birds/Red-Winged Blackbird.jpg"
   }
  ],
@@ -269,7 +272,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "song sparrow",
-   "title": "the song sparrow",
+   "title": "photo of the song sparrow",
    "src": "https://mou.sh/birds/Song Sparrow.jpg"
   }
  ],
@@ -277,7 +280,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "spotted sandpiper",
-   "title": "the spotted sandpiper",
+   "title": "photo of the spotted sandpiper",
    "src": "https://mou.sh/birds/Spotted Sandpiper.jpg"
   }
  ],
@@ -285,7 +288,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "tree swallow",
-   "title": "the tree swallow",
+   "title": "photo of the tree swallow",
    "src": "https://mou.sh/birds/Tree Swallow.jpg"
   }
  ],
@@ -293,7 +296,7 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "turkey vulture",
-   "title": "the turkey vulture",
+   "title": "photo of the turkey vulture",
    "src": "https://mou.sh/birds/Turkey Vulture.jpg"
   }
  ],
@@ -301,13 +304,13 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "wild turkey",
-   "title": "the wild turkey",
+   "title": "photo of the wild turkey",
    "src": "https://mou.sh/birds/Wild Turkey (female).jpg"
   },
   {
    "artist": ARTIST_OLIVE,
    "alt": "wild turkey",
-   "title": "the wild turkey",
+   "title": "photo of the wild turkey",
    "src": "https://mou.sh/birds/Wild Turkey (male).jpg"
   }
  ],
@@ -315,13 +318,13 @@ ID_TO_PICS={
   {
    "artist": ARTIST_OLIVE,
    "alt": "wood duck",
-   "title": "the wood duck",
+   "title": "photo of the wood duck",
    "src": "https://mou.sh/birds/Wood Duck (female).jpg"
   },
   {
    "artist": ARTIST_OLIVE,
    "alt": "wood duck",
-   "title": "the wood duck",
+   "title": "photo of the wood duck",
    "src": "https://mou.sh/birds/Wood Duck (male).jpg"
   }
  ],
@@ -330,19 +333,19 @@ ID_TO_PICS={
    "artist": ARTIST_VIV,
    "alt": "jumping spider",
    "src": "https://rose.systems/bugs/thumb/bold_jumping_spider.jpg",
-   "title": "a bold jumping spider"
+   "title": "photo of a bold jumping spider"
   },
   {
    "artist": ARTIST_VIV,
    "alt": "jumping spider",
    "src": "https://rose.systems/bugs/thumb/bold_jumping_spider2.jpg",
-   "title": "a bold jumping spider"
+   "title": "photo of a bold jumping spider"
   },
   {
    "artist": ARTIST_VIV,
    "alt": "jumping spider",
    "src": "https://rose.systems/bugs/thumb/bold_jumping_spider3.jpg",
-   "title": "a bold jumping spider"
+   "title": "photo of a bold jumping spider"
   }
  ],
  "Q12023": [
@@ -350,13 +353,13 @@ ID_TO_PICS={
    "artist": ARTIST_VIV,
    "alt": "flower crab spider",
    "src": "https://rose.systems/bugs/thumb/flower_crab_spider.jpg",
-   "title": "a flower crab spider"
+   "title": "photo of a flower crab spider"
   },
   {
    "artist": ARTIST_VIV,
    "alt": "flower crab spider",
    "src": "https://rose.systems/bugs/thumb/flower_crab_spider2.jpg",
-   "title": "a flower crab spider"
+   "title": "photo of a flower crab spider"
   }
  ],
  "Q1357": [
@@ -364,19 +367,19 @@ ID_TO_PICS={
    "artist": ARTIST_VIV,
    "alt": "spider",
    "src": "https://rose.systems/bugs/thumb/Theridon_murarium2.jpg",
-   "title": "a spider"
+   "title": "photo of a spider"
   },
   {
    "artist": ARTIST_VIV,
    "alt": "tiny spider next to printed letters",
    "src": "https://rose.systems/bugs/thumb/monster_manual.webp",
-   "title": "a spider"
+   "title": "photo of a spider"
   },
   {
    "artist": ARTIST_VIV,
    "alt": "tiny spider closeup",
    "src": "https://rose.systems/bugs/thumb/monster_manual_closeup.jpg",
-   "title": "a spider"
+   "title": "photo of a spider"
   }
  ],
  "Q10992": [
@@ -384,7 +387,7 @@ ID_TO_PICS={
    "artist": ARTIST_VIV,
    "alt": "running crab spider",
    "src": "https://rose.systems/bugs/thumb/lycosid.jpg",
-   "title": "a running crab spider (with 0.7mm mechanical pencil for scale)"
+   "title": "photo of a running crab spider (with 0.7mm mechanical pencil for scale)"
   }
  ],
  "Q169513": [
@@ -392,13 +395,13 @@ ID_TO_PICS={
    "artist": ARTIST_VIV,
    "alt": "zebra jumping spider",
    "src": "https://rose.systems/bugs/thumb/zebra_jumping_spider2.jpg",
-   "title": "a zebra jumping spider"
+   "title": "photo of a zebra jumping spider"
   },
   {
    "artist": ARTIST_VIV,
    "alt": "zebra jumping spider",
    "src": "https://rose.systems/bugs/thumb/zebra_jumping_spider3.jpg",
-   "title": "a zebra jumping spider"
+   "title": "photo of a zebra jumping spider"
   }
  ],
  "Q2537221": [
@@ -406,13 +409,13 @@ ID_TO_PICS={
    "artist": ARTIST_VIV,
    "alt": "european earwig",
    "src": "https://rose.systems/bugs/thumb/european_earwig.jpg",
-   "title": "a european earwig"
+   "title": "photo of a european earwig"
   },
   {
    "artist": ARTIST_VIV,
    "alt": "european earwig",
    "src": "https://rose.systems/bugs/thumb/european_earwig2.jpg",
-   "title": "a european earwig"
+   "title": "photo of a european earwig"
   }
  ],
  "Q753860": [
@@ -420,7 +423,7 @@ ID_TO_PICS={
    "artist": ARTIST_VIV,
    "alt": "a tiny fly on a windowsill",
    "src": "https://rose.systems/bugs/thumb/drain_fly.jpg",
-   "title": "a drain fly (isn't it angelic?)"
+   "title": "photo of a drain fly (isn't it angelic?)"
   }
  ],
  "Q2275862": [
@@ -428,7 +431,7 @@ ID_TO_PICS={
    "artist": ARTIST_VIV,
    "alt": "two red-banded leafhoppers",
    "src": "https://rose.systems/bugs/thumb/red-banded_leafhopper.jpg",
-   "title": "red-banded leafhoppers"
+   "title": "photo of red-banded leafhoppers"
   }
  ],
  "Q1919026": [
@@ -436,7 +439,7 @@ ID_TO_PICS={
    "artist": ARTIST_VIV,
    "alt": "red-legged grasshopper",
    "src": "https://rose.systems/bugs/thumb/red-legged_grasshopper.jpg",
-   "title": "a red-legged grasshopper"
+   "title": "photo of a red-legged grasshopper"
   }
  ],
  "Q2367709": [
@@ -444,7 +447,7 @@ ID_TO_PICS={
    "artist": ARTIST_VIV,
    "alt": "bee",
    "src": "https://rose.systems/bugs/thumb/common_eastern_bumble_bee.jpg",
-   "title": "a common eastern bumble bee"
+   "title": "photo of a common eastern bumble bee"
   }
  ],
  "Q7391": [
@@ -452,7 +455,7 @@ ID_TO_PICS={
    "artist": ARTIST_VIV,
    "alt": "green bee",
    "src": "https://rose.systems/bugs/thumb/sweat_bee.jpg",
-   "title": "a bee"
+   "title": "photo of a bee"
   }
  ],
  "Q7386": [
@@ -460,7 +463,7 @@ ID_TO_PICS={
    "artist": ARTIST_VIV,
    "alt": "ant",
    "src": "https://rose.systems/bugs/thumb/ant.jpg",
-   "title": "an ant"
+   "title": "photo of an ant"
   }
  ],
  "Q1257151": [
@@ -468,7 +471,7 @@ ID_TO_PICS={
    "artist": ARTIST_VIV,
    "alt": "butterfly",
    "src": "https://rose.systems/bugs/thumb/common_buckeye2.jpg",
-   "title": "a common buckeye"
+   "title": "photo of a common buckeye"
   }
  ],
  "Q522255": [
@@ -476,7 +479,7 @@ ID_TO_PICS={
    "artist": ARTIST_VIV,
    "alt": "small butterfly",
    "src": "https://rose.systems/bugs/thumb/skipper.jpg",
-   "title": "a skipper"
+   "title": "photo of a skipper"
   }
  ],
  "Q4783549": [
@@ -484,13 +487,13 @@ ID_TO_PICS={
    "artist": ARTIST_VIV,
    "alt": "moth",
    "src": "https://rose.systems/bugs/thumb/tiger_moth_arm.jpg",
-   "title": "a tiger moth"
+   "title": "photo of a tiger moth"
   },
   {
    "artist": ARTIST_VIV,
    "alt": "moth",
    "src": "https://rose.systems/bugs/thumb/tiger_moth_arm2.jpg",
-   "title": "a tiger moth"
+   "title": "photo of a tiger moth"
   }
  ],
  "Q2187494": [
@@ -498,19 +501,19 @@ ID_TO_PICS={
    "artist": ARTIST_VIV,
    "alt": "damselfly",
    "src": "https://rose.systems/bugs/thumb/bluet.jpg",
-   "title": "a damselfly"
+   "title": "photo of a damselfly"
   },
   {
    "artist": ARTIST_VIV,
    "alt": "damselfly",
    "src": "https://rose.systems/bugs/thumb/bluet2.jpg",
-   "title": "a damselfly"
+   "title": "photo of a damselfly"
   },
   {
    "artist": ARTIST_VIV,
    "alt": "damselfly",
    "src": "https://rose.systems/bugs/thumb/bluet3.jpg",
-   "title": "a damselfly"
+   "title": "photo of a damselfly"
   }
  ],
  "Q271623": [
@@ -518,7 +521,7 @@ ID_TO_PICS={
    "artist": ARTIST_VIV,
    "alt": "booklouse next to much larger ballpoint pen",
    "src": "https://rose.systems/bugs/thumb/booklouse.jpg",
-   "title": "a booklouse (with pen for scale)"
+   "title": "photo of a booklouse (with pen for scale)"
   }
  ],
  "Q206338": [
@@ -526,7 +529,7 @@ ID_TO_PICS={
    "artist": ARTIST_VIV,
    "alt": "isopod",
    "src": "https://rose.systems/bugs/thumb/spinicornis.jpg",
-   "title": "an isopod"
+   "title": "photo of an isopod"
   }
  ],
  "Q6507823": [
@@ -534,7 +537,7 @@ ID_TO_PICS={
    "artist": ARTIST_VIV,
    "alt": "house centipede",
    "src": "https://rose.systems/bugs/thumb/house_centipede.jpg",
-   "title": "a house centipede"
+   "title": "photo of a house centipede"
   }
  ],
  "Q4303615": [
@@ -542,7 +545,77 @@ ID_TO_PICS={
    "artist": ARTIST_VIV,
    "alt": "millipede drinking a drop of milk",
    "src": "https://rose.systems/bugs/thumb/milky.jpg",
-   "title": "a Parajulid millipede (drinking milk)"
+   "title": "photo of a Parajulid millipede (drinking milk)"
+  }
+ ],
+ "Q102778": [
+  {
+   "artist": ARTIST_STAX,
+   "title": "drawing of jellyfish",
+   "src": "https://rose.systems/animalist/media/dungeon-stax/1-3.jpg"
+  }
+ ],
+ "Q202526": [
+  {
+   "artist": ARTIST_STAX,
+   "title": "drawing of stalked jellyfish, Portuguese man o' war, & sea pen",
+   "src": "https://rose.systems/animalist/media/dungeon-stax/4-6.jpg"
+  }
+ ],
+ "Q3943742": [
+  {
+   "artist": ARTIST_STAX,
+   "title": "drawing of coral",
+   "src": "https://rose.systems/animalist/media/dungeon-stax/7-9.jpg"
+  }
+ ],
+ "Q5194": [
+  {
+   "artist": ARTIST_STAX,
+   "title": "drawing of tardigrade, sea mouse, & ribbon worm",
+   "src": "https://rose.systems/animalist/media/dungeon-stax/10-12.jpg"
+  }
+ ],
+ "Q2925555": [
+  {
+   "artist": ARTIST_STAX,
+   "title": "drawing of worms",
+   "src": "https://rose.systems/animalist/media/dungeon-stax/13-16.jpg"
+  }
+ ],
+ "Q989263": [
+  {
+   "artist": ARTIST_STAX,
+   "title": "drawing of water flea, giant flea, & human flea",
+   "src": "https://rose.systems/animalist/media/dungeon-stax/21-24.jpg"
+  }
+ ],
+ "Q1948607": [
+  {
+   "artist": ARTIST_STAX,
+   "title": "drawing of ticks",
+   "src": "https://rose.systems/animalist/media/dungeon-stax/25-27.jpg"
+  }
+ ],
+ "Q676204": [
+  {
+   "artist": ARTIST_STAX,
+   "title": "drawing of mites",
+   "src": "https://rose.systems/animalist/media/dungeon-stax/28-30.jpg"
+  }
+ ],
+ "Q2822637": [
+  {
+   "artist": ARTIST_STAX,
+   "title": "drawing of cheese mite, rice weevil, & boil weevil",
+   "src": "https://rose.systems/animalist/media/dungeon-stax/31-33.jpg"
+  }
+ ],
+ "Q49605590": [
+  {
+   "artist": ARTIST_STAX,
+   "title": "drawing of weevils",
+   "src": "https://rose.systems/animalist/media/dungeon-stax/34-35.jpg"
   }
  ]
 }

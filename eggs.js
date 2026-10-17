@@ -516,10 +516,10 @@ function queuePicOnce(pic) {
     const details = document.createElement('details');
     const summary = document.createElement('summary');
     details.append(summary);
-    summary.innerText = 'photo of ' + (pic.title || pic.alt)
+    summary.innerText = (pic.title || pic.alt)
     const img = document.createElement('img');
     img.setAttribute('src', pic.src);
-    img.setAttribute('alt', pic.alt);
+    if (pic.alt) img.setAttribute('alt', pic.alt);
     details.append(img);
     const p = document.createElement('p');
     p.innerHTML = pic.artist.attribution;
