@@ -799,6 +799,7 @@ for k,v in {
     'flower mantis': 'orchid mantis',
     'sloth moth': 'cryptoses choloepi',
     'ground sloth': 'megalocnidae',
+    'tube coral': 'cladocora', # mostly including because Minecraft
     #'diamondback': 'diamondback rattlesnake', // TODO non-siaocab
     # Regular disambiguation pages
     'sand crab': 'hippoidea',
