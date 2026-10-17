@@ -290,8 +290,8 @@ function equivalenceEggMessage(guess, guessId) {
         return "(Sorry, “parakeet” is dialectal so I'm not sure which bird(s) you mean.)";
     }
     if ((guess=='possum' && guesses.includes('opossum')) || (guess=='opossum' && guesses.includes('possum'))) {
-        queueShyTrivium("Some would have you believe “possum” and “opossum” are mutually exclusive terms, but the Virginia (o)possum is called both. <a href=https://en.wikipedia.org/wiki/Possum target=_blank>The <i>Possum</i> Wikipedia article</a> is a disambiguation page that includes opossums.");
-        return "(Sorry but “possum” can also refer to opossums. You'll have to name a specific one.)";
+        queueShyTrivium("Some would have you believe “possum” and “opossum” are mutually exclusive terms, but the Virginia (o)possum is called both. <a href=https://en.wikipedia.org/wiki/Possum target=_blank>The <i>Possum</i> Wikipedia article</a> is a disambiguation page that includes opossums. <a target=_blank href=https://rose.systems/blog/poss>Opossums are possums.</a>");
+        return "(Sorry but “possum” also refers to opossums. You'll have to name a specific one.)";
     }
     if (guess=='fainting goat' || guess=='myotonic goat') {
         return "Having myotonia congenita doesn't make you a different animal.";
