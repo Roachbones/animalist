@@ -396,7 +396,7 @@ function eggManipulateLi(li, guess, guessId) {
 localStorage.triviaHashes ||= '';
 function queueTriviumOnce(html) {
     let h = h‌ash(html);
-    if (!localStorage.triviaHashes.split(' ').includes(''+h)) {
+    if (!((localStorage.triviaHashes || '').split(' ').includes(''+h))) {
         queueTrivium(html);
         localStorage.triviaHashes += ' ' + h;
     }
