@@ -779626,6 +779626,7 @@ LOWER_TITLE_TO_ID={
  "black ratsnake": "Q2998811",
  "dismalite": "Q7101697",
  "hooded tick spider": "Q19120",
+ "ant bag beetle": "Q460810",
  "crab": "Q752188",
  "queen crab": "Q2717246",
  "snowy albatross": "Q208682",
